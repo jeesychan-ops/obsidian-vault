@@ -1,0 +1,8 @@
+
+# Obsidian temp files
+.obsidian/workspace
+.obsidian/workspace.json
+.obsidian/cache
+.trash/
+.DS_Store
+*.tmp
