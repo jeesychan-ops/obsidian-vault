@@ -225,9 +225,9 @@ def read_all_pages(vault: Path) -> list[dict]:
         area_slug = AREA_ALIASES.get(area, area)
         type_subdir = TYPE_SUBDIR.get(page_type)
         if type_subdir:
-            page_url = f"{area_slug}/{type_subdir}/{basename}.html"
+            page_url = f"/area/{area_slug}/{type_subdir}/{basename}/{basename}.html"
         else:
-            page_url = f"{area_slug}/{basename}.html"
+            page_url = f"/area/{area_slug}/{basename}.html"
 
         pages.append({
             "path": str(rel),
@@ -905,17 +905,17 @@ def generate_site(vault: Path, output: Path):
         area_dir.mkdir(parents=True, exist_ok=True)
         print(f"   📂 {area} → {area_slug}/")
         tpl = Template(TEMPLATE_AREA)
-        write_template(area_dir / "index.html",
-                       tpl.render(area=area, area_label=AREA_LABELS[area],
-                                  area_slug=area_slug, pages=area_pages,
-                                  area_order=AREA_ORDER,
-                                  area_labels=AREA_LABELS,
-                                  area_aliases=AREA_ALIASES))
+        rendered = tpl.render(area=area, area_label=AREA_LABELS[area],
+                              area_slug=area_slug, pages=area_pages,
+                              area_order=AREA_ORDER,
+                              area_labels=AREA_LABELS,
+                              area_aliases=AREA_ALIASES)
+        write_template(area_dir / "index.html", rendered)
 
         # 3. 独立页面
         for p in area_pages:
             # 跳过纯原始文件、raw 目录、index、log
-            if p["type"] in ("raw", "index", "log") or "/raw/" in p["path"]:
+            if p["type"] in ("raw", "index", "log") or "/raw/" in p["path"] or p["basename"] == "index":
                 continue
             page_dir = area_dir
             type_subdir = TYPE_SUBDIR.get(p["type"])

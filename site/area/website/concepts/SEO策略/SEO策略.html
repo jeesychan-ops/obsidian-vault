@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SEO内容策略 — 知识库</title>
+<title>SEO与内容策略 — 知识库</title>
 <style>
 :root {
   --bg: #0d1117; --surface: #161b22; --border: #30363d;
@@ -125,7 +125,7 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
     &nbsp;/&nbsp;
     <span>概念</span>
   </div>
-  <h1>SEO内容策略</h1>
+  <h1>SEO与内容策略</h1>
 </header>
 
 <div class="layout">
@@ -147,7 +147,7 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
       
       
       <div class="tags" style="margin-top:8px">
-        <span class="tag">SEO</span><span class="tag">策略</span>
+        <span class="tag">SEO</span><span class="tag">GEO</span><span class="tag">策略</span>
       </div>
       
     </div>
@@ -156,17 +156,31 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
     <div class="toc">
       <h3>目录</h3>
       
-      <div class="toc-item l1"><a href="#seo内容策略">SEO内容策略</a></div>
+      <div class="toc-item l1"><a href="#seo与内容策略">SEO与内容策略</a></div>
       
       <div class="toc-item l2"><a href="#站内seo">站内SEO</a></div>
       
-      <div class="toc-item l2"><a href="#内容策略">内容策略</a></div>
+      <div class="toc-item l3"><a href="#产品页必须配置的seo字段">产品页必须配置的SEO字段</a></div>
+      
+      <div class="toc-item l3"><a href="#产品页-schema-示例">产品页 Schema 示例</a></div>
+      
+      <div class="toc-item l3"><a href="#faq页面-schema-示例">FAQ页面 Schema 示例</a></div>
+      
+      <div class="toc-item l2"><a href="#内容策略seo-geo双驱动">内容策略（SEO + GEO双驱动）</a></div>
+      
+      <div class="toc-item l3"><a href="#内容类型与发布频率">内容类型与发布频率</a></div>
+      
+      <div class="toc-item l2"><a href="#geoai搜索优化策略">GEO（AI搜索优化）策略</a></div>
+      
+      <div class="toc-item l3"><a href="#容易被ai引用的内容类型">容易被AI引用的内容类型</a></div>
+      
+      <div class="toc-item l3"><a href="#geo友好写法5个技巧">GEO友好写法5个技巧</a></div>
+      
+      <div class="toc-item l3"><a href="#结构化内容优先级">结构化内容优先级</a></div>
       
       <div class="toc-item l2"><a href="#技术seo">技术SEO</a></div>
       
       <div class="toc-item l2"><a href="#与其他概念的关系">与其他概念的关系</a></div>
-      
-      <div class="toc-item l2"><a href="#来源">来源</a></div>
       
     </div>
     
@@ -175,7 +189,7 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
     <div class="sidebar-box">
       <h3>相关页面</h3>
       
-      <div class="related-item"><a href="#">Shopify配置方案]] 关键词研究 [[Shopify</a></div>
+      <div class="related-item"><a href="#">关键词研究]] Shopify配置方案 [[Shopify</a></div>
       
     </div>
     
@@ -183,7 +197,7 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
     
     <div class="sidebar-box">
       <h3>来源</h3>
-      <div class="source-item">raw/articles/Shopify配置方案.md</div>
+      <div class="source-item">raw/articles/Shopify配置方案.md</div><div class="source-item">raw/articles/关键词研究报告.md</div>
     </div>
     
 
@@ -192,93 +206,275 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
   <!-- Main content -->
   <main class="main">
     <div class="article">
-      <h1>SEO内容策略</h1>
+      <h1>SEO与内容策略</h1>
       <div class="article-meta">概念 · 跨境独立站 · 更新于 2026-05-25</div>
       <div class="content">
-        <h1 id="seo">SEO内容策略<a class="headerlink" href="#seo" title="Permanent link">&para;</a></h1>
+        <h1 id="seo">SEO与内容策略<a class="headerlink" href="#seo" title="Permanent link">&para;</a></h1>
 <h2 id="seo_1">站内SEO<a class="headerlink" href="#seo_1" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
 <tr>
 <th>字段</th>
 <th>优化要求</th>
+<th>字符数/标准</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Title/Description</td>
-<td>每个页面独立，含关键词，字符合规</td>
+<td>Meta Title</td>
+<td>每个页面独立，含核心关键词</td>
+<td>50-60字符</td>
+</tr>
+<tr>
+<td>Meta Description</td>
+<td>含CTA，含关键词</td>
+<td>150-160字符</td>
 </tr>
 <tr>
 <td>URL Handle</td>
 <td>简短、含关键词、连字符分隔</td>
+<td>如 <code>/bopp-self-adhesive-roll</code></td>
 </tr>
 <tr>
 <td>H1 Heading</td>
 <td>每页1个，含核心关键词</td>
+<td>—</td>
 </tr>
 <tr>
 <td>Image ALT</td>
-<td>描述性，含关键词</td>
+<td>描述性，1-2句话，含关键词</td>
+<td>—</td>
 </tr>
 <tr>
 <td>内链</td>
 <td>相关页面互相链接，形成网状结构</td>
+<td>至少2条/页</td>
 </tr>
 <tr>
 <td>Schema Markup</td>
 <td>JSON-LD（产品/FAQ/Organization）</td>
+<td>—</td>
 </tr>
 </tbody>
 </table>
-<h2 id="_1">内容策略<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="seo_2">产品页必须配置的SEO字段<a class="headerlink" href="#seo_2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+<th>关键操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Meta Title</strong></td>
+<td>页面标题，含核心关键词</td>
+<td>50-60字符</td>
+</tr>
+<tr>
+<td><strong>Meta Description</strong></td>
+<td>页面描述，含CTA</td>
+<td>150-160字符</td>
+</tr>
+<tr>
+<td><strong>URL Handle</strong></td>
+<td>简短、含关键词</td>
+<td>如：<code>/bopp-self-adhesive-roll</code></td>
+</tr>
+<tr>
+<td><strong>Image ALT Text</strong></td>
+<td>每张图片描述性ALT</td>
+<td>含关键词，1-2句话</td>
+</tr>
+<tr>
+<td><strong>H1 Heading</strong></td>
+<td>页面主标题</td>
+<td>含关键词，1个H1/页</td>
+</tr>
+<tr>
+<td><strong>Schema Markup</strong></td>
+<td>结构化数据</td>
+<td>JSON-LD（产品/FAQ）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="schema">产品页 Schema 示例<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.org&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Product&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;White BOPP Self Adhesive Label Roll&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High quality white gloss BOPP self adhesive label material jumbo roll.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sku&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BOPP-WG-500MM&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;brand&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Brand&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[品牌名]&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;manufacturer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Organization&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[公司名]&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;countryOfOrigin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;China&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="faq-schema">FAQ页面 Schema 示例<a class="headerlink" href="#faq-schema" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.org&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FAQPage&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mainEntity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Question&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;What is the minimum order quantity for BOPP label rolls?&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;acceptedAnswer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Answer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Our standard MOQ for BOPP label rolls is 50 rolls per specification.&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="seo-geo">内容策略（SEO + GEO双驱动）<a class="headerlink" href="#seo-geo" title="Permanent link">&para;</a></h2>
+<h3 id="_1">内容类型与发布频率<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
 <th>类型</th>
 <th>频率</th>
 <th>SEO价值</th>
+<th>GEO友好度</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>选型指南（Selection Guide）</td>
+<td>选型指南（How to Choose）</td>
 <td>每2周1篇</td>
-<td>长尾词+GEO</td>
+<td>长尾词</td>
+<td>⭐⭐⭐⭐⭐</td>
 </tr>
 <tr>
 <td>材料对比（Material Comparison）</td>
 <td>每月1篇</td>
 <td>竞品词</td>
+<td>⭐⭐⭐⭐⭐</td>
 </tr>
 <tr>
 <td>应用行业指南</td>
 <td>每月2篇</td>
 <td>行业流量</td>
+<td>⭐⭐⭐</td>
 </tr>
 <tr>
-<td>技术百科</td>
+<td>技术百科（What is / How it works）</td>
 <td>每月1篇</td>
 <td>定义型词</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>采购指南（Sourcing Guide）</td>
+<td>每季度1篇</td>
+<td>采购决策词</td>
+<td>⭐⭐⭐</td>
 </tr>
 </tbody>
 </table>
-<h2 id="seo_2">技术SEO<a class="headerlink" href="#seo_2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>选型指南和材料对比是最重要的内容类型</strong>：覆盖买前问题 + 用表格呈现数据（AI最容易提取引用），同时吃长尾搜索流量。</p>
+</blockquote>
+<h2 id="geoai">GEO（AI搜索优化）策略<a class="headerlink" href="#geoai" title="Permanent link">&para;</a></h2>
+<h3 id="ai">容易被AI引用的内容类型<a class="headerlink" href="#ai" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>内容类型</th>
+<th>AI引用概率</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>材料对比表</strong></td>
+<td>极高</td>
+<td>"PET vs PP vs BOPP comparison table"</td>
+</tr>
+<tr>
+<td><strong>权威定义型</strong></td>
+<td>高</td>
+<td>"What is BOPP film?"</td>
+</tr>
+<tr>
+<td><strong>标准指南型</strong></td>
+<td>高</td>
+<td>"FDA food labeling requirements"</td>
+</tr>
+<tr>
+<td><strong>选型清单型</strong></td>
+<td>高</td>
+<td>"Label material selection checklist"</td>
+</tr>
+<tr>
+<td><strong>行业数据型</strong></td>
+<td>中高</td>
+<td>"Label material market trends"</td>
+</tr>
+</tbody>
+</table>
+<h3 id="geo5">GEO友好写法5个技巧<a class="headerlink" href="#geo5" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>使用表格</strong>呈现对比数据（AI最容易提取）</li>
+<li><strong>用定义式开头</strong>：BOPP stands for...（直接回答定义）</li>
+<li><strong>结构化标题</strong>：How to Choose → Step 1 / Step 2 / Step 3</li>
+<li><strong>引用权威标准</strong>：引用FDA/ISO/EU法规</li>
+<li><strong>避免AI检测</strong>：内容原创，不要过度堆砌关键词</li>
+</ol>
+<h3 id="_2">结构化内容优先级<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
 <ul>
-<li>页面速度：PageSpeed Insights &gt; 80分</li>
-<li>移动端适配：Google Mobile-Friendly Test 通过</li>
-<li>HTTPS：已启用</li>
-<li>结构化数据：产品页/FAQ页/Organization</li>
+<li>FAQ模式：问答格式直接匹配AI问答场景</li>
+<li>表格形式：对比数据比纯文字更易被提取</li>
+<li>列表形式：How to / Steps / Checklist</li>
+<li>定义+解释：What is X → Why it matters → How to choose</li>
 </ul>
-<h2 id="_2">与其他概念的关系<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h2 id="seo_3">技术SEO<a class="headerlink" href="#seo_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>检查项</th>
+<th>目标</th>
+<th>工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>页面速度</td>
+<td>PageSpeed Insights &gt; 80分</td>
+<td>PageSpeed Insights</td>
+</tr>
+<tr>
+<td>移动端适配</td>
+<td>Google Mobile-Friendly Test 通过</td>
+<td>Mobile-Friendly Test</td>
+</tr>
+<tr>
+<td>HTTPS</td>
+<td>已启用</td>
+<td>Shopify自带</td>
+</tr>
+<tr>
+<td>结构化数据</td>
+<td>产品/FAQ/Organization</td>
+<td>JSON-LD</td>
+</tr>
+<tr>
+<td>站点地图</td>
+<td>已提交Google Search Console</td>
+<td>GSC</td>
+</tr>
+<tr>
+<td>GA4</td>
+<td>已安装，事件跟踪配置</td>
+<td>Google Analytics 4</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_3">与其他概念的关系<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
 <ul>
 <li>内容策略是 <span class="wikilink">关键词研究</span> 的落地执行</li>
-<li>站内SEO是 <span class="wikilink">Shopify配置方案</span> 的技术配置部分</li>
-<li>GEO优化需要 <span class="wikilink">关键词研究</span> 中的长尾词布局</li>
-</ul>
-<h2 id="_3">来源<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
-<ul>
-<li><span class="wikilink">2026-05-21-不干胶大卷独立站-Shopify配置方案</span></li>
+<li>技术SEO是 <span class="wikilink">Shopify配置方案</span> 的质量保障环节</li>
 </ul>
       </div>
     </div>
@@ -292,7 +488,7 @@ footer { border-top: 1px solid var(--border); padding: 20px 40px;
 </div>
 
 <footer>
-  <a href="/">知识库总览</a> · SEO内容策略 · 由金助理生成
+  <a href="/">知识库总览</a> · SEO与内容策略 · 由金助理生成
 </footer>
 
 <script>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>投资-量化知识库索引 — 知识库</title>
+<title>投资 · 量化 — 知识库</title>
 <style>
 :root {
   --bg: #0d1117; --surface: #161b22; --border: #30363d;
@@ -12,282 +12,769 @@
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-       background: var(--bg); color: var(--text); line-height: 1.7; }
+       background: var(--bg); color: var(--text); line-height: 1.6; }
 a { color: var(--accent); text-decoration: none; }
 a:hover { text-decoration: underline; }
-
-/* ─ Header ─ */
 header { border-bottom: 1px solid var(--border); padding: 20px 40px;
          display: flex; align-items: center; gap: 16px; }
 .breadcrumb { font-size: 13px; color: var(--muted); }
 .breadcrumb a { color: var(--muted); }
 .breadcrumb a:hover { color: var(--accent); text-decoration: none; }
-header h1 { font-size: 18px; font-weight: 700; }
-
-/* ─ Layout ─ */
-.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
-
-/* ─ Sidebar ─ */
-.sidebar { width: 220px; flex-shrink: 0; }
-.sidebar-box { background: var(--surface); border: 1px solid var(--border);
-              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
-.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
-                  letter-spacing: 0.5px; margin-bottom: 10px; }
-.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
-            border-bottom: 1px solid rgba(48,54,61,0.5); }
-.meta-row:last-child { border-bottom: none; }
-.meta-row .label { color: var(--muted); }
-.meta-row .val { color: var(--text); }
-.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
-       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
-.tags { margin-top: 4px; }
-
-/* ─ TOC ─ */
-.toc { background: var(--surface); border: 1px solid var(--border);
-       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
-.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
-          letter-spacing: 0.5px; margin-bottom: 10px; }
-.toc-item { padding: 3px 0; }
-.toc-item.l2 { padding-left: 12px; }
-.toc-item.l3 { padding-left: 24px; }
-.toc-item a { color: var(--muted); }
-.toc-item a:hover { color: var(--accent); text-decoration: none; }
-
-/* ─ Related ─ */
-.related-item { padding: 4px 0; }
-.related-item a { color: var(--muted); font-size: 13px; }
-.related-item a:hover { color: var(--accent); text-decoration: none; }
-
-/* ─ Sources ─ */
-.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
-
-/* ─ Main ─ */
-.main { flex: 1; min-width: 0; }
-
-/* ─ Article ─ */
-.article { background: var(--surface); border: 1px solid var(--border);
-           border-radius: 8px; padding: 32px; }
-.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
-              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
-.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
-
-/* ─ MD styles ─ */
-.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
-               border-left: 3px solid var(--accent); padding-left: 10px; }
-.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
-.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
-.article p { margin-bottom: 14px; color: #c9d1d9; }
-.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
-.article li { margin-bottom: 4px; }
-.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
-                       margin: 16px 0; background: rgba(88,166,255,0.05);
-                       border-radius: 0 4px 4px 0; color: var(--muted); }
-.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
-                 font-size: 14px; }
-.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
-.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
-.article td { color: #c9d1d9; }
-.article tr:hover td { background: rgba(88,166,255,0.03); }
-.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
-                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
-.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
-               padding: 16px; overflow-x: auto; margin: 16px 0; }
-.article pre code { background: none; padding: 0; color: var(--text); }
-.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
-.article a { color: var(--accent); }
-.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
-.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
-                     padding: 0 4px; border-radius: 3px; }
-
-/* ─ Footer nav ─ */
-.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
-            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
-.page-nav a { color: var(--muted); }
-.page-nav a:hover { color: var(--accent); text-decoration: none; }
-
-/* ─ Footer ─ */
+header h1 { font-size: 20px; font-weight: 700; }
+nav { padding: 0 40px; border-bottom: 1px solid var(--border);
+      display: flex; gap: 4px; padding-top: 16px; padding-bottom: 16px; }
+nav a { padding: 6px 14px; border-radius: 6px; color: var(--muted); font-size: 14px; }
+nav a:hover { background: var(--surface); color: var(--text); text-decoration: none; }
+nav a.active { background: var(--surface); color: var(--accent); }
+.container { max-width: 1100px; margin: 0 auto; padding: 32px 40px; }
+.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.page-card { background: var(--surface); border: 1px solid var(--border);
+             border-radius: 8px; padding: 16px; transition: border-color 0.15s; }
+.page-card:hover { border-color: var(--accent); }
+.type-badge { font-size: 11px; color: var(--accent); text-transform: uppercase;
+              letter-spacing: 0.5px; margin-bottom: 6px; }
+.page-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.page-card h3 a { color: var(--text); }
+.page-card h3 a:hover { color: var(--accent); text-decoration: none; }
+.desc { font-size: 13px; color: var(--muted); margin-bottom: 8px;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { background: var(--tag-bg); color: var(--tag-text); font-size: 11px;
+       padding: 2px 8px; border-radius: 4px; }
+.date { font-size: 11px; color: var(--muted); margin-top: 8px; }
+.type-filter { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+.filter-btn { padding: 6px 14px; border-radius: 6px; font-size: 13px;
+              background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+              cursor: pointer; transition: all 0.15s; }
+.filter-btn:hover, .filter-btn.active { border-color: var(--accent); color: var(--accent); }
 footer { border-top: 1px solid var(--border); padding: 20px 40px;
          color: var(--muted); font-size: 12px; margin-top: 40px; }
-
-@media (max-width: 768px) {
-  .layout { flex-direction: column; padding: 16px; }
-  .sidebar { width: 100%; }
-}
 </style>
 </head>
 <body>
 
 <header>
-  <div class="breadcrumb">
-    <a href="/">知识库</a>
-    &nbsp;/&nbsp;
-    <a href="/area/quant/">投资 · 量化</a>
-    &nbsp;/&nbsp;
-    <span></span>
-  </div>
-  <h1>投资-量化知识库索引</h1>
+  <div class="breadcrumb"><a href="/">知识库</a> &nbsp;/&nbsp;</div>
+  <h1>投资 · 量化</h1>
 </header>
 
-<div class="layout">
+<nav>
+  <a href="/">总览</a>
+  
+  <a href="/area/amazon/" >亚马逊运营</a>
+  
+  <a href="/area/quant/" class="active">投资 · 量化</a>
+  
+  <a href="/area/website/" >跨境独立站</a>
+  
+  <a href="/area/social/" >社交媒体</a>
+  
+  <a href="/area/exam/" >一建考证</a>
+  
+  <a href="/area/ai/" >AI 助手</a>
+  
+</nav>
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-
-    <div class="sidebar-box">
-      <h3>页面信息</h3>
-      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
-      
-      <div class="meta-row"><span class="label">创建</span><span class="val">2026-05-25</span></div>
-      
-      
-      <div class="meta-row"><span class="label">更新</span><span class="val">2026-05-25</span></div>
-      
-      
-      
-    </div>
-
+<div class="container">
+  <div class="type-filter">
+    <button class="filter-btn active" data-type="all">全部</button>
+    <button class="filter-btn" data-type="entity">实体</button>
+    <button class="filter-btn" data-type="concept">概念</button>
+    <button class="filter-btn" data-type="sop">流程</button>
+    <button class="filter-btn" data-type="raw">原始</button>
+  </div>
+  <div class="page-grid" id="page-grid">
     
-    <div class="toc">
-      <h3>目录</h3>
-      
-      <div class="toc-item l1"><a href="#投资-量化知识库索引">投资-量化知识库索引</a></div>
-      
-      <div class="toc-item l2"><a href="#entities实体页">Entities（实体页）</a></div>
-      
-      <div class="toc-item l2"><a href="#concepts概念页">Concepts（概念页）</a></div>
-      
-      <div class="toc-item l2"><a href="#sops标准流程">SOPs（标准流程）</a></div>
-      
-      <div class="toc-item l2"><a href="#comparisons对比页">Comparisons（对比页）</a></div>
-      
-      <div class="toc-item l2"><a href="#queries问答页">Queries（问答页）</a></div>
-      
-      <div class="toc-item l2"><a href="#summaries综合摘要">Summaries（综合摘要）</a></div>
-      
-      <div class="toc-item l2"><a href="#现有知识库资产">现有知识库资产</a></div>
-      
-      <div class="toc-item l2"><a href="#待办事项">待办事项</a></div>
-      
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/index.html">投资-量化知识库索引</a></h3>
+      <p class="desc">> 最后更新：2026-05-25 | 页面总数：9 | 管理人：QuantBot</p>
+      <div class="tags"></div>
+      <div class="date">2026-05-25</div>
     </div>
     
-
-    
-
-    
-
-  </aside>
-
-  <!-- Main content -->
-  <main class="main">
-    <div class="article">
-      <h1>投资-量化知识库索引</h1>
-      <div class="article-meta"> · 投资 · 量化 · 更新于 2026-05-25</div>
-      <div class="content">
-        <h1 id="-">投资-量化知识库索引<a class="headerlink" href="#-" title="Permanent link">&para;</a></h1>
-<blockquote>
-<p>最后更新：2026-05-25 | 页面总数：10</p>
-</blockquote>
-<hr />
-<h2 id="entities">Entities（实体页）<a class="headerlink" href="#entities" title="Permanent link">&para;</a></h2>
-<ul>
-<li><span class="wikilink">巴菲特</span> — 价值投资理念核心人物，护城河/安全边际/市场先生理论体系</li>
-<li><span class="wikilink">稳盈君</span> — 用户画像，94,889元资金，7只持仓，防御+进攻仓位配置</li>
-</ul>
-<h2 id="concepts">Concepts（概念页）<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h2>
-<ul>
-<li><span class="wikilink">投资理念总纲</span> — 巴菲特核心思想（护城河/安全边际/能力圈/市场先生）</li>
-<li><span class="wikilink">双低可转债策略</span> — 低价格+低溢价率轮动，兼顾防御与进攻，年化15-25%</li>
-<li><span class="wikilink">量化策略库</span> — 多策略体系：网格/趋势/套利/双低轮动/小市值</li>
-<li><span class="wikilink">投资洞察精华</span> — 风险度量/资产配置/指数化投资/逆向思维/杠杆使用</li>
-<li><span class="wikilink">仓位管理原则</span> — 核心思想：不亏大钱，截断亏损，让利润奔跑</li>
-</ul>
-<h2 id="sops">SOPs（标准流程）<a class="headerlink" href="#sops" title="Permanent link">&para;</a></h2>
-<ul>
-<li><span class="wikilink">每周复盘SOP</span> — 持仓检查+双低扫描+市场判断+下周计划模板</li>
-</ul>
-<h2 id="comparisons">Comparisons（对比页）<a class="headerlink" href="#comparisons" title="Permanent link">&para;</a></h2>
-<p>（暂无）</p>
-<h2 id="queries">Queries（问答页）<a class="headerlink" href="#queries" title="Permanent link">&para;</a></h2>
-<p>（暂无）</p>
-<h2 id="summaries">Summaries（综合摘要）<a class="headerlink" href="#summaries" title="Permanent link">&para;</a></h2>
-<p>（暂无）</p>
-<hr />
-<h2 id="_1">现有知识库资产<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
-<table>
-<thead>
-<tr>
-<th>文件</th>
-<th>状态</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2026-05-19-可转债策略.md</td>
-<td>✅ 已提炼 → <span class="wikilink">双低可转债策略</span></td>
-</tr>
-<tr>
-<td>2026-05-19-投资理念总纲.md</td>
-<td>✅ 已提炼 → <span class="wikilink">投资理念总纲</span>+<span class="wikilink">仓位管理原则</span></td>
-</tr>
-<tr>
-<td>2026-05-19-量化策略库.md</td>
-<td>✅ 已提炼 → <span class="wikilink">量化策略库</span></td>
-</tr>
-<tr>
-<td>2026-05-19-投资洞察精华.md</td>
-<td>✅ 已提炼 → <span class="wikilink">投资洞察精华</span></td>
-</tr>
-<tr>
-<td>2026-05-19-巴菲特年鉴.md</td>
-<td>✅ 已提炼 → <span class="wikilink">巴菲特</span></td>
-</tr>
-<tr>
-<td>2026-05-19-投资工具箱.md</td>
-<td>✅ 已提炼 → <span class="wikilink">稳盈君</span>+<span class="wikilink">每周复盘SOP</span></td>
-</tr>
-<tr>
-<td>2026-05-21-期权交易实战手册v2.0.md</td>
-<td>⏳ 待提炼</td>
-</tr>
-<tr>
-<td>kb_wenying_invest.md</td>
-<td>✅ 已提炼 → <span class="wikilink">稳盈君</span></td>
-</tr>
-</tbody>
-</table>
-<h2 id="_2">待办事项<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
-<ul>
-<li>[ ] 补充更多量化策略（ETF轮动/可转债多因子）</li>
-<li>[ ] 建立投资复盘模板（queries/）</li>
-<li>[ ] 补充美股/港股知识</li>
-<li>[ ] 建立投资组合比较页（comparisons/）</li>
-<li>[ ] 期权交易实战手册 → concepts（待处理）</li>
-</ul>
-      </div>
+    <div class="page-card" data-type="log">
+      <div class="type-badge">日志</div>
+      <h3><a href="/area/quant/log.html">投资-量化 Wiki 操作日志</a></h3>
+      <p class="desc">> 格式：`## [日期] action | subject`</p>
+      <div class="tags"></div>
+      <div class="date">2026-05-25</div>
     </div>
-
-    <div class="page-nav">
-      <span>&nbsp;</span>
-      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    
+    <div class="page-card" data-type="schema">
+      <div class="type-badge">schema</div>
+      <h3><a href="/area/quant/SCHEMA.html">投资-量化 Wiki Schema</a></h3>
+      <p class="desc">A股/美股/港股、可转债、期权、量化策略、基金组合、风控模型、投资心理学、巴菲特价值投资</p>
+      <div class="tags"></div>
+      <div class="date">2026-05-25</div>
     </div>
-  </main>
-
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/README.html">README</a></h3>
+      <p class="desc">> **路径**: `/root/.hermes-quantbot/quant_knowledge_base/`</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1981_致股东信.html">1981_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1981</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1986_致股东信.html">1986_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1986</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/00_巴菲特投资理念总纲.html">00_巴菲特投资理念总纲</a></h3>
+      <p class="desc">> **整理说明**：本文件从巴菲特1957年至2015年致股东/合伙人信中精选核心投资思想，按主题分类整理，每条内容包含原文精华、提炼观点以及与稳盈君策略的关联。</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1997_致股东信.html">1997_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1997</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2005_致股东信.html">2005_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2005</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1977_致股东信.html">1977_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1977</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1982_致股东信.html">1982_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1982</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1994_致股东信.html">1994_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1994</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1975_致股东信.html">1975_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1975</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1959_致合伙人信.html">1959_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1959</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1970_致合伙人信.html">1970_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1970</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1966_致合伙人信.html">1966_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1966</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1999_致股东信.html">1999_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1999</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1990_致股东信.html">1990_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1990</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2017_致股东信.html">2017_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2017</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2008_致股东信.html">2008_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2008 年</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1965_致合伙人信.html">1965_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1965</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1978_致股东信.html">1978_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1978</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1993_致股东信.html">1993_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1993</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1998_致股东信.html">1998_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1998</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2003_致股东信.html">2003_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2003</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1969_致合伙人信.html">1969_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1969</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2007_致股东信.html">2007_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2007</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1967_致合伙人信.html">1967_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1967</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2001_致股东信.html">2001_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2001</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2018_致股东信.html">2018_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2018</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1960_致合伙人信.html">1960_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1960</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1964_致合伙人信.html">1964_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1964</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1968_致合伙人信.html">1968_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1968</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1957_致合伙人信.html">1957_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1957</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1985_致股东信.html">1985_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1985</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1992_致股东信.html">1992_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1992</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2014_致股东信.html">2014_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2014</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1961_致合伙人信.html">1961_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1961</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2004_致股东信.html">2004_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2004</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1983_致股东信.html">1983_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1983</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1995_致股东信.html">1995_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1995</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1963_致合伙人信.html">1963_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1963</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2000_致股东信.html">2000_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2000</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1971_致股东信.html">1971_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1971</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1979_致股东信.html">1979_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1979</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1973_致股东信.html">1973_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1973</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1958_致合伙人信.html">1958_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1958</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2006_致股东信.html">2006_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2006</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1972_致股东信.html">1972_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1972</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2012_致股东信.html">2012_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2012</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2002_致股东信.html">2002_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2002</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1974_致股东信.html">1974_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1974</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2016_致股东信.html">2016_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2016</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2011_致股东信.html">2011_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2011</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1989_致股东信.html">1989_致股东信</a></h3>
+      <p class="desc">巴菲特给股东的信1989</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1976_致股东信.html">1976_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1976</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1988_致股东信.html">1988_致股东信</a></h3>
+      <p class="desc">巴菲特给股东的信1988</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1962_致合伙人信.html">1962_致合伙人信</a></h3>
+      <p class="desc">巴菲特致合伙人的信1962</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2010_致股东信.html">2010_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2010</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2015_致股东信.html">2015_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2015</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1984_致股东信.html">1984_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1984</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1987_致股东信.html">1987_致股东信</a></h3>
+      <p class="desc">巴菲特给股东的信1987</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1980_致股东信.html">1980_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1980</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1996_致股东信.html">1996_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1996</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/1991_致股东信.html">1991_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信1991</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2009_致股东信.html">2009_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2009</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="">
+      <div class="type-badge"></div>
+      <h3><a href="/area/quant/2013_致股东信.html">2013_致股东信</a></h3>
+      <p class="desc">巴菲特致股东的信2013</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="concept">
+      <div class="type-badge">概念</div>
+      <h3><a href="/area/quant/concepts/仓位管理原则/仓位管理原则.html">仓位管理原则</a></h3>
+      <p class="desc">> 仓位管理的执行细节。三层仓位结构总览见 [[投资理念总纲]]。</p>
+      <div class="tags"><span class="tag">仓位管理</span><span class="tag">风控</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="concept">
+      <div class="type-badge">概念</div>
+      <h3><a href="/area/quant/concepts/量化策略库/量化策略库.html">量化策略库</a></h3>
+      <p class="desc">> 已验证策略见 [[双低可转债策略]]。本页专注策略横向对比和归档。</p>
+      <div class="tags"><span class="tag">量化</span><span class="tag">策略</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="concept">
+      <div class="type-badge">概念</div>
+      <h3><a href="/area/quant/concepts/投资理念总纲/投资理念总纲.html">投资理念总纲</a></h3>
+      <p class="desc">> 投资决策的核心思想框架。仓位管理细节见 [[仓位管理原则]]，用户画像见 [[稳盈君]]。</p>
+      <div class="tags"><span class="tag">投资理念</span><span class="tag">方法论</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="concept">
+      <div class="type-badge">概念</div>
+      <h3><a href="/area/quant/concepts/投资洞察精华/投资洞察精华.html">投资洞察精华</a></h3>
+      <p class="desc">| 评级 | 策略 | 行动 |</p>
+      <div class="tags"><span class="tag">投资理念</span><span class="tag">洞察</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="concept">
+      <div class="type-badge">概念</div>
+      <h3><a href="/area/quant/concepts/双低可转债策略/双低可转债策略.html">双低可转债轮动策略</a></h3>
+      <p class="desc">**进攻层核心仓位（占比25~30%，约24,000元）**</p>
+      <div class="tags"><span class="tag">可转债</span><span class="tag">策略</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="entity">
+      <div class="type-badge">实体</div>
+      <h3><a href="/area/quant/entities/稳盈君/稳盈君.html">稳盈君用户画像</a></h3>
+      <p class="desc">| 项目 | 内容 |</p>
+      <div class="tags"><span class="tag">人物</span><span class="tag">投资用户</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="entity">
+      <div class="type-badge">实体</div>
+      <h3><a href="/area/quant/entities/巴菲特/巴菲特.html">巴菲特（Warren Buffett）</a></h3>
+      <p class="desc">| 属性 | 内容 |</p>
+      <div class="tags"><span class="tag">价值投资</span><span class="tag">人物</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="SOP">
+      <div class="type-badge">SOP</div>
+      <h3><a href="/area/quant/每周复盘SOP.html">每周复盘SOP</a></h3>
+      <p class="desc">1. **持仓健康度检查** — 运行 `stock_analysis.py`，浮亏扩大？浮盈守住？</p>
+      <div class="tags"><span class="tag">SOP</span><span class="tag">复盘</span></div>
+      <div class="date">2026-05-25</div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/kb_wenying_invest.html">kb_wenying_invest</a></h3>
+      <p class="desc">> **版本**: 2.0 | **更新时间**: 2026-05-02</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-21-期权交易实战手册v2.0.html">2026-05-21-期权交易实战手册v2.0</a></h3>
+      <p class="desc">> 来源：qiquan_gen_v2.py（PDF生成脚本）</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-23-第21周复盘.html">2026-05-23-第21周复盘</a></h3>
+      <p class="desc">> 持仓数据来源：用户截图（2026-05-22 15:25）+ 腾讯财经实时行情（2026-05-23）</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-19-投资理念总纲.html">2026-05-19-投资理念总纲</a></h3>
+      <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-19-量化策略库.html">2026-05-19-量化策略库</a></h3>
+      <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-19-投资洞察精华.html">2026-05-19-投资洞察精华</a></h3>
+      <p class="desc">> **来源**: 稳盈君专属量化投资知识库 - 从微信文章和投研中提炼</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-19-投资工具箱.html">2026-05-19-投资工具箱</a></h3>
+      <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-19-巴菲特年鉴.html">2026-05-19-巴菲特年鉴</a></h3>
+      <p class="desc">> **来源**: 稳盈君专属量化投资知识库 - 巴菲特致股东/合伙人信全集</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+    <div class="page-card" data-type="raw">
+      <div class="type-badge">原始</div>
+      <h3><a href="/area/quant/2026-05-19-可转债策略.html">2026-05-19-可转债策略</a></h3>
+      <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+      <div class="tags"></div>
+      <div class="date"></div>
+    </div>
+    
+  </div>
 </div>
 
 <footer>
-  <a href="/">知识库总览</a> · 投资-量化知识库索引 · 由金助理生成
+  <a href="/">知识库总览</a> · 投资 · 量化 · 84 个页面
 </footer>
 
 <script>
-// 相关页面跳转（本地 wikilinks 修复）
-document.querySelectorAll('.related-item a').forEach(link => {
-  link.addEventListener('click', function(e) {
-    e.preventDefault();
-    const title = this.textContent.trim();
-    // 模糊匹配目标页面
-    const allLinks = document.querySelectorAll('.page-card h3 a');
-    // 简单降级：直接跳转首页搜索
-    window.location.href = '/?q=' + encodeURIComponent(title);
+const btns = document.querySelectorAll('.filter-btn');
+const cards = document.querySelectorAll('.page-card');
+btns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    btns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const type = btn.dataset.type;
+    cards.forEach(c => {
+      c.style.display = (!type || type === 'all' || c.dataset.type === type) ? '' : 'none';
+    });
   });
 });
 </script>
