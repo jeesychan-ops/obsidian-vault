@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1959_致合伙人信 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>1959_致合伙人信</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#1959年巴菲特致合伙人信">1959年巴菲特致合伙人信</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>1959_致合伙人信</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="1959">1959年巴菲特致合伙人信<a class="headerlink" href="#1959" title="Permanent link">&para;</a></h1>
+<p>巴菲特致合伙人的信1959<br />
+1960 年2 月20 日信<br />
+沃伦E.巴菲特<br />
+5202 Underwood Ave.Omaha,Nebraska<br />
+1959 年股市的整体情况：<br />
+道指是人们衡量股市表现最常用的指数，但是1959 年道指有些失真。去年，道指从583<br />
+上涨到679，涨幅16.4%，加上股息，持有道指的投资者收益率是19.9%。<br />
+从道指来看，市场表现很强劲，然而，在纽约股票交易所中，有710 只股票下跌，628<br />
+只上涨，下跌股票数量多于上涨股票数量。道琼斯铁路指数和道琼斯公用事业指数均录得下<br />
+跌。<br />
+大多数投资信托没能跑赢指数。Tri-Continental Corp.是美国最大的封闭式投资公司<br />
+（总资产4 亿美元），它的年度收益率是5.7%。Tri-Continental 的总裁Fred Brown 最近在<br />
+分析师协会做了一次演讲，他是这么评论1959 年的股市的：<br />
+“虽然我们非常看好我们的投资组合，但是我们对Tri-Continental 持股在1959 年的<br />
+市场表现感到失望。在1959 年这样的市场中，占据主导的是投资者的感性和热情，我们注<br />
+重价值和长期投资的基金管理人很难在这样的环境中投资。我们没胆量像别人那样飞上高<br />
+空，直穿云霄。我们TriContinental 管理的是投资者的资金，承担着信托责任。作为一家<br />
+投资机构，我们要控制风险。我们对自己的投资组合有信心，对明年有信心。”<br />
+Massachusetts Investors Trust 是美国最大的基金，管理15 亿美元的资产，去年的<br />
+总体收益率是9%。<br />
+大家知道，这几年我一直很担心股市处于高位。到目前为止，我的这个担心并没影响到<br />
+我们的投资。按照传统的标准来衡量，当前蓝筹股的股价中有很大一部分是投机性质的，暗<br />
+藏着亏损风险。也许新的价值标准正在形成，旧标准将被彻底取代。其实，我认为这样的事<br />
+不会发生。我说的很可能是错的，但是，我宁愿承担因为过度保守而受到的损失，也不想因<br />
+为犯错而吞下恶果。相信所谓树能长到天上去的“新时代”鼓吹，就可能遭受无法挽回的本<br />
+金亏损。<br />
+1959 年的业绩：<br />
+在之前的信中，我多次讲过合伙人用什么标准来衡量我的表现，也就是与指数和大型基<br />
+金比较，在指数下跌或平盘时跑赢指数，在指数大涨时跟上指数。<br />
+很幸运，在1959 年的比较中，我们取得了相当不错的业绩。过去一年，我管理的六个<br />
+合伙人账户实现的收益率在22.3%到30.0%之间，平均收益率约25.9%。目前，所有合伙人<br />
+账户的投资组合相似度达到了80%。之所以还不完全相同，是因为现金投入时间、股票买入<br />
+时间、支付合伙人利息等方面存在差异。过去几年里，没有哪个合伙人账户的业绩始终是最<br />
+高的或最低的。随着投资组合日趋接近，各个账户的业绩差异也将逐步缩小。<br />
+合伙人账户的整体净收益率按照年初和年末的市场价值计算，并根据向合伙人支付的利<br />
+息或合伙人投入的资金进行调整。我们不是根据当年实际实现的利润计算收益率。这么计算<br />
+是为了衡量每一年清算价值的变化。计算收益率时扣除了经营费用，但没有扣除向合伙人支<br />
+付的利息（详见合伙合同），也没有扣除向普通合伙人支付的利润分成。<br />
+我们最主要的经营费用是缴纳内布拉斯加州无形资产税，税率是所有股票市值的0.4%。<br />
+去年是这个税项第一次生效实施，所以令我们的收益减少了0.4%。<br />
+13</p>
+<p>当前的投资组合：<br />
+去年，我说我们买了一只新股票，占各个合伙人账户资产的25%左右。目前，这只股票<br />
+占所有资产的35%左右。这个仓位是非常重的，但是我这样安排有充分的理由。我们投资的<br />
+这家公司拥有一个投资信托，里面包含三四十只质地良好的股票。根据投资信托中股票的市<br />
+值以及对这家公司主营业务的保守估值，与资产价值相比，我们买入的价格特别便宜。<br />
+我们是对这家公司拥有绝对控股权的第一大股东，另外还有两个大股东和我们意见一<br />
+致。在价值最终实现之前，这只股票的表现很可能会优于大盘，我希望在今年实现这家公司<br />
+的价值。<br />
+我们投资组合的其他65%是低估的股票和套利类品种。只要有合适的机会，我还是尽可<br />
+能选择独立于大盘的投资。<br />
+按照这个策略，我们应该能在熊市中跑赢，在牛市中跟上。在写这封信的时候，道指已<br />
+从1959 年的高点下跌一半，今年就看我们能否在熊市中跑赢了。<br />
+如果我哪里没说明白，或者你有任何疑问，请随时告诉我。<br />
+沃伦E.巴菲特<br />
+1960 年2 月20 日<br />
+14</p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 1959_致合伙人信 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

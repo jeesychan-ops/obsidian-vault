@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚马逊运营高频问题 FAQ — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span>问答</span>
+  </div>
+  <h1>亚马逊运营高频问题 FAQ</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val">问答</span></div>
+      
+      <div class="meta-row"><span class="label">创建</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">更新</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">可信度</span><span class="val">high</span></div>
+      
+      
+      <div class="tags" style="margin-top:8px">
+        <span class="tag">选品</span><span class="tag">广告</span><span class="tag">站内流量</span><span class="tag">万词打法</span>
+      </div>
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#亚马逊运营高频问题-faq">亚马逊运营高频问题 FAQ</a></div>
+      
+      <div class="toc-item l2"><a href="#选品类">选品类</a></div>
+      
+      <div class="toc-item l3"><a href="#q1-选品三维度具体用什么数据工具评估">Q1: 选品三维度具体用什么数据/工具评估？</a></div>
+      
+      <div class="toc-item l3"><a href="#q2-什么样的产品适合万词打法">Q2: 什么样的产品适合万词打法？</a></div>
+      
+      <div class="toc-item l2"><a href="#广告类">广告类</a></div>
+      
+      <div class="toc-item l3"><a href="#q3-新品冷启动广告怎么打">Q3: 新品冷启动广告怎么打？</a></div>
+      
+      <div class="toc-item l3"><a href="#q4-acos-太高怎么降">Q4: ACOS 太高怎么降？</a></div>
+      
+      <div class="toc-item l3"><a href="#q5-关键词竞争度怎么判断要不要升级">Q5: 关键词竞争度怎么判断要不要升级？</a></div>
+      
+      <div class="toc-item l3"><a href="#q6-站外引流什么时候开始做">Q6: 站外引流什么时候开始做？</a></div>
+      
+      <div class="toc-item l2"><a href="#流量类">流量类</a></div>
+      
+      <div class="toc-item l3"><a href="#q7-自然流量怎么快速增长">Q7: 自然流量怎么快速增长？</a></div>
+      
+      <div class="toc-item l3"><a href="#q8-rufuscosmo-时代-listing-怎么写">Q8: Rufus/COSMO 时代 Listing 怎么写？</a></div>
+      
+      <div class="toc-item l2"><a href="#来源">来源</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>相关页面</h3>
+      
+      <div class="related-item"><a href="#">万词打法]] 关键词竞争度决策框架 广告策略 选品三维度法 站内流量 [[四维算法协同体系</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>来源</h3>
+      <div class="source-item">raw/kb/amazon_kb_deduped.json</div><div class="source-item">raw/articles/2026-05-02-万词打法.md</div><div class="source-item">raw/articles/2026-05-02-四维协同-A9A10COSMO_Rufus.md</div>
+    </div>
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>亚马逊运营高频问题 FAQ</h1>
+      <div class="article-meta">问答 · 亚马逊运营 · 更新于 2026-05-25</div>
+      <div class="content">
+        <h1 id="faq">亚马逊运营高频问题 FAQ<a class="headerlink" href="#faq" title="Permanent link">&para;</a></h1>
+<h2 id="_1">选品类<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="q1">Q1: 选品三维度具体用什么数据/工具评估？<a class="headerlink" href="#q1" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>工具/数据源</th>
+<th>标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>利润率</td>
+<td>成本计算器（Sorftime / 卖家精灵）</td>
+<td>毛利率 &gt; 30%，净利 &gt; 15%</td>
+</tr>
+<tr>
+<td>竞争度</td>
+<td>Sorftime 反查 BSR 前 10</td>
+<td>新卖家 2-3 个 = 有机会</td>
+</tr>
+<tr>
+<td>需求稳定性</td>
+<td>Google Trends + ABA 月搜量</td>
+<td>三年曲线平稳，非脉冲</td>
+</tr>
+</tbody>
+</table>
+<p>详见：<span class="wikilink">选品三维度法</span></p>
+<hr />
+<h3 id="q2">Q2: 什么样的产品适合万词打法？<a class="headerlink" href="#q2" title="Permanent link">&para;</a></h3>
+<p><strong>非标品、功能分散型产品万词打法效果最佳</strong>：<br />
+- ✅ 服装/家居/3C 配件/宠物用品（搜索极度分散）<br />
+- ✅ 功能型产品（有大量细分场景词）<br />
+- ❌ 极标准化产品（大词垄断，无长尾空间）</p>
+<hr />
+<h2 id="_2">广告类<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="q3">Q3: 新品冷启动广告怎么打？<a class="headerlink" href="#q3" title="Permanent link">&para;</a></h3>
+<p><strong>新品前 4 周广告结构（$50-200/天为例）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>广告层</th>
+<th>占比</th>
+<th>类型</th>
+<th>匹配</th>
+<th>竞价</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一笔钱</td>
+<td>50%</td>
+<td>尾部 ASIN 定投</td>
+<td>精准</td>
+<td>低</td>
+</tr>
+<tr>
+<td>第二笔钱</td>
+<td>40%</td>
+<td>长尾关键词手动精准</td>
+<td>精准</td>
+<td>中</td>
+</tr>
+<tr>
+<td>第三笔钱</td>
+<td>10%</td>
+<td>自动广告</td>
+<td>广泛</td>
+<td>低</td>
+</tr>
+</tbody>
+</table>
+<p>详见：<span class="wikilink">SOP-广告架构搭建流程</span></p>
+<hr />
+<h3 id="q4-acos">Q4: ACOS 太高怎么降？<a class="headerlink" href="#q4-acos" title="Permanent link">&para;</a></h3>
+<p><strong>ACOS 优化三步法</strong>：<br />
+1. <strong>关键词升级</strong>：把低竞争跑出的好词往中高竞争搬（规模效应）<br />
+2. <strong>长尾词替换</strong>：大词 ACOS 高 → 换场景型长尾词（CPC 低 50-80%）<br />
+3. <strong>落地页优化</strong>：Listing CVR 提升 → 分母变大 → ACOS 降低</p>
+<blockquote>
+<p>案例：空气炸锅衬纸，"air fryer liners" ACOS 28% → 布局 "air fryer liners for ninja foodi dual"（场景型），ACOS 14%，销量增长 65%。</p>
+</blockquote>
+<p>详见：<span class="wikilink">关键词竞争度决策框架</span> + <span class="wikilink">万词打法</span></p>
+<hr />
+<h3 id="q5">Q5: 关键词竞争度怎么判断要不要升级？<a class="headerlink" href="#q5" title="Permanent link">&para;</a></h3>
+<p><strong>三层判断工具（升级前必看）：</strong><br />
+1. ABA 数据：点击份额被头部锁死 = 没空间<br />
+2. 前台竞争：品牌集中度高 = 价格战<br />
+3. 广告数据：CPC 涨 + 转化跌 = 竞争加压中</p>
+<p><strong>升级失败三信号（出现任意一条停止升级）：</strong><br />
+- CVR 明显低于类目基准<br />
+- 预算撑不起分层结构<br />
+- CPC 持续涨 + 转化持续跌</p>
+<p>详见：<span class="wikilink">关键词竞争度决策框架</span></p>
+<hr />
+<h3 id="q6">Q6: 站外引流什么时候开始做？<a class="headerlink" href="#q6" title="Permanent link">&para;</a></h3>
+<p><strong>建议时机</strong>：有稳定自然流量后（评论 ≥ 20，BSR 稳定），否则站外引流效率低。</p>
+<p><strong>最优打法</strong>：<br />
+1. TikTok/Instagram 内容种草 → 挂亚马逊链接<br />
+2. Amazon Attribution 追踪站外流量<br />
+3. 站外成交进店 → SD 再营销（ACOS 仅 8%）<br />
+4. 品牌词搜索量一周涨 340%，自然排名冲到前 5</p>
+<p>详见：<span class="wikilink">四维算法协同体系</span></p>
+<hr />
+<h2 id="_3">流量类<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="q7">Q7: 自然流量怎么快速增长？<a class="headerlink" href="#q7" title="Permanent link">&para;</a></h3>
+<p><strong>核心路径：广告带自然、自然带爆单</strong></p>
+<div class="highlight"><pre><span></span><code>广告长尾词高转化
+  → A9 权重提升
+  → 长尾词自然排名上升
+  → 大词自然排名跟着涨
+  → ACOS 逐步降低
+  → 爆单飞轮
+</code></pre></div>
+
+<p><strong>实操：关键词上首页 3 个打法</strong><br />
+1. 广告点击 → 转化 → 算法认定高质量 → 给自然排名<br />
+2. QA 植入核心场景词 → COSMO 抓取 → 场景流量<br />
+3. 评论关键词植入 → Rufus 理解产品属性 → 品类推荐</p>
+<p>详见：<span class="wikilink">站内流量</span></p>
+<hr />
+<h3 id="q8-rufuscosmo-listing">Q8: Rufus/COSMO 时代 Listing 怎么写？<a class="headerlink" href="#q8-rufuscosmo-listing" title="Permanent link">&para;</a></h3>
+<p><strong>旧逻辑</strong>：关键词密度<br />
+<strong>新逻辑</strong>：<strong>语义完整度</strong>——是否完整回答四个问题：<br />
+1. 这是什么？<br />
+2. 适合谁？<br />
+3. 解决什么痛点？<br />
+4. 为什么选你？</p>
+<p><strong>落地</strong>：<br />
+- 五点描述：每条对应一个场景/人群/痛点<br />
+- A+ 内容：使用场景图 + 人群对比图<br />
+- QA：植入高频场景问题（Rufus 会基于这些回答用户）<br />
+- 评论：引导用户写带场景关键词的真实评论</p>
+<p>详见：<span class="wikilink">COSMO算法</span> + <span class="wikilink">Rufus购物助手</span></p>
+<hr />
+<h2 id="_4">来源<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">amazon_kb_deduped.json</span>（31条去重知识）</li>
+<li><span class="wikilink">2026-05-02-万词打法</span></li>
+<li><span class="wikilink">2026-05-02-四维协同-A9A10COSMO_Rufus</span></li>
+</ul>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 亚马逊运营高频问题 FAQ · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

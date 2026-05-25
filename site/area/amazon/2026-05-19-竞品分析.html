@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-19-竞品分析 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-19-竞品分析</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#竞品分析">竞品分析</a></div>
+      
+      <div class="toc-item l2"><a href="#核心观点">核心观点</a></div>
+      
+      <div class="toc-item l3"><a href="#1-三层叠加判断法">1. 三层叠加判断法</a></div>
+      
+      <div class="toc-item l2"><a href="#竞品分析完整框架">竞品分析完整框架</a></div>
+      
+      <div class="toc-item l3"><a href="#第一层aba-数据分析">第一层：ABA 数据分析</a></div>
+      
+      <div class="toc-item l3"><a href="#第二层前台观察">第二层：前台观察</a></div>
+      
+      <div class="toc-item l3"><a href="#第三层广告数据分析">第三层：广告数据分析</a></div>
+      
+      <div class="toc-item l2"><a href="#竞品类型识别">竞品类型识别</a></div>
+      
+      <div class="toc-item l3"><a href="#价格战型竞品">价格战型竞品</a></div>
+      
+      <div class="toc-item l3"><a href="#功能战型竞品">功能战型竞品</a></div>
+      
+      <div class="toc-item l3"><a href="#品牌战型竞品">品牌战型竞品</a></div>
+      
+      <div class="toc-item l2"><a href="#竞品监控工具">竞品监控工具</a></div>
+      
+      <div class="toc-item l2"><a href="#标签">标签</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-19-竞品分析</h1>
+      <div class="article-meta"> · 亚马逊运营</div>
+      <div class="content">
+        <h1 id="_1">竞品分析<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>创建时间：</strong> 2026-05-19<br />
+<strong>来源：</strong> AmazonBot 运营知识库<br />
+<strong>知识条目：</strong> 1 条</p>
+</blockquote>
+<hr />
+<h2 id="_2">核心观点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 三层叠加判断法<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>方法不复杂，但一定要三层一起看：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>分析内容</th>
+<th>判断目的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>第一层：ABA</strong></td>
+<td>点击份额、转化份额</td>
+<td>判断有没有进入空间，是否被头部锁死</td>
+</tr>
+<tr>
+<td><strong>第二层：前台</strong></td>
+<td>品牌集中度、价格带、评分评论</td>
+<td>判断是在打价格战、功能战还是品牌战</td>
+</tr>
+<tr>
+<td><strong>第三层：广告数据</strong></td>
+<td>CPC趋势、转化变化、广告位成本变化</td>
+<td>判断为这波流量要付出多大代价</td>
+</tr>
+</tbody>
+</table>
+<p><strong>三层叠加，你才不会误判。</strong></p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_3">竞品分析完整框架<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="aba">第一层：ABA 数据分析<a class="headerlink" href="#aba" title="Permanent link">&para;</a></h3>
+<p>通过 Amazon Brand Analytics 分析：</p>
+<ul>
+<li><strong>点击份额</strong>：竞争对手占据多少搜索点击</li>
+<li><strong>转化份额</strong>：竞争对手占据多少实际购买</li>
+<li><strong>头部集中度</strong>：TOP 3 品牌占比</li>
+</ul>
+<p><strong>判断：</strong> 是否有进入空间，是否被头部锁死</p>
+<h3 id="_4">第二层：前台观察<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<p>手动或工具抓取搜索结果页：</p>
+<ul>
+<li><strong>品牌集中度</strong>：同类品牌数量和销量分布</li>
+<li><strong>价格带</strong>：竞品定价区间</li>
+<li><strong>评分评论</strong>：竞品评论数量和质量</li>
+<li><strong>变体丰富度</strong>：竞品 SKU 数量</li>
+</ul>
+<p><strong>判断：</strong> 你是在打价格战、功能战还是品牌战</p>
+<h3 id="_5">第三层：广告数据分析<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<p>通过广告报告分析：</p>
+<ul>
+<li><strong>CPC 趋势</strong>：核心词出价变化</li>
+<li><strong>转化变化</strong>：竞品转化率趋势</li>
+<li><strong>广告位成本</strong>：首页首位 vs 其他位置成本差异</li>
+</ul>
+<p><strong>判断：</strong> 为这波流量要付出多大代价</p>
+<hr />
+<h2 id="_6">竞品类型识别<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="_7">价格战型竞品<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>特征：<br />
+- 价格明显低于市场<br />
+- 评论数量多但评分偏低<br />
+- 大量促销/优惠券</p>
+<p>应对策略：<br />
+- 差异化定价<br />
+- 强调品质和服务</p>
+<h3 id="_8">功能战型竞品<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<p>特征：<br />
+- 产品功能突出<br />
+- Listing 描述详细<br />
+- QA 解答专业</p>
+<p>应对策略：<br />
+- 深度挖掘差异化卖点<br />
+- 优化 A+ 页面</p>
+<h3 id="_9">品牌战型竞品<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<p>特征：<br />
+- 品牌知名度高<br />
+- 评论数量庞大<br />
+- 站内站外联动强</p>
+<p>应对策略：<br />
+- 长期品牌建设<br />
+- 寻找细分市场机会</p>
+<hr />
+<h2 id="_10">竞品监控工具<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>用途</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Helium 10</td>
+<td>竞品数据追踪</td>
+<td>功能全面</td>
+</tr>
+<tr>
+<td>Jungle Scout</td>
+<td>产品调研</td>
+<td>销量估算准确</td>
+</tr>
+<tr>
+<td>Keepa</td>
+<td>价格追踪</td>
+<td>历史价格分析</td>
+</tr>
+<tr>
+<td>卖家精灵</td>
+<td>竞品分析</td>
+<td>中文界面</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_11">标签<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h1 id="aba_1">竞品分析 #ABA #竞争格局 #市场分析<a class="headerlink" href="#aba_1" title="Permanent link">&para;</a></h1>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-19-竞品分析 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

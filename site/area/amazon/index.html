@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>亚马逊运营知识库索引 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>亚马逊运营知识库索引</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      <div class="meta-row"><span class="label">创建</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">更新</span><span class="val">2026-05-25</span></div>
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#亚马逊运营知识库索引">亚马逊运营知识库索引</a></div>
+      
+      <div class="toc-item l2"><a href="#entities实体页-3">Entities（实体页 · 3）</a></div>
+      
+      <div class="toc-item l2"><a href="#concepts概念页-12">Concepts（概念页 · 12）</a></div>
+      
+      <div class="toc-item l3"><a href="#选品-竞品">选品 & 竞品</a></div>
+      
+      <div class="toc-item l3"><a href="#算法-关键词">算法 & 关键词</a></div>
+      
+      <div class="toc-item l3"><a href="#运营要素">运营要素</a></div>
+      
+      <div class="toc-item l2"><a href="#comparisons对比页-1">Comparisons（对比页 · 1）</a></div>
+      
+      <div class="toc-item l2"><a href="#sops标准流程-5">SOPs（标准流程 · 5）</a></div>
+      
+      <div class="toc-item l2"><a href="#queries问答页-1">Queries（问答页 · 1）</a></div>
+      
+      <div class="toc-item l2"><a href="#summaries综合摘要-1">Summaries（综合摘要 · 1）</a></div>
+      
+      <div class="toc-item l2"><a href="#raw-归档层原始文件-4">Raw 归档层（原始文件 · 4）</a></div>
+      
+      <div class="toc-item l2"><a href="#知识库重整记录2026-05-25">知识库重整记录（2026-05-25）</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>亚马逊运营知识库索引</h1>
+      <div class="article-meta"> · 亚马逊运营 · 更新于 2026-05-25</div>
+      <div class="content">
+        <h1 id="_1">亚马逊运营知识库索引<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>所有页面按类型分类，一行一摘要。<br />
+最后更新：2026-05-25 | 页面总数：23 | 原始知识：31条去重 + 3篇归档文章</p>
+</blockquote>
+<hr />
+<h2 id="entities-3">Entities（实体页 · 3）<a class="headerlink" href="#entities-3" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">A9A10算法</span> — 亚马逊商品搜索排名核心算法，A9进化到A10后更重视站外流量和真实买家行为</li>
+<li><span class="wikilink">COSMO算法</span> — 亚马逊基于 LLM 的意图理解算法，从关键词匹配升级为用户真实意图匹配</li>
+<li><span class="wikilink">Rufus购物助手</span> — 亚马逊月活3亿的AI购物助手，核心是主动推荐和问答购物</li>
+</ul>
+<h2 id="concepts-12">Concepts（概念页 · 12）<a class="headerlink" href="#concepts-12" title="Permanent link">&para;</a></h2>
+<h3 id="_2">选品 &amp; 竞品<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><span class="wikilink">选品三维度法</span> — 利润率（&gt;30%毛利率）、竞争度（BSR前10有2-3个新卖家）、需求稳定性（三年Google Trends平稳）</li>
+</ul>
+<h3 id="_3">算法 &amp; 关键词<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<ul>
+<li><span class="wikilink">广告策略</span> — 广告三层架构 + 意图分层投放 + 万词打法四维协同</li>
+<li><span class="wikilink">关键词竞争度决策框架</span> — 核心是结构问题：钱从低竞争逐步推到中高竞争的四层模型</li>
+<li><span class="wikilink">万词打法</span> — 10000+精准长尾词织流量金字塔，塔尖防守/腰部放量/基部拓词</li>
+<li><span class="wikilink">四维算法协同体系</span> — A9+A10+COSMO+Rufus 四维同时运行，广告策略需同步照顾</li>
+</ul>
+<h3 id="_4">运营要素<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ul>
+<li><span class="wikilink">Listing优化</span> — 七大优化维度：标题、主图、五点、A+、Backend Keywords、分类节点、图文评测</li>
+<li><span class="wikilink">站内流量</span> — 自然搜索+推荐+广告+类目+Deals，转化率优先原则</li>
+<li><span class="wikilink">Alexa_for_Shopping与答案位</span> — Alexa for Shopping接管Rufus后，AI在产品卡下写30字摘要直接说服买家，一键加购不进详情页——答案位两层（入围+摘要）都要打</li>
+<li><span class="wikilink">竞品分析</span> — 六维度：销量估算、评论分析、流量来源反查、广告打法推断、定价策略、差异化机会</li>
+<li><span class="wikilink">财务与利润</span> — 成本拆解框架 + 净利润公式 + 各阶段盈亏特点</li>
+<li><span class="wikilink">评论与QA</span> — Vine计划、合规获取评论方法、QA运营价值</li>
+<li><span class="wikilink">品牌打造</span> — 商标注册→品牌备案→A+内容→品牌广告→站外引流</li>
+</ul>
+<h2 id="comparisons-1">Comparisons（对比页 · 1）<a class="headerlink" href="#comparisons-1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">四大算法对比</span> — A9 vs A10 vs COSMO vs Rufus 深度对比：定位/逻辑/关键词策略/卖家应对</li>
+</ul>
+<h2 id="sops-5">SOPs（标准流程 · 5）<a class="headerlink" href="#sops-5" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">SOP-关键词库搭建流程</span></li>
+<li><span class="wikilink">SOP-广告数据优化流程</span></li>
+<li><span class="wikilink">SOP-广告架构搭建流程</span></li>
+<li><span class="wikilink">SOP-选品流程</span></li>
+<li><span class="wikilink">选品决策SOP-市场筛选七步漏斗法</span></li>
+</ul>
+<h2 id="queries-1">Queries（问答页 · 1）<a class="headerlink" href="#queries-1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">亚马逊运营高频问题FAQ</span> — 8个高频问题覆盖选品/广告/流量/COSMO+Rufus时代策略</li>
+</ul>
+<h2 id="summaries-1">Summaries（综合摘要 · 1）<a class="headerlink" href="#summaries-1" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">亚马逊运营全链路摘要</span> — 综合所有来源：选品→流量→广告→关键词→站内流量→竞品分析全链路体系</li>
+</ul>
+<hr />
+<h2 id="raw-4">Raw 归档层（原始文件 · 4）<a class="headerlink" href="#raw-4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>raw/articles/2026-05-02-万词打法.md</code></td>
+<td>炸翻亚马逊！万词打法（原始全文）</td>
+</tr>
+<tr>
+<td><code>raw/articles/2026-05-02-四维协同-A9A10COSMO_Rufus.md</code></td>
+<td>亚马逊广告高阶打法四维协同（原始全文）</td>
+</tr>
+<tr>
+<td><code>raw/articles/2026-05-02-AMC_Rufus_Cosmo爆款新玩法.md</code></td>
+<td>AMC+Rufus+Cosmo爆款新玩法（原始全文）</td>
+</tr>
+<tr>
+<td><code>raw/kb/amazon_kb_deduped.json</code></td>
+<td>31条去重知识（原76条→去重31条），合并topics字段</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2026-05-25">知识库重整记录（2026-05-25）<a class="headerlink" href="#2026-05-25" title="Permanent link">&para;</a></h2>
+<p>本次重整解决了以下问题：<br />
+- ❌ → ✅ <code>amazon_kb_structured.json</code> 去重：76条→31条独立知识，topics字段合并<br />
+- ❌ → ✅ 3篇独立JSON文章归档至 <code>raw/articles/</code><br />
+- ❌ → ✅ 新增3个Entity：COSMO算法、Rufus购物助手、A9A10算法补充<br />
+- ❌ → ✅ 新增3个Concept：关键词竞争度决策框架、万词打法、四维算法协同体系<br />
+- ❌ → ✅ 新增1个Comparison：四大算法对比<br />
+- ❌ → ✅ 新增1个Query：亚马逊运营高频问题FAQ<br />
+- ❌ → ✅ 新增1个Summary：亚马逊运营全链路摘要<br />
+- ❌ → ✅ <code>SCHEMA.md</code> 更新：补充算法专项标签和话题→Wiki映射<br />
+- ❌ → ✅ <code>index.md</code> 同步更新，移除失效标注</p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 亚马逊运营知识库索引 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

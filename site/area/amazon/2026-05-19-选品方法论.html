@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-19-选品方法论 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-19-选品方法论</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#选品方法论">选品方法论</a></div>
+      
+      <div class="toc-item l2"><a href="#核心观点">核心观点</a></div>
+      
+      <div class="toc-item l3"><a href="#1-关键词竞争度的决策价值">1. 关键词竞争度的决策价值</a></div>
+      
+      <div class="toc-item l3"><a href="#2-低竞争舒适区的陷阱">2. 低竞争舒适区的陷阱</a></div>
+      
+      <div class="toc-item l3"><a href="#3-往上走的必要性">3. 往上走的必要性</a></div>
+      
+      <div class="toc-item l2"><a href="#方法论">方法论</a></div>
+      
+      <div class="toc-item l3"><a href="#4-三套分析方法">4. 三套分析方法</a></div>
+      
+      <div class="toc-item l3"><a href="#5-关键词竞争度的四大核心价值">5. 关键词竞争度的四大核心价值</a></div>
+      
+      <div class="toc-item l3"><a href="#6-预算与阶段的匹配">6. 预算与阶段的匹配</a></div>
+      
+      <div class="toc-item l3"><a href="#7-四层角色定位">7. 四层角色定位</a></div>
+      
+      <div class="toc-item l3"><a href="#8-快速判断竞争度">8. 快速判断竞争度</a></div>
+      
+      <div class="toc-item l2"><a href="#实战案例">实战案例</a></div>
+      
+      <div class="toc-item l3"><a href="#9-led智能灯泡案例分析">9. LED智能灯泡案例分析</a></div>
+      
+      <div class="toc-item l3"><a href="#10-问题诊断">10. 问题诊断</a></div>
+      
+      <div class="toc-item l3"><a href="#11-预算分配策略">11. 预算分配策略</a></div>
+      
+      <div class="toc-item l3"><a href="#12-关键词迁移路径">12. 关键词迁移路径</a></div>
+      
+      <div class="toc-item l2"><a href="#数据验证">数据验证</a></div>
+      
+      <div class="toc-item l3"><a href="#13-实战效果">13. 实战效果</a></div>
+      
+      <div class="toc-item l3"><a href="#14-成功本质">14. 成功本质</a></div>
+      
+      <div class="toc-item l2"><a href="#执行节奏">执行节奏</a></div>
+      
+      <div class="toc-item l3"><a href="#15-往上搬的节奏">15. 往上搬的节奏</a></div>
+      
+      <div class="toc-item l3"><a href="#16-四层结构清晰版">16. 四层结构清晰版</a></div>
+      
+      <div class="toc-item l3"><a href="#17-简单口诀">17. 简单口诀</a></div>
+      
+      <div class="toc-item l2"><a href="#风险警示">风险警示</a></div>
+      
+      <div class="toc-item l3"><a href="#18-不宜往上走的情况">18. 不宜往上走的情况</a></div>
+      
+      <div class="toc-item l2"><a href="#核心结论">核心结论</a></div>
+      
+      <div class="toc-item l3"><a href="#19-结构问题而非选词问题">19. 结构问题而非选词问题</a></div>
+      
+      <div class="toc-item l3"><a href="#20-诊断自己">20. 诊断自己</a></div>
+      
+      <div class="toc-item l2"><a href="#标签">标签</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-19-选品方法论</h1>
+      <div class="article-meta"> · 亚马逊运营</div>
+      <div class="content">
+        <h1 id="_1">选品方法论<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>创建时间：</strong> 2026-05-19<br />
+<strong>来源：</strong> AmazonBot 运营知识库<br />
+<strong>知识条目：</strong> 21 条</p>
+</blockquote>
+<hr />
+<h2 id="_2">核心观点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="1">1. 关键词竞争度的决策价值<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p>很多人把"关键词竞争度"当成一个选词指标，用来决定投不投、出多少价。但这篇文章真正要解决的，不是"怎么分析竞争度"，而是一个更关键的决策问题——<strong>你该不该从低竞争词，往中高竞争词走。</strong></p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="2">2. 低竞争舒适区的陷阱<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p>家居照明这个案例，本质就是在回答这件事。很多账号不是不会投，而是一直停在"低竞争舒适区"，或者刚到中竞争就停住，不敢继续往上走。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="3">3. 往上走的必要性<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>很多人卡住的地方就在这：低竞争词很好跑，很稳，但规模有限；中竞争词一波动就亏，于是立刻撤，更别说往中高竞争走。听起来很理性，其实是在错过阶段。<strong>如果你的目标函数已经是增长优先，那你迟早要进入中高竞争区。</strong>你现在更像卡在"该升级但没升级"的阶段。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_3">方法论<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="4">4. 三套分析方法<a class="headerlink" href="#4" title="Permanent link">&para;</a></h3>
+<p>你会发现，我们之前分享的三套方法：<strong>ABA看流量分配、前台看竞争形态、广告数据看成本变化</strong>，但这些都只是工具。真正的价值在于，它帮你把"钱该怎么流"这件事说清楚。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="5">5. 关键词竞争度的四大核心价值<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>换句话说，关键词竞争度的核心价值，其实就四件事：<br />
+- <strong>资源优化</strong><br />
+- <strong>风险控制</strong><br />
+- <strong>机会发现</strong><br />
+- <strong>策略制定</strong></p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="6">6. 预算与阶段的匹配<a class="headerlink" href="#6" title="Permanent link">&para;</a></h3>
+<p>预算有限，就必须匹配阶段：<br />
+- <strong>成长期</strong>的钱，不只是往中竞争倾斜，而是要逐步往中高竞争试探<br />
+- <strong>中高竞争词</strong>不是不能投，但如果在没有结构的情况下硬冲，大概率是在为波动买单<br />
+- <strong>低竞争词</strong>不是边角料，它是未来中竞争甚至中高竞争词的来源，是用来转正和搬家的</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="7">7. 四层角色定位<a class="headerlink" href="#7" title="Permanent link">&para;</a></h3>
+<p>不同竞争度就是不同角色：<br />
+- <strong>高竞争</strong> → 卡位<br />
+- <strong>中竞争</strong> → 承接<br />
+- <strong>中高竞争</strong> → 放大<br />
+- <strong>低竞争</strong> → 测试</p>
+<p>如果没有这四个认知，你看到的竞争度，只是一个标签。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="8">8. 快速判断竞争度<a class="headerlink" href="#8" title="Permanent link">&para;</a></h3>
+<p>很多人会问：那我怎么快速判断一个词到底是高、中、中高、低竞争？</p>
+<blockquote>
+<p>💡 <strong>提示：</strong> 不同类目差异很大，可以参加线下阿波罗特训营，系统学习"竞争度拆解+分层判断"。</p>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_4">实战案例<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="9-led">9. LED智能灯泡案例分析<a class="headerlink" href="#9-led" title="Permanent link">&para;</a></h3>
+<p>回到这个LED智能灯泡案例，背景很典型：成长期，目标是从低竞争过渡到中高竞争。结构其实很清晰：</p>
+<table>
+<thead>
+<tr>
+<th>关键词类型</th>
+<th>竞争度</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>智能灯泡</td>
+<td>高竞争</td>
+<td>流量大但价格战明显</td>
+</tr>
+<tr>
+<td>LED灯泡</td>
+<td>中竞争</td>
+<td>需求稳定但品牌多</td>
+</tr>
+<tr>
+<td>调光灯泡</td>
+<td>中高竞争</td>
+<td>有差异但竞争在抬升</td>
+</tr>
+<tr>
+<td>节能灯泡</td>
+<td>低竞争</td>
+<td>成本低但转化偏弱</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="10">10. 问题诊断<a class="headerlink" href="#10" title="Permanent link">&para;</a></h3>
+<p>问题不在词，而在<strong>钱停在低竞争和中竞争层，但真正的放量空间在中高竞争层。</strong></p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="11">11. 预算分配策略<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<p>我们做的第一步，不是改出价，而是把钱拆开：<br />
+- <strong>高竞争词（智能灯泡）</strong> → 稳住核心位置，作为入口锚点<br />
+- <strong>中竞争词（LED灯泡）</strong> → 承接主流流量，负责稳定放量<br />
+- <strong>中高竞争词（调光灯泡）</strong> → 逐步加预算测试，优先承接已经验证过的词<br />
+- <strong>低竞争词（节能灯泡和长尾）</strong> → 持续铺量，负责找新入口</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="12">12. 关键词迁移路径<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<p>关键动作在后面：<strong>7天稳定出单的词，从低竞争搬到中竞争，再从中竞争筛选进入中高竞争层放大</strong>，这是一个连续迁移过程，而不是一步到位。</p>
+<p>在这里我们可以使用 <strong>Hanna 联动类目流量结构</strong> 去做进一步的制定关键词分层策略、匹配模式以及预算分配。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_5">数据验证<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="13">13. 实战效果<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<p>结构一调整，数据变化很快：<br />
+- 整体 <strong>ACoS 从 35% 降到 28%</strong><br />
+- 中竞争词订单占比从 <strong>30% 提升到 45%</strong><br />
+- 中高竞争词开始承接新增量，成为新的增长来源<br />
+- 低竞争层跑出 <strong>3个高转化长尾词</strong> 并完成转正</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="14">14. 成功本质<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<p>这里没有什么技巧，本质只是把 <strong>"低竞争→中竞争→中高竞争→放大"</strong> 这条路径跑通了。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_6">执行节奏<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="15">15. 往上搬的节奏<a class="headerlink" href="#15" title="Permanent link">&para;</a></h3>
+<p>很多人最大的问题，是不会"往上搬"。词在低竞争跑出来了就停在那里，在中竞争能出单也不敢往中高竞争推。</p>
+<p><strong>更合理的节奏：先验证，再承接，再放大。</strong><br />
+- <strong>7天</strong> 看趋势：看有没有稳定出单、转化是否跟得上、成本是否可控<br />
+- <strong>14天</strong> 做动作：能稳定的往上搬，不行的降级，有潜力的继续测试</p>
+<p><strong>你不往上走，规模不会自己长出来。</strong></p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="16">16. 四层结构清晰版<a class="headerlink" href="#16" title="Permanent link">&para;</a></h3>
+<p>很多人知道要分层，但真正执行时还是混乱。你可以记一个更清晰的结构：</p>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>角色</th>
+<th>职责</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高竞争</td>
+<td>锚定层</td>
+<td>控成本拿位置</td>
+<td>不承担放量任务</td>
+</tr>
+<tr>
+<td>中高竞争</td>
+<td>放大层</td>
+<td>规模真正爆发</td>
+<td>必须由验证过的词承接，不能硬冲</td>
+</tr>
+<tr>
+<td>中竞争</td>
+<td>扩展层</td>
+<td>承上启下，稳定出单</td>
+<td>是核心层</td>
+</tr>
+<tr>
+<td>低竞争</td>
+<td>探索层</td>
+<td>持续供给新词</td>
+<td>是整个系统的源头</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="17">17. 简单口诀<a class="headerlink" href="#17" title="Permanent link">&para;</a></h3>
+<p>简单说：<br />
+- <strong>低竞争</strong> → 找机会<br />
+- <strong>中竞争</strong> → 做承接<br />
+- <strong>中高竞争</strong> → 做放大<br />
+- <strong>高竞争</strong> → 做卡位</p>
+<p><strong>顺序一旦错了，钱一定会浪费。</strong></p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_7">风险警示<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="18">18. 不宜往上走的情况<a class="headerlink" href="#18" title="Permanent link">&para;</a></h3>
+<p>如果转化率明显低于类目基准，这时候往上走，本质是在放大亏损；如果预算撑不起分层，钱不够，结构跑不起来；如果CPC持续上涨且转化下滑，说明竞争在加压，这时候硬冲，很容易被抬走。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_8">核心结论<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="19">19. 结构问题而非选词问题<a class="headerlink" href="#19" title="Permanent link">&para;</a></h3>
+<p>关键词竞争度，在阿波罗系统里解决的，从来不是选词问题，而是<strong>结构问题</strong>——钱该怎么从低竞争，一步一步推到中高竞争。</p>
+<blockquote>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h3 id="20">20. 诊断自己<a class="headerlink" href="#20" title="Permanent link">&para;</a></h3>
+<p>如果你现在卡在"有单但起不来"，大概率不是能力问题，而是你还没完成这条路径。</p>
+<blockquote>
+<p>💡 <strong>建议：</strong> 想系统掌握"关键词竞争度在实战中的应用"，包括如何从中竞争推到中高竞争，可以参加线下阿波罗特训营。</p>
+<p>来源：<a href="https://mp.weixin.qq.com/s/7YUTGITV2Z5Ihn655tOzFA">广告有单却放不大？用关键词竞争度把流量做起来</a></p>
+</blockquote>
+<hr />
+<h2 id="_9">标签<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<h1 id="_10">选品 #关键词 #竞争度 #广告投放 #策略<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h1>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-19-选品方法论 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

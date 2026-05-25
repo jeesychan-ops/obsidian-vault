@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-21-不干胶大卷独立站-Shopify配置方案 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/website/">跨境独立站</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-21-不干胶大卷独立站-Shopify配置方案</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#不干胶大卷独立站-shopify-网站结构配置方案">不干胶大卷独立站 — Shopify 网站结构配置方案</a></div>
+      
+      <div class="toc-item l2"><a href="#一整体架构规划">一、整体架构规划</a></div>
+      
+      <div class="toc-item l3"><a href="#11-网站地图site-map">1.1 网站地图（Site Map）</a></div>
+      
+      <div class="toc-item l2"><a href="#二必装插件清单">二、必装插件清单</a></div>
+      
+      <div class="toc-item l3"><a href="#21-b2b核心功能插件">2.1 B2B核心功能插件</a></div>
+      
+      <div class="toc-item l3"><a href="#22-信任与转化插件">2.2 信任与转化插件</a></div>
+      
+      <div class="toc-item l3"><a href="#23-seo与技术插件">2.3 SEO与技术插件</a></div>
+      
+      <div class="toc-item l3"><a href="#24-邮件与营销插件">2.4 邮件与营销插件</a></div>
+      
+      <div class="toc-item l2"><a href="#三主题选择建议">三、主题选择建议</a></div>
+      
+      <div class="toc-item l3"><a href="#推荐主题按优先级排序">推荐主题（按优先级排序）</a></div>
+      
+      <div class="toc-item l2"><a href="#四页面详细配置">四、页面详细配置</a></div>
+      
+      <div class="toc-item l3"><a href="#41-首页homepage模块顺序">4.1 首页（Homepage）模块顺序</a></div>
+      
+      <div class="toc-item l3"><a href="#42-产品分类页模板">4.2 产品分类页模板</a></div>
+      
+      <div class="toc-item l3"><a href="#43-产品详情页模板">4.3 产品详情页模板</a></div>
+      
+      <div class="toc-item l3"><a href="#44-关于我们工厂页">4.4 关于我们/工厂页</a></div>
+      
+      <div class="toc-item l3"><a href="#45-资源中心博客">4.5 资源中心/博客</a></div>
+      
+      <div class="toc-item l3"><a href="#46-询价页request-a-quote">4.6 询价页（Request a Quote）</a></div>
+      
+      <div class="toc-item l2"><a href="#五技术seo配置清单">五、技术SEO配置清单</a></div>
+      
+      <div class="toc-item l3"><a href="#51-每个页面必须配置的seo字段">5.1 每个页面必须配置的SEO字段</a></div>
+      
+      <div class="toc-item l3"><a href="#52-产品页schema示例">5.2 产品页Schema示例</a></div>
+      
+      <div class="toc-item l3"><a href="#53-faq页面schema">5.3 FAQ页面Schema</a></div>
+      
+      <div class="toc-item l2"><a href="#六b2b询价工作流配置">六、B2B询价工作流配置</a></div>
+      
+      <div class="toc-item l3"><a href="#61-客户分层策略">6.1 客户分层策略</a></div>
+      
+      <div class="toc-item l3"><a href="#62-邮件自动化序列">6.2 邮件自动化序列</a></div>
+      
+      <div class="toc-item l2"><a href="#七上线前检查清单launch-checklist">七、上线前检查清单（Launch Checklist）</a></div>
+      
+      <div class="toc-item l3"><a href="#技术检查">技术检查</a></div>
+      
+      <div class="toc-item l3"><a href="#内容检查">内容检查</a></div>
+      
+      <div class="toc-item l3"><a href="#b2b功能检查">B2B功能检查</a></div>
+      
+      <div class="toc-item l2"><a href="#八shopify月度维护任务">八、Shopify月度维护任务</a></div>
+      
+      <div class="toc-item l2"><a href="#九成本预估">九、成本预估</a></div>
+      
+      <div class="toc-item l3"><a href="#初始搭建成本">初始搭建成本</a></div>
+      
+      <div class="toc-item l3"><a href="#月度运营成本">月度运营成本</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-21-不干胶大卷独立站-Shopify配置方案</h1>
+      <div class="article-meta"> · 跨境独立站</div>
+      <div class="content">
+        <h1 id="shopify">不干胶大卷独立站 — Shopify 网站结构配置方案<a class="headerlink" href="#shopify" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>建站平台：</strong> Shopify（B2B模式）<br />
+<strong>方案版本：</strong> v1.0<br />
+<strong>配置时间：</strong> 2026-05-21</p>
+</blockquote>
+<hr />
+<h2 id="_1">一、整体架构规划<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<h3 id="11-site-map">1.1 网站地图（Site Map）<a class="headerlink" href="#11-site-map" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">www</span><span class="p">.</span><span class="o">[</span><span class="n">yourbrand</span><span class="o">]</span><span class="p">.</span><span class="n">com</span>
+<span class="err">│</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">首页</span><span class="err">（</span><span class="n">Home</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">关于我们</span><span class="err">（</span><span class="n">About</span><span class="w"> </span><span class="n">Us</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">工厂展示</span><span class="err">（</span><span class="n">Factory</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">产品</span><span class="err">（</span><span class="n">Products</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">薄膜材料</span><span class="err">（</span><span class="n">Film</span><span class="w"> </span><span class="n">Labels</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">BOPP大卷</span><span class="w"> </span><span class="err">★</span><span class="w"> </span><span class="n">核心</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">PET大卷</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">PP大卷</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">PE</span><span class="o">/</span><span class="n">PVC</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">哑光</span><span class="o">/</span><span class="n">光面</span><span class="o">/</span><span class="n">透明</span><span class="w"> </span><span class="n">规格</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">纸类材料</span><span class="err">（</span><span class="n">Paper</span><span class="w"> </span><span class="n">Labels</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">热敏纸大卷</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">铜版纸大卷</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">书写纸</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">特种材料</span><span class="err">（</span><span class="n">Specialty</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">耐高温</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">耐冷冻</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">防伪</span>
+<span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">可移除</span>
+<span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">配件</span><span class="err">（</span><span class="n">Accessories</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">热转印碳带</span>
+<span class="err">│</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">应用场景</span><span class="err">（</span><span class="n">Applications</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">食品饮料</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">医药包装</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">物流货运</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">化妆品</span>
+<span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">工业化工</span>
+<span class="err">│</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">资源中心</span><span class="err">（</span><span class="n">Resources</span><span class="err">）★</span><span class="w"> </span><span class="n">SEO核心</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">选型指南</span><span class="err">（</span><span class="n">Selection</span><span class="w"> </span><span class="n">Guide</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">材料对比</span><span class="err">（</span><span class="n">Material</span><span class="w"> </span><span class="n">Comparison</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">├──</span><span class="w"> </span><span class="n">技术文档</span><span class="err">（</span><span class="n">Technical</span><span class="w"> </span><span class="n">Downloads</span><span class="err">）</span>
+<span class="err">│</span><span class="w"> </span><span class="err">└──</span><span class="w"> </span><span class="n">博客</span><span class="err">（</span><span class="n">Blog</span><span class="err">）</span>
+<span class="err">│</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">询价</span><span class="err">（</span><span class="n">Request</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Quote</span><span class="err">）★</span><span class="w"> </span><span class="n">核心转化</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">联系我们</span><span class="err">（</span><span class="n">Contact</span><span class="w"> </span><span class="n">Us</span><span class="err">）</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">FAQ</span>
+</code></pre></div>
+
+<hr />
+<h2 id="_2">二、必装插件清单<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="21-b2b">2.1 B2B核心功能插件<a class="headerlink" href="#21-b2b" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>用途</th>
+<th>费用</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shopify B2B (原生)</strong></td>
+<td>客户分级/批发价/Net Payment</td>
+<td>免费（部分功能付费）</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>Wholesale Pricing / B2B Solution</strong></td>
+<td>隐藏价格/询价表单</td>
+<td>$29-79/月</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>Request a Quote</strong></td>
+<td>定制化询价表单</td>
+<td>$9-29/月</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>Product Options</strong></td>
+<td>产品多规格选项（宽幅/胶型/面材）</td>
+<td>$9-19/月</td>
+<td>⭐强烈推荐</td>
+</tr>
+<tr>
+<td><strong>Custom Fields</strong></td>
+<td>添加产品技术参数字段</td>
+<td>$9.99/月</td>
+<td>推荐</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2 信任与转化插件<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>用途</th>
+<th>费用</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Judge.me Reviews</strong></td>
+<td>收集和展示客户评价</td>
+<td>免费/付费$29/月</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>Hurrify - Urgency Timer</strong></td>
+<td>库存紧张倒计时，刺激询价</td>
+<td>$9.99/月</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td><strong>Trust Badges</strong></td>
+<td>展示安全认证/支付信任图标</td>
+<td>免费</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>FAQ &amp; Product Table</strong></td>
+<td>规格表展示/FAQ折叠</td>
+<td>免费</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td><strong>WhatsApp Chat Button</strong></td>
+<td>方便海外客户即时沟通</td>
+<td>免费</td>
+<td>⭐强烈推荐</td>
+</tr>
+</tbody>
+</table>
+<h3 id="23-seo">2.3 SEO与技术插件<a class="headerlink" href="#23-seo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>用途</th>
+<th>费用</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Smart SEO</strong></td>
+<td>自动生成Meta Title/Description</td>
+<td>免费</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>Schema markup / JSON-LD</strong></td>
+<td>结构化数据（产品/FAQ/Organization）</td>
+<td>免费/付费</td>
+<td>⭐必须</td>
+</tr>
+<tr>
+<td><strong>Image Optimizer</strong></td>
+<td>图片压缩+ALT标签优化</td>
+<td>免费</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td><strong>Blog Composer</strong></td>
+<td>博客写作助手</td>
+<td>免费</td>
+<td>推荐</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24">2.4 邮件与营销插件<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>插件名称</th>
+<th>用途</th>
+<th>费用</th>
+<th>优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Klaviyo / Omnisend</strong></td>
+<td>B2B邮件营销（弃购挽回/跟进）</td>
+<td>免费/付费</td>
+<td>推荐</td>
+</tr>
+<tr>
+<td><strong>Shopify Email</strong></td>
+<td>基础邮件（Shopify原生）</td>
+<td>免费前1000封</td>
+<td>推荐</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">三、主题选择建议<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">推荐主题（按优先级排序）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>主题名称</th>
+<th>费用</th>
+<th>适用场景</th>
+<th>B2B适配度</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Impulse</strong></td>
+<td>$180</td>
+<td>现代商务/大图展示</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Symmetry</strong></td>
+<td>$180</td>
+<td>工业/制造业风格</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Prestige</strong></td>
+<td>$180</td>
+<td>高端B2B展示</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td><strong>Turbo</strong> (第三方)</td>
+<td>$149-399</td>
+<td>快速度/大产品库</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>强烈建议选择 Symmetry</strong>，因为：<br />
+- 工业/B2B风格契合不干胶材料行业<br />
+- 支持大表格/参数对比展示<br />
+- 支持多列产品网格<br />
+- 移动端体验好</p>
+</blockquote>
+<hr />
+<h2 id="_5">四、页面详细配置<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="41-homepage">4.1 首页（Homepage）模块顺序<a class="headerlink" href="#41-homepage" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>[1] Hero Section（首屏）
+    - 主标题：高质量不干胶大卷材料 — 源头工厂直供
+    - 副标题：专注BOPP/PET/PP薄膜材料批发，支持定制规格
+    - CTA按钮：Request a Quote（主要）| Browse Products（次要）
+    - 背景：工厂实景视频或高质量工厂图片
+
+[2] Trust Bar（信任条）
+    - ISO 9001认证 | FSC认证 | 32年老厂 | 48小时报价响应
+    - 图标+文字形式
+
+[3] Core Product Categories（核心产品分类）3列网格
+    - 薄膜材料（BOPP/PET/PP）
+    - 纸类材料（热敏/铜版）
+    - 特种材料（耐高温/冷冻）
+
+[4] Why Choose Us（为什么选我们）4列
+    - 工厂直供，无中间商
+    - ISO认证，品质保证
+    - 最低起订量灵活
+    - 专业技术支持
+
+[5] Product Highlights（产品亮点）滑动展示
+    - 6-8个主打产品图+规格+询价按钮
+
+[6] Application Industries（应用行业）6列图标
+    - 食品饮料 | 医药 | 物流 | 化妆品 | 汽车 | 化工
+
+[7] Technical Resources CTA（资源中心引流）
+    - &quot;下载选型指南&quot; | &quot;查看材料对比表&quot;
+
+[8] Factory/About Preview（工厂预览）
+    - 3-4张工厂实景图+参观预约链接
+
+[9] Testimonials（客户评价）
+    - 2-3条客户评价（评价系统插件驱动）
+
+[10] Footer（页脚）
+    - 产品分类链接 | 应用场景 | 资源中心 | 联系方式 | 社交媒体
+</code></pre></div>
+
+<h3 id="42">4.2 产品分类页模板<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p><strong>以"BOPP大卷"为例：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="nx">页面标题</span><span class="err">：</span><span class="nx">White</span><span class="w"> </span><span class="nx">BOPP</span><span class="w"> </span><span class="k">Self</span><span class="w"> </span><span class="nx">Adhesive</span><span class="w"> </span><span class="nx">Label</span><span class="w"> </span><span class="nx">Roll</span><span class="w"> </span><span class="nx">Wholesale</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">[</span><span class="nx">品牌名</span><span class="p">]</span>
+<span class="nx">页面描述</span><span class="err">（</span><span class="nx">SEO</span><span class="err">）：</span><span class="nx">高质量白色BOPP自粘标签大卷</span><span class="err">，</span><span class="nx">支持定制宽幅</span><span class="err">，</span><span class="nx">低MOQ</span><span class="err">，</span><span class="nx">厂家直供</span><span class="err">。</span>
+
+<span class="nx">模块结构</span><span class="err">：</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="nx">Collection</span><span class="w"> </span><span class="nx">Banner</span><span class="err">（</span><span class="nx">分类横幅</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">分类名称</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">简要描述</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">面包屑导航</span>
+
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="nx">Filter</span><span class="w"> </span><span class="nx">Sidebar</span><span class="err">（</span><span class="nx">左侧过滤栏</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">面材类型</span><span class="err">：</span><span class="nx">白色</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">透明</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">哑光</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">光面</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">胶型</span><span class="err">：</span><span class="nx">永久胶</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">可移除</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">耐冷冻</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">宽幅</span><span class="err">：</span><span class="mi">500</span><span class="nx">mm</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">750</span><span class="nx">mm</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1000</span><span class="nx">mm</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">定制</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">纸管内径</span><span class="err">：</span><span class="mi">1</span><span class="nx">寸</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="nx">寸</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">应用行业</span><span class="err">：</span><span class="nx">食品</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">医药</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">物流</span>
+
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="nx">Product</span><span class="w"> </span><span class="nx">Grid</span><span class="err">（</span><span class="nx">产品网格</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">每行4个产品</span><span class="err">（</span><span class="nx">桌面端</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">产品卡片</span><span class="err">：</span><span class="nx">图片</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">名称</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">规格摘要</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;Request Quote&quot;</span><span class="nx">按钮</span>
+
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="nx">Technical</span><span class="w"> </span><span class="nx">Specs</span><span class="w"> </span><span class="nx">Table</span><span class="err">（</span><span class="nx">技术参数表</span><span class="err">）★</span><span class="w"> </span><span class="nx">B2B关键</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">材质</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">厚度</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">宽幅范围</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">长度</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">胶型</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">耐温范围</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">认证</span>
+
+<span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="nx">Application</span><span class="w"> </span><span class="nx">Guide</span><span class="err">（</span><span class="nx">应用指南</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">本分类适用行业和场景说明</span>
+
+<span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="nx">Related</span><span class="w"> </span><span class="nx">Categories</span><span class="err">（</span><span class="nx">相关分类</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="nx">PET大卷</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">PP大卷</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">热敏纸</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">热转印碳带</span>
+</code></pre></div>
+
+<h3 id="43">4.3 产品详情页模板<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<p><strong>页面结构：</strong></p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">Title</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SKU</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Short</span><span class="w"> </span><span class="n">Description</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">标题格式：</span><span class="n">BOPP</span><span class="w"> </span><span class="n">Self</span><span class="w"> </span><span class="n">Adhesive</span><span class="w"> </span><span class="n">Label</span><span class="w"> </span><span class="n">Roll</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">White</span><span class="w"> </span><span class="n">Gloss</span><span class="w"> </span><span class="mi">500</span><span class="n">mm</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="mi">1000</span><span class="n">m</span>
+
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">Gallery</span><span class="err">（产品图库）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">主图：产品正面大图</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">辅图：卷芯特写</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">整卷堆放</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">工厂出货照</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">厚度对比</span>
+
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="n">Key</span><span class="w"> </span><span class="n">Specifications</span><span class="w"> </span><span class="n">Panel</span><span class="err">（关键参数面板）★</span><span class="w"> </span><span class="n">B2B核心</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">表格形式展示：</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">参数</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">数值</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">面材</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">BOPP薄膜</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">颜色</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">白色</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">表面</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">光面</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">厚度</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="err">μ</span><span class="n">m</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">宽幅</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">500</span><span class="n">mm</span><span class="err">（可定制）</span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">长度</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">1000</span><span class="n">m</span><span class="o">/</span><span class="err">卷</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">纸管内径</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="err">英寸</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">胶型</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">永久丙烯酸胶</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">耐温</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="o">-</span><span class="mi">20</span><span class="err">°</span><span class="n">C</span><span class="w"> </span><span class="err">至</span><span class="w"> </span><span class="o">+</span><span class="mi">80</span><span class="err">°</span><span class="n">C</span><span class="w"> </span><span class="o">|</span>
+<span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="err">认证</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ISO</span><span class="w"> </span><span class="mi">9001</span><span class="w"> </span><span class="o">|</span>
+
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="n">Request</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Quote</span><span class="w"> </span><span class="n">Form</span><span class="err">（询价表单）★</span><span class="w"> </span><span class="err">核心转化</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">字段：姓名</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">公司名</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">邮箱</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">电话</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">目标数量</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">规格要求</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="err">留言</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">按钮：</span><span class="n">Submit</span><span class="w"> </span><span class="n">Quote</span><span class="w"> </span><span class="n">Request</span>
+
+<span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="n">Product</span><span class="w"> </span><span class="n">Description</span><span class="err">（详细描述）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">产品优势（</span><span class="mi">3</span><span class="o">-</span><span class="mi">5</span><span class="err">点）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">典型应用案例</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">使用说明</span><span class="o">/</span><span class="err">存储建议</span>
+
+<span class="p">[</span><span class="mi">6</span><span class="p">]</span><span class="w"> </span><span class="n">Download</span><span class="w"> </span><span class="n">Datasheet</span><span class="err">（技术资料下载）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">PDF格式</span><span class="err">：产品规格书（</span><span class="n">TDS</span><span class="err">）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">PDF格式</span><span class="err">：</span><span class="n">Material</span><span class="w"> </span><span class="n">Safety</span><span class="w"> </span><span class="n">Data</span><span class="w"> </span><span class="n">Sheet</span><span class="err">（</span><span class="n">MSDS</span><span class="err">）</span>
+
+<span class="p">[</span><span class="mi">7</span><span class="p">]</span><span class="w"> </span><span class="n">FAQ</span><span class="w"> </span><span class="n">Section</span><span class="err">（常见问题）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">MOQ是多少</span><span class="err">？</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="err">支持小批量试单</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">可以定制宽幅吗？</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="err">支持</span><span class="mi">500</span><span class="o">-</span><span class="mi">1500</span><span class="n">mm定制</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="err">交期多长？</span><span class="w"> </span><span class="err">→</span><span class="w"> </span><span class="mi">7</span><span class="o">-</span><span class="mi">15</span><span class="err">个工作日</span>
+
+<span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="n">Related</span><span class="w"> </span><span class="n">Products</span><span class="err">（相关产品）</span>
+<span class="w">    </span><span class="o">-</span><span class="w"> </span><span class="n">PET大卷</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">PP大卷</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="err">热转印碳带</span>
+</code></pre></div>
+
+<h3 id="44">4.4 关于我们/工厂页<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>[1] Company Story（公司故事）
+    - 创立时间、背景、使命
+
+[2] Factory Overview（工厂概览）
+    - 工厂面积、员工数量、年产能
+    - 关键设备清单（体现专业性）
+
+[3] Certifications（资质认证）
+    - ISO 9001 | FSC | 其他认证
+    - 认证证书图片展示
+
+[4] Production Process（生产工艺）
+    - 配图流程图：原料 → 涂布 → 分切 → 复卷 → 质检 → 包装
+
+[5] Quality Control（质量控制）
+    - 质检流程、检测设备、缺陷率
+
+[6] Global Export（全球出口）
+    - 出口国家和地区（用地图展示）
+    - 物流合作方（DHL/FedEx/海运）
+
+[7] Team Photo / Factory Video（团队/工厂视频）
+    - 工厂参观视频（YouTube/Vimeo嵌入）
+</code></pre></div>
+
+<h3 id="45">4.5 资源中心/博客<a class="headerlink" href="#45" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>分类名称</th>
+<th>内容方向</th>
+<th>发布频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>选型指南（Selection Guide）</strong></td>
+<td>How to Choose / Buying Guide</td>
+<td>每2周1篇</td>
+</tr>
+<tr>
+<td><strong>材料对比（Material Comparison）</strong></td>
+<td>PET vs PP / Paper vs Film</td>
+<td>每月1篇</td>
+</tr>
+<tr>
+<td><strong>应用指南（Industry Guide）</strong></td>
+<td>食品/医药/物流等行业垂直内容</td>
+<td>每月2篇</td>
+</tr>
+<tr>
+<td><strong>技术百科（Technical Wiki）</strong></td>
+<td>定义型/原理型内容</td>
+<td>每月1篇</td>
+</tr>
+<tr>
+<td><strong>采购指南（Sourcing Guide）</strong></td>
+<td>从中国采购/B2B合作</td>
+<td>每季度1篇</td>
+</tr>
+</tbody>
+</table>
+<h3 id="46-request-a-quote">4.6 询价页（Request a Quote）<a class="headerlink" href="#46-request-a-quote" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>询价表单字段：
+[必填]
+- Full Name（姓名）
+- Company Name（公司名）
+- Email Address（邮箱）
+- Country / Region（国家）
+- Inquiry Type（询价类型）：产品询价 / 样品申请 / 定制需求 / 技术支持
+
+[选填]
+- Phone Number（电话）
+- Company Website（公司网站）
+- Expected Monthly Quantity（预期月用量）
+- Target Price（目标价格）
+- Specifications（具体规格要求）
+- Message（留言）
+
+表单提交后：
+- 自动发送确认邮件给客户
+- 自动通知管理员（邮件通知）
+- 进入CRM/Excel管理流程
+</code></pre></div>
+
+<hr />
+<h2 id="seo">五、技术SEO配置清单<a class="headerlink" href="#seo" title="Permanent link">&para;</a></h2>
+<h3 id="51-seo">5.1 每个页面必须配置的SEO字段<a class="headerlink" href="#51-seo" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+<th>字符数建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Meta Title</strong></td>
+<td>页面标题，含核心关键词</td>
+<td>50-60字符</td>
+</tr>
+<tr>
+<td><strong>Meta Description</strong></td>
+<td>页面描述，含CTA</td>
+<td>150-160字符</td>
+</tr>
+<tr>
+<td><strong>URL Handle</strong></td>
+<td>简短、含关键词</td>
+<td>如：/bopp-self-adhesive-roll</td>
+</tr>
+<tr>
+<td><strong>Image ALT Text</strong></td>
+<td>每张图片描述性ALT</td>
+<td>含关键词，1-2句话</td>
+</tr>
+<tr>
+<td><strong>H1 Heading</strong></td>
+<td>页面主标题</td>
+<td>含关键词，1个H1/页</td>
+</tr>
+<tr>
+<td><strong>Schema Markup</strong></td>
+<td>结构化数据（产品/FAQ）</td>
+<td>JSON-LD代码</td>
+</tr>
+</tbody>
+</table>
+<h3 id="52-schema">5.2 产品页Schema示例<a class="headerlink" href="#52-schema" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.org&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Product&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;White BOPP Self Adhesive Label Roll&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;description&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;High quality white gloss BOPP self adhesive label material jumbo roll.&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sku&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;BOPP-WG-500MM&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;brand&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Brand&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[你的品牌名]&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;manufacturer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Organization&quot;</span><span class="p">,</span><span class="w"> </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;[你的公司名]&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;countryOfOrigin&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;China&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="53-faqschema">5.3 FAQ页面Schema<a class="headerlink" href="#53-faqschema" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;@context&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://schema.org&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;FAQPage&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;mainEntity&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Question&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;What is the minimum order quantity for BOPP label rolls?&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;acceptedAnswer&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;@type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Answer&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="nt">&quot;text&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Our standard MOQ for BOPP label rolls is 50 rolls per specification.&quot;</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+<h2 id="b2b">六、B2B询价工作流配置<a class="headerlink" href="#b2b" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 客户分层策略<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>客户类型</th>
+<th>特征</th>
+<th>响应策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>新访客（无注册）</strong></td>
+<td>刚来网站，观望型</td>
+<td>48小时内主动邮件跟进</td>
+</tr>
+<tr>
+<td><strong>表单询价客户</strong></td>
+<td>有明确需求</td>
+<td>24小时内报价，附产品规格书</td>
+</tr>
+<tr>
+<td><strong>样品申请客户</strong></td>
+<td>验证品质阶段</td>
+<td>优先处理，免费样品（小额）</td>
+</tr>
+<tr>
+<td><strong>复购客户</strong></td>
+<td>已成交，有信任</td>
+<td>加入VIP跟进名单</td>
+</tr>
+<tr>
+<td><strong>大客户（MOQ&gt;500卷/月）</strong></td>
+<td>高价值</td>
+<td>分配专属客户经理</td>
+</tr>
+</tbody>
+</table>
+<h3 id="62">6.2 邮件自动化序列<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>邮件</th>
+<th>发送时间</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>询价确认</td>
+<td>立即</td>
+<td>"感谢您的询价，我们已收到，将在24小时内给您报价。"</td>
+</tr>
+<tr>
+<td>正式报价</td>
+<td>24小时内</td>
+<td>"您的询价已处理，这是我们的报价单（附件PDF），包含FOB价格和交期。"</td>
+</tr>
+<tr>
+<td>样品推荐</td>
+<td>72小时后</td>
+<td>"如果您想先验证品质，我们推荐您申请样品包。"</td>
+</tr>
+<tr>
+<td>跟进</td>
+<td>7天后</td>
+<td>"请问您对报价有任何问题吗？我们随时可以讨论。"</td>
+</tr>
+<tr>
+<td>价值内容</td>
+<td>14天后</td>
+<td>"附送一份【如何选择合适的标签材料】选型指南，供您参考。"</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="launch-checklist">七、上线前检查清单（Launch Checklist）<a class="headerlink" href="#launch-checklist" title="Permanent link">&para;</a></h2>
+<h3 id="_6">技术检查<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] Shopify后台：域名已绑定，HTTPS已生效</li>
+<li>[ ] 所有页面：Meta Title + Description 已填写</li>
+<li>[ ] 所有产品图：ALT文本已填写（含关键词）</li>
+<li>[ ] 所有页面：URL Handle 已优化（简短+关键词）</li>
+<li>[ ] Google Search Console：网站已提交，站点地图已上传</li>
+<li>[ ] Google Analytics 4：已安装，事件跟踪已配置</li>
+<li>[ ] 移动端测试：所有页面手机端显示正常</li>
+<li>[ ] 页面速度：Google PageSpeed Insights &gt; 80分</li>
+</ul>
+<h3 id="_7">内容检查<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 首页：所有模块内容已填充（无"Lorem ipsum"占位符）</li>
+<li>[ ] 产品分类页：至少10个分类，每个分类至少3个产品</li>
+<li>[ ] 产品详情页：每个产品有完整参数表+技术文档可下载</li>
+<li>[ ] About页面：工厂介绍+认证证书+联系方式完整</li>
+<li>[ ] Blog：已发布至少5篇高质量博客文章</li>
+<li>[ ] FAQ页面：至少覆盖10个常见问题</li>
+</ul>
+<h3 id="b2b_1">B2B功能检查<a class="headerlink" href="#b2b_1" title="Permanent link">&para;</a></h3>
+<ul>
+<li>[ ] 询价表单：已测试提交，数据正常接收</li>
+<li>[ ] WhatsApp/即时通讯按钮：已安装，可正常打开</li>
+<li>[ ] 信任图标：SSL证书 + 支付方式 + 认证标志已展示</li>
+<li>[ ] 邮件通知：新询价自动通知管理员已配置</li>
+</ul>
+<hr />
+<h2 id="shopify_1">八、Shopify月度维护任务<a class="headerlink" href="#shopify_1" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>任务</th>
+<th>工具</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>每周</strong></td>
+<td>检查询价表单数据，48小时内响应</td>
+<td>Shopify后台</td>
+</tr>
+<tr>
+<td><strong>每周</strong></td>
+<td>发布1篇博客文章</td>
+<td>Blog模块</td>
+</tr>
+<tr>
+<td><strong>每月</strong></td>
+<td>查看GA4数据：流量来源/跳出率/热门页面</td>
+<td>Google Analytics</td>
+</tr>
+<tr>
+<td><strong>每月</strong></td>
+<td>检查关键词排名变化（Top 20关键词）</td>
+<td>Ahrefs</td>
+</tr>
+<tr>
+<td><strong>每月</strong></td>
+<td>更新产品库存/价格信息</td>
+<td>Shopify后台</td>
+</tr>
+<tr>
+<td><strong>每季度</strong></td>
+<td>内容审计：检查死链/过期内容/图片优化</td>
+<td>Screaming Frog</td>
+</tr>
+<tr>
+<td><strong>每半年</strong></td>
+<td>竞品分析回顾：Top 10竞品页面结构对比</td>
+<td>SimilarWeb/Ahrefs</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_8">九、成本预估<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="_9">初始搭建成本<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>费用（USD）</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shopify月租（Basic Shopify）</td>
+<td>$39/月</td>
+<td>基础B2B够用</td>
+</tr>
+<tr>
+<td>域名</td>
+<td>$10-15/年</td>
+<td>.com域名</td>
+</tr>
+<tr>
+<td>主题购买（Symmetry）</td>
+<td>$180一次性</td>
+<td>一次性买断</td>
+</tr>
+<tr>
+<td>插件（核心B2B）</td>
+<td>$50-150/月</td>
+<td>询价表单+评价等</td>
+</tr>
+<tr>
+<td><strong>合计初始</strong></td>
+<td><strong>约$700-2400</strong></td>
+<td>含设计和首年运营</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">月度运营成本<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>费用（USD）</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shopify月租</td>
+<td>$39/月</td>
+<td></td>
+</tr>
+<tr>
+<td>插件订阅</td>
+<td>$50-100/月</td>
+<td>按需选择</td>
+</tr>
+<tr>
+<td>Ahrefs（SEO工具）</td>
+<td>$99/月</td>
+<td>核心工具</td>
+</tr>
+<tr>
+<td><strong>合计月度</strong></td>
+<td><strong>约$190-240/月</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>文档版本：</strong> v1.0<br />
+<strong>下次更新：</strong> 上线后3个月根据实际数据调整</p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/website/">← 返回 跨境独立站</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-21-不干胶大卷独立站-Shopify配置方案 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

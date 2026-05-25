@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-21-期权交易实战手册v2.0 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-21-期权交易实战手册v2.0</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#期权交易实战手册-v20">期权交易实战手册 v2.0</a></div>
+      
+      <div class="toc-item l2"><a href="#核心策略5dte-买-call">核心策略：5DTE 买 Call</a></div>
+      
+      <div class="toc-item l3"><a href="#什么是5dte买call">什么是5DTE买Call</a></div>
+      
+      <div class="toc-item l3"><a href="#为什么选spy">为什么选SPY</a></div>
+      
+      <div class="toc-item l2"><a href="#入场12条条件">入场12条条件</a></div>
+      
+      <div class="toc-item l3"><a href="#必须满足缺一不可">必须满足（缺一不可）</a></div>
+      
+      <div class="toc-item l3"><a href="#参考条件满足越多越好">参考条件（满足越多越好）</a></div>
+      
+      <div class="toc-item l2"><a href="#行权价选择">行权价选择</a></div>
+      
+      <div class="toc-item l2"><a href="#止损止盈规则绝对金额法">止损止盈规则（绝对金额法）</a></div>
+      
+      <div class="toc-item l3"><a href="#止损止盈对照表">止损止盈对照表</a></div>
+      
+      <div class="toc-item l3"><a href="#分段止盈操作">分段止盈操作</a></div>
+      
+      <div class="toc-item l3"><a href="#第3天强制规则">第3天强制规则</a></div>
+      
+      <div class="toc-item l2"><a href="#手续费影响分析">手续费影响分析</a></div>
+      
+      <div class="toc-item l2"><a href="#资金管理规则">资金管理规则</a></div>
+      
+      <div class="toc-item l2"><a href="#连亏强制休息机制">连亏强制休息机制</a></div>
+      
+      <div class="toc-item l2"><a href="#12条禁忌">12条禁忌</a></div>
+      
+      <div class="toc-item l2"><a href="#操作偏差与三级预警">操作偏差与三级预警</a></div>
+      
+      <div class="toc-item l3"><a href="#六种最常见的操作偏差">六种最常见的操作偏差</a></div>
+      
+      <div class="toc-item l3"><a href="#三级预警系统">三级预警系统</a></div>
+      
+      <div class="toc-item l3"><a href="#容错机制">容错机制</a></div>
+      
+      <div class="toc-item l2"><a href="#三层复盘体系">三层复盘体系</a></div>
+      
+      <div class="toc-item l3"><a href="#第一层每笔交易复盘5分钟">第一层：每笔交易复盘（5分钟）</a></div>
+      
+      <div class="toc-item l3"><a href="#第二层每周复盘30分钟周末做">第二层：每周复盘（30分钟，周末做）</a></div>
+      
+      <div class="toc-item l3"><a href="#第三层每月深度复盘1-2小时月末做">第三层：每月深度复盘（1-2小时，月末做）</a></div>
+      
+      <div class="toc-item l2"><a href="#12周行动计划">12周行动计划</a></div>
+      
+      <div class="toc-item l2"><a href="#pdf生成脚本">PDF生成脚本</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-21-期权交易实战手册v2.0</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="v20">期权交易实战手册 v2.0<a class="headerlink" href="#v20" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>来源：qiquan_gen_v2.py（PDF生成脚本）<br />
+归档时间：2026-05-21<br />
+适用对象：美股期权入门，$300小资金账户</p>
+</blockquote>
+<hr />
+<h2 id="5dte-call">核心策略：5DTE 买 Call<a class="headerlink" href="#5dte-call" title="Permanent link">&para;</a></h2>
+<h3 id="5dtecall">什么是5DTE买Call<a class="headerlink" href="#5dtecall" title="Permanent link">&para;</a></h3>
+<ul>
+<li>买入SPY看涨期权，赌标的价格在5天内上涨</li>
+<li>最大亏损=权利金归零，不需要保证金</li>
+<li>标的：SPY（标普500 ETF）</li>
+<li>最佳到期窗口：4-5天</li>
+</ul>
+<h3 id="spy">为什么选SPY<a class="headerlink" href="#spy" title="Permanent link">&para;</a></h3>
+<ol>
+<li>流动性最好，买卖价差极小</li>
+<li>走势相对平稳，不容易出现极端情况</li>
+<li>期权链最完整</li>
+</ol>
+<hr />
+<h2 id="12">入场12条条件<a class="headerlink" href="#12" title="Permanent link">&para;</a></h2>
+<h3 id="_1">必须满足（缺一不可）<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>SPY日线趋势向上：5日均线在20日均线之上</li>
+<li>近3个交易日有2天以上收阳线</li>
+<li>买入价 $1.00 以上（低于$1.00手续费占比过高）</li>
+<li>Bid-Ask Spread不超过 $0.05</li>
+<li>当日无重大经济数据发布（CPI/非农/FOMC等）</li>
+<li>距离到期日3-7天（最佳4-5天）</li>
+</ol>
+<h3 id="_2">参考条件（满足越多越好）<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h3>
+<ol start="7">
+<li>VIX恐慌指数在15-25之间</li>
+<li>合约成交量不低于5000手</li>
+<li>Open Interest不低于10000手</li>
+<li>当日SPY涨幅不超过1.5%</li>
+<li>前一日SPY未出现大于2%的跌幅</li>
+<li>当前小时不在关键阻力位附近</li>
+</ol>
+<hr />
+<h2 id="_3">行权价选择<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>容错率</th>
+<th>典型价格</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ITM 1档（实值）</td>
+<td>最高</td>
+<td>$1.50-$3.00</td>
+<td><strong>新手首选</strong></td>
+</tr>
+<tr>
+<td>ITM 2档</td>
+<td>高</td>
+<td>$2.50-$4.50</td>
+<td>资金充裕时可选</td>
+</tr>
+<tr>
+<td>ATM（平值）</td>
+<td>中等</td>
+<td>$1.00-$2.50</td>
+<td>有经验后使用</td>
+</tr>
+<tr>
+<td>OTM（虚值）</td>
+<td>较低</td>
+<td>$0.50以下</td>
+<td><strong>禁止交易</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">止损止盈规则（绝对金额法）<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>⚠️ 核心修正：用绝对金额控制风险，而非百分比</p>
+</blockquote>
+<h3 id="_5">止损止盈对照表<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>买入价区间</th>
+<th>止损幅度</th>
+<th>止盈策略</th>
+<th>风险回报比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1.00-$1.50</td>
+<td>跌25%</td>
+<td>30%卖半仓，60%全卖</td>
+<td>1:1.6</td>
+</tr>
+<tr>
+<td>$1.50-$2.50</td>
+<td>跌20%</td>
+<td>30%卖半仓，50%全卖</td>
+<td>1:1.7</td>
+</tr>
+<tr>
+<td>$2.50-$4.00</td>
+<td>跌15%</td>
+<td>25%卖半仓，40%全卖</td>
+<td>1:1.9</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">分段止盈操作<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>第一步（涨30%）</strong>：卖出半仓，锁定部分利润</li>
+<li><strong>第二步（剩余半仓）</strong>：设置移动止损，从最高点回撤15%卖出</li>
+<li><strong>或者涨到60%时全部卖出</strong></li>
+</ul>
+<h3 id="3">第3天强制规则<a class="headerlink" href="#3" title="Permanent link">&para;</a></h3>
+<p>买入后第3个交易日（不是自然日），如果期权没有盈利，不管亏损多少直接平仓离场。</p>
+<hr />
+<h2 id="_7">手续费影响分析<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>致富证券每笔期权交易收取 $2.11 佣金，来回总佣金 $4.22</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>期权价格</th>
+<th>来回佣金占比</th>
+<th>20%止损实际亏损</th>
+<th>40%止盈实际盈利</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$0.50</td>
+<td>8.4%</td>
+<td>-28.4%</td>
+<td>+31.6%</td>
+<td>❌不可行</td>
+</tr>
+<tr>
+<td>$1.00</td>
+<td>4.2%</td>
+<td>-24.2%</td>
+<td>+35.8%</td>
+<td>⚠️勉强</td>
+</tr>
+<tr>
+<td>$1.50</td>
+<td>2.8%</td>
+<td>-22.8%</td>
+<td>+37.2%</td>
+<td>✅推荐</td>
+</tr>
+<tr>
+<td>$2.50</td>
+<td>1.7%</td>
+<td>-21.7%</td>
+<td>+38.3%</td>
+<td>✅最佳</td>
+</tr>
+</tbody>
+</table>
+<p><strong>核心结论：权利金低于$1.00的期权，不要碰。</strong></p>
+<hr />
+<h2 id="_8">资金管理规则<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>标准</th>
+<th>具体数字</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>单笔最大投入</td>
+<td>总资金的30%</td>
+<td>$90（含佣金不超$95）</td>
+</tr>
+<tr>
+<td>每周最多交易</td>
+<td>2笔</td>
+<td>不论盈亏</td>
+</tr>
+<tr>
+<td>单笔最大亏损</td>
+<td>总资金的10%</td>
+<td>$30（含佣金）</td>
+</tr>
+<tr>
+<td>账户最低保留</td>
+<td>不低于$100</td>
+<td>永远不全仓操作</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_9">连亏强制休息机制<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>触发条件</th>
+<th>强制休息时间</th>
+<th>休息期间必须做的事</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>连亏2笔</td>
+<td>停止交易1周</td>
+<td>回顾最近4笔交易记录</td>
+</tr>
+<tr>
+<td>连亏3笔</td>
+<td>停止交易2周</td>
+<td>完整复盘所有交易</td>
+</tr>
+<tr>
+<td>连亏4笔</td>
+<td>停止交易1个月</td>
+<td>回到模拟盘重新练习</td>
+</tr>
+<tr>
+<td>单月亏损20%</td>
+<td>停止交易至下月</td>
+<td>全面检视策略适用性</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12_1">12条禁忌<a class="headerlink" href="#12_1" title="Permanent link">&para;</a></h2>
+<ol>
+<li>❌ 绝不借钱/加杠杆做期权</li>
+<li>❌ 绝不在亏损仓位上加仓（向下摊平是自杀）</li>
+<li>❌ 绝不把全部资金投入一笔交易（单笔最多30%）</li>
+<li>❌ 绝不用市价单买入期权（务必用限价单）</li>
+<li>❌ 绝不买 $1.00 以下的期权</li>
+<li>❌ 绝不在重大数据公布前持仓过夜</li>
+<li>❌ 绝不凭感觉入场（12条条件必须逐条核对）</li>
+<li>❌ 绝不止损后又反向开仓（报复性交易）</li>
+<li>❌ 绝不在情绪波动时交易</li>
+<li>❌ 绝不频繁查看持仓盈亏</li>
+<li>❌ 绝不平仓（到期前1天平仓）</li>
+<li>❌ 绝不修改已设好的止损计划</li>
+</ol>
+<hr />
+<h2 id="_10">操作偏差与三级预警<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<h3 id="_11">六种最常见的操作偏差<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>偏差类型</th>
+<th>具体表现</th>
+<th>预警信号</th>
+<th>纠正方法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>入场条件放宽</td>
+<td>少核对1-2条就买入</td>
+<td>买完后心里不踏实</td>
+<td>写清单逐条打勾</td>
+</tr>
+<tr>
+<td>止损犹豫</td>
+<td>到价位但想再等等</td>
+<td>亏损从20%扩到50%+</td>
+<td>手机设提醒到价5秒内下单</td>
+</tr>
+<tr>
+<td>止盈太早</td>
+<td>涨10%就赶紧卖</td>
+<td>卖完后又涨50%+</td>
+<td>用分段止盈30%卖半仓</td>
+</tr>
+<tr>
+<td>止盈太贪</td>
+<td>涨80%还不卖</td>
+<td>利润从+80%变-20%</td>
+<td>严格执行移动止损</td>
+</tr>
+<tr>
+<td>报复性交易</td>
+<td>亏了马上开下一笔</td>
+<td>一天交易3次以上</td>
+<td>亏一笔后关APP等4小时</td>
+</tr>
+<tr>
+<td>恐惧不敢入场</td>
+<td>条件满足但不敢买</td>
+<td>错过5个合格机会</td>
+<td>模拟盘连续5笔合格后转实盘</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">三级预警系统<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<p><strong>一级预警（黄色）— 行为偏差初期</strong><br />
+- 入场检查清单没有逐条打勾就买了<br />
+- 下单前犹豫超过30秒<br />
+- 买完后1小时内看了3次以上盈亏<br />
+- 处理：当天不再开新仓，完整记录当笔交易</p>
+<p><strong>二级预警（橙色）— 心理状态异常</strong><br />
+- 亏损后4小时内急着开新仓<br />
+- 止损到了但内心找理由不执行<br />
+- 连续2天交易时间外还在看盘面<br />
+- 处理：立即停止交易3天，只做复盘和情绪日记</p>
+<p><strong>三级预警（红色）— 严重操作变形</strong><br />
+- 一天内交易3次以上<br />
+- 单笔投入超过$90<br />
+- 买了$1.00以下的期权<br />
+- 止损未执行导致亏损超过计划2倍<br />
+- 处理：立即平掉所有仓位，停止交易2周</p>
+<h3 id="_13">容错机制<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li>每月允许2次轻微偏离（如止损差2%）</li>
+<li>每周允许1次放弃合格交易机会</li>
+<li>允许缩小仓位操作，但绝对不允许放大仓位</li>
+</ul>
+<hr />
+<h2 id="_14">三层复盘体系<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<h3 id="5">第一层：每笔交易复盘（5分钟）<a class="headerlink" href="#5" title="Permanent link">&para;</a></h3>
+<p>平仓当天回答5个问题：<br />
+1. 入场时12条条件全部满足了吗？<br />
+2. 买入价和止损止盈设对了吗？<br />
+3. 实际出场原因是什么？<br />
+4. 执行过程中有偏差吗？<br />
+5. 下次类似情况怎么做更好？</p>
+<h3 id="30">第二层：每周复盘（30分钟，周末做）<a class="headerlink" href="#30" title="Permanent link">&para;</a></h3>
+<p>填写统计表（交易次数/盈利笔数/亏损笔数/实际胜率/总盈亏/净盈亏/最大单笔盈利/最大单笔亏损/偏差次数/预警触发），然后回答：<br />
+1. 本周的操作偏差主要是哪种类型？<br />
+2. 本周有没有违反任何红色铁律？<br />
+3. 下周需要重点改进什么？（只选一个重点）</p>
+<h3 id="1-2">第三层：每月深度复盘（1-2小时，月末做）<a class="headerlink" href="#1-2" title="Permanent link">&para;</a></h3>
+<p>核心指标：月度实际胜率、月度净盈亏、月度最大回撤、偏差频率趋势</p>
+<p>三个深度问题：<br />
+1. 这个月最成功的一笔交易，做对了什么？<br />
+2. 这个月最失败的一笔交易，做错了什么？<br />
+3. 这个月市场环境适合这个策略吗？</p>
+<hr />
+<h2 id="12_2">12周行动计划<a class="headerlink" href="#12_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>阶段目标</th>
+<th>验收标准</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第1-2周</td>
+<td>学习与模拟</td>
+<td>完成3笔模拟交易，每笔都做了复盘记录</td>
+</tr>
+<tr>
+<td>第3-4周</td>
+<td>模拟验证</td>
+<td>模拟胜率达到50%以上，零操作偏差</td>
+</tr>
+<tr>
+<td>第5-6周</td>
+<td>最小实盘</td>
+<td>完成4笔实盘交易，偏差不超过2次</td>
+</tr>
+<tr>
+<td>第7-8周</td>
+<td>正常实盘</td>
+<td>胜率达40%以上，月度净盈亏为正或小亏</td>
+</tr>
+<tr>
+<td>第9-10周</td>
+<td>优化调整</td>
+<td>连续4周偏差趋势下降，风控指标全部达标</td>
+</tr>
+<tr>
+<td>第11-12周</td>
+<td>稳定运行</td>
+<td>连续4周保持正净盈亏，形成稳定交易习惯</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="pdf">PDF生成脚本<a class="headerlink" href="#pdf" title="Permanent link">&para;</a></h2>
+<p>脚本路径：<code>/home/ubuntu/agents/quantbot/cache/documents/doc_f443cf41bdbd_qiquan_gen_v2.py</code></p>
+<p><strong>生成命令：</strong></p>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>/home/ubuntu/agents/quantbot/cache/documents/doc_f443cf41bdbd_qiquan_gen_v2.py
+</code></pre></div>
+
+<p><strong>输出目录：</strong> <code>/home/z/my-project/download/期权交易实战手册_v2.pdf</code></p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-21-期权交易实战手册v2.0 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>知识库总览</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 24px 40px;
+         display: flex; align-items: center; justify-content: space-between; }
+header h1 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+header .meta { color: var(--muted); font-size: 13px; }
+
+/* ─ Nav ─ */
+nav { padding: 0 40px; border-bottom: 1px solid var(--border);
+      display: flex; gap: 4px; flex-wrap: wrap; padding-top: 16px; padding-bottom: 16px; }
+nav a { padding: 6px 14px; border-radius: 6px; color: var(--muted); font-size: 14px;
+        transition: all 0.15s; }
+nav a:hover { background: var(--surface); color: var(--text); text-decoration: none; }
+nav a.active { background: var(--surface); color: var(--accent); }
+
+/* ─ Layout ─ */
+.container { max-width: 1200px; margin: 0 auto; padding: 40px 40px; }
+
+/* ─ Stats ─ */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+         gap: 12px; margin-bottom: 40px; }
+.stat-card { background: var(--surface); border: 1px solid var(--border);
+             border-radius: 8px; padding: 16px; }
+.stat-card .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+.stat-card .label { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+/* ─ Area sections ─ */
+.area-section { margin-bottom: 48px; }
+.area-section h2 { font-size: 16px; font-weight: 600; margin-bottom: 16px;
+                   color: var(--muted); text-transform: uppercase;
+                   letter-spacing: 1px; border-bottom: 1px solid var(--border);
+                   padding-bottom: 8px; }
+
+/* ─ Page grid ─ */
+.page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.page-card { background: var(--surface); border: 1px solid var(--border);
+             border-radius: 8px; padding: 16px; transition: border-color 0.15s; }
+.page-card:hover { border-color: var(--accent); }
+.page-card .type-badge { font-size: 11px; color: var(--accent); text-transform: uppercase;
+                          letter-spacing: 0.5px; margin-bottom: 6px; }
+.page-card h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+.page-card h3 a { color: var(--text); }
+.page-card h3 a:hover { color: var(--accent); text-decoration: none; }
+.page-card .desc { font-size: 13px; color: var(--muted); margin-bottom: 8px;
+                   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.page-card .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.tag { background: var(--tag-bg); color: var(--tag-text); font-size: 11px;
+       padding: 2px 8px; border-radius: 4px; }
+.page-card .date { font-size: 11px; color: var(--muted); margin-top: 8px; }
+
+/* ─ Recent ─ */
+.recent-list { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; overflow: hidden; }
+.recent-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+                border-bottom: 1px solid var(--border); }
+.recent-item:last-child { border-bottom: none; }
+.recent-item .type { font-size: 11px; color: var(--accent); min-width: 60px; }
+.recent-item h4 { flex: 1; font-size: 14px; }
+.recent-item .date { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.recent-item:hover { background: rgba(88,166,255,0.05); }
+
+/* ─ Tag cloud ─ */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; }
+.tag-cloud a { background: var(--tag-bg); color: var(--tag-text); font-size: 13px;
+               padding: 4px 12px; border-radius: 6px; transition: all 0.15s; }
+.tag-cloud a:hover { background: var(--accent); color: var(--bg); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 24px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 60px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📚 知识库总览</h1>
+  <span class="meta">生成于 2026-05-25 16:19</span>
+</header>
+
+<nav>
+  <a href="/" class="active">总览</a>
+  
+  <a href="/area/amazon/">亚马逊运营</a>
+  
+  <a href="/area/quant/">投资 · 量化</a>
+  
+  <a href="/area/website/">跨境独立站</a>
+  
+  <a href="/area/social/">社交媒体</a>
+  
+  <a href="/area/exam/">一建考证</a>
+  
+  <a href="/area/ai/">AI 助手</a>
+  
+</nav>
+
+<div class="container">
+
+  <!-- 统计 -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="num">167</div>
+      <div class="label">总页面数</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="num">53</div>
+      <div class="label">亚马逊运营</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="num">88</div>
+      <div class="label">投资 · 量化</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="num">14</div>
+      <div class="label">跨境独立站</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="num">3</div>
+      <div class="label">社交媒体</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="num">5</div>
+      <div class="label">一建考证</div>
+    </div>
+    
+    <div class="stat-card">
+      <div class="num">4</div>
+      <div class="label">AI 助手</div>
+    </div>
+    
+  </div>
+
+  <!-- 最近更新 -->
+  <div class="area-section">
+    <h2>🕐 最近更新</h2>
+    <div class="recent-list">
+      
+      <div class="recent-item">
+        <span class="type"></span>
+        <h4><a href="quant/index.html">投资-量化知识库索引</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">日志</span>
+        <h4><a href="quant/log.html">投资-量化 Wiki 操作日志</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">schema</span>
+        <h4><a href="quant/SCHEMA.html">投资-量化 Wiki Schema</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">概念</span>
+        <h4><a href="quant/concepts/仓位管理原则.html">仓位管理原则</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">概念</span>
+        <h4><a href="quant/concepts/量化策略库.html">量化策略库</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">概念</span>
+        <h4><a href="quant/concepts/投资理念总纲.html">投资理念总纲</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">概念</span>
+        <h4><a href="quant/concepts/投资洞察精华.html">投资洞察精华</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">概念</span>
+        <h4><a href="quant/concepts/双低可转债策略.html">双低可转债轮动策略</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">实体</span>
+        <h4><a href="quant/entities/稳盈君.html">稳盈君用户画像</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+      <div class="recent-item">
+        <span class="type">实体</span>
+        <h4><a href="quant/entities/巴菲特.html">巴菲特（Warren Buffett）</a></h4>
+        <span class="date">2026-05-25</span>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- 各 area 页面 -->
+  
+  
+  <div class="area-section">
+    <h2>亚马逊运营 (53)</h2>
+    <div class="page-grid">
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-广告策略.html">2026-05-19-广告策略</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/index.html">亚马逊运营知识库索引</a></h3>
+        <p class="desc">> 所有页面按类型分类，一行一摘要。</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-站内流量.html">2026-05-19-站内流量</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-通用运营.html">2026-05-19-通用运营</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-15-亚马逊选品核心维度.html">亚马逊选品的三个核心维度</a></h3>
+        <p class="desc">1. **利润率优先**：毛利率低于30%的产品不碰，扣除广告+仓储后净利润必须>15%</p>
+        <div class="tags">
+          <span class="tag">#亚马逊 #选品 #运营</span>
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">流程</div>
+        <h3><a href="amazon/sop/2026-05-23-SOP-关键词库搭建流程.html">2026-05-23-SOP-关键词库搭建流程</a></h3>
+        <p class="desc">> 关键词库不是一次性建完的，而是从竞品出发 → 持续积累 → 循环验证 → 动态淘汰的闭环系统。</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">流程</div>
+        <h3><a href="amazon/sop/2026-05-23-SOP-广告架构搭建流程.html">2026-05-23-SOP-广告架构搭建流程</a></h3>
+        <p class="desc">> 新品广告架构 = 找词 + 养词 + 卡位 三阶段递进，不同阶段预算和结构完全不同。</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">流程</div>
+        <h3><a href="amazon/sop/2026-05-23-SOP-选品流程.html">2026-05-23-SOP-选品流程</a></h3>
+        <p class="desc">```</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/log.html">AmazonBot 知识库整理记录</a></h3>
+        <p class="desc">- `amazon_kb_structured.json` 共 76 条条目，但按 ID 去重后仅 **31 条独立知识**</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">流程</div>
+        <h3><a href="amazon/sop/2026-05-23-SOP-广告数据优化流程.html">2026-05-23-SOP-广告数据优化流程</a></h3>
+        <p class="desc">> 广告优化是持续循环，不是一次性做完的。每周一个小循环，每月一个大循环。</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-Listing优化.html">2026-05-19-Listing优化</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">流程</div>
+        <h3><a href="amazon/sop/2026-05-24-选品决策SOP-市场筛选七步漏斗法.html">选品决策SOP：市场筛选 + 七步漏斗法</a></h3>
+        <p class="desc">```</p>
+        <div class="tags">
+          <span class="tag">选品</span><span class="tag">SOP</span><span class="tag">Sorftime</span><span class="tag">五维评分</span><span class="tag">决策流程</span>
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">schema</div>
+        <h3><a href="amazon/SCHEMA.html">亚马逊运营 Wiki Schema</a></h3>
+        <p class="desc">亚马逊全链路运营知识库：选品、Listing优化、广告策略、竞品分析、品牌打造、财务利润、站内外流量、平台规则</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-A9A10算法.html">2026-05-19-A9A10算法</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-财务与利润.html">2026-05-19-财务与利润</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-评论与QA.html">2026-05-19-评论与QA</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-选品方法论.html">2026-05-19-选品方法论</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-竞品分析.html">2026-05-19-竞品分析</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/2026-05-19-品牌打造.html">2026-05-19-品牌打造</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="amazon/AmazonBot_运营知识库.html">AmazonBot_运营知识库</a></h3>
+        <p class="desc">> **版本：** 1.0  |  **构建时间：** 2026-04-30 23:09:13  |  **知识条目：** 76 条</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/Listing优化.html">Listing 优化体系</a></h3>
+        <p class="desc">让亚马逊算法（A9/A10）**读懂**你的产品，同时让买家**信任并购买**你的产品。</p>
+        <div class="tags">
+          <span class="tag">Listing</span><span class="tag">转化率</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/广告策略.html">亚马逊广告策略体系</a></h3>
+        <p class="desc">- 目的：让算法找到产品的目标人群</p>
+        <div class="tags">
+          <span class="tag">广告</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/品牌打造.html">亚马逊品牌打造</a></h3>
+        <p class="desc">- **流量自持**：品牌词搜索流量是自己的，不依赖广告</p>
+        <div class="tags">
+          <span class="tag">品牌</span><span class="tag">长期主义</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/竞品分析.html">竞品分析方法论</a></h3>
+        <p class="desc">找到**可借鉴的打法**和**差异化切入口**，而不是盲目模仿。</p>
+        <div class="tags">
+          <span class="tag">竞品</span><span class="tag">方法论</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/万词打法.html">万词打法</a></h3>
+        <p class="desc">> 万词打法不是堆 10000 个词瞎投，而是用 10000+ 精准长尾词，织一张密不透风的流量网，把竞品的流量全抢光。</p>
+        <div class="tags">
+          <span class="tag">广告</span><span class="tag">万词打法</span><span class="tag">关键词</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/财务与利润.html">亚马逊财务与利润分析</a></h3>
+        <p class="desc">- 售价 × 订单数量</p>
+        <div class="tags">
+          <span class="tag">财务</span><span class="tag">利润</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/站内流量.html">亚马逊站内流量体系</a></h3>
+        <p class="desc">- 来自 A9/A10 算法的自然排名</p>
+        <div class="tags">
+          <span class="tag">站内流量</span><span class="tag">流量</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/Alexa_for_Shopping与答案位.html">Alexa for Shopping 与答案位</a></h3>
+        <p class="desc">2026年5月13日，亚马逊将 Rufus 整体合并进 **Alexa for Shopping**，能力大幅增强，且：</p>
+        <div class="tags">
+          <span class="tag">站内流量</span><span class="tag">算法</span><span class="tag">Listing</span><span class="tag">Rufus</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/选品三维度法.html">选品三维度法</a></h3>
+        <p class="desc">亚马逊选品需同时满足三个维度的评估，任何一个维度不达标都应该谨慎进入。</p>
+        <div class="tags">
+          <span class="tag">选品</span><span class="tag">方法论</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/四维算法协同体系.html">四维算法协同体系</a></h3>
+        <p class="desc">> - [[A9A10算法]] 解决「搜得到」和「排得高」</p>
+        <div class="tags">
+          <span class="tag">算法</span><span class="tag">A9算法</span><span class="tag">A10算法</span><span class="tag">COSMO</span><span class="tag">Rufus</span><span class="tag">站内流量</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/评论与QA.html">亚马逊评论与QA体系</a></h3>
+        <p class="desc">亚马逊是一个**信用体系**，评论是产品信任度的最直接证明：</p>
+        <div class="tags">
+          <span class="tag">评论</span><span class="tag">QA</span><span class="tag">社会证明</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="amazon/concepts/关键词竞争度决策框架.html">关键词竞争度决策框架</a></h3>
+        <p class="desc">> 关键词竞争度的核心价值，从来不是选词问题，而是**结构问题**——钱该怎么从低竞争，一步一步推到中高竞争。</p>
+        <div class="tags">
+          <span class="tag">广告</span><span class="tag">关键词</span><span class="tag">方法论</span><span class="tag">万词打法</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">实体</div>
+        <h3><a href="amazon/entities/COSMO算法.html">COSMO 算法</a></h3>
+        <p class="desc">COSMO（Commerce OS MOdel）是亚马逊基于大语言模型的新一代搜索推荐算法，2024 年起逐步替代部分 A10 逻辑，核心改变是：**从「关键词匹配」转向「用户意图理解」**。</p>
+        <div class="tags">
+          <span class="tag">A10算法</span><span class="tag">算法</span><span class="tag">站内流量</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">实体</div>
+        <h3><a href="amazon/entities/Rufus购物助手.html">Rufus 购物助手</a></h3>
+        <p class="desc">Rufus 是亚马逊 2024 年推出的 AI 购物助手，基于生成式 AI 运行，定位是「买家的智能购物伙伴」。月活已突破 **3 亿**，成为不可忽视的流量入口。</p>
+        <div class="tags">
+          <span class="tag">Rufus</span><span class="tag">算法</span><span class="tag">站外流量</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">实体</div>
+        <h3><a href="amazon/entities/A9A10算法.html">A9/A10 搜索排名算法</a></h3>
+        <p class="desc">A9/A10 是亚马逊商品搜索排名的核心算法，决定了买家搜索时产品的展示顺序。</p>
+        <div class="tags">
+          <span class="tag">平台规则</span><span class="tag">算法</span><span class="tag">站内流量</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-广告策略.html">2026-05-19-广告策略</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-25-Alexa_for_Shopping_答案位.html">Rufus 已死，Alexa for Shopping 接管：你的 listing 在抢「答案位」吗？</a></h3>
+        <p class="desc">**来源：** 苏乐subi（SuleTools）</p>
+        <div class="tags">
+          <span class="tag">原始文章</span><span class="tag">微信公众号</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-02-万词打法.html">炸翻亚马逊！万词打法：30天垄断流量、ACOS压20%、新品直接冲BSR</a></h3>
+        <p class="desc">**来源：** 微信公众号文章</p>
+        <div class="tags">
+          <span class="tag">原始文章</span><span class="tag">微信公众号</span>
+        </div>
+        <div class="date">2026-05-02</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-站内流量.html">2026-05-19-站内流量</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-通用运营.html">2026-05-19-通用运营</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-02-AMC_Rufus_Cosmo爆款新玩法.html">AMC+Rufus+Cosmo+万词打法（爆款新玩法）</a></h3>
+        <p class="desc">**来源：** 微信公众号文章</p>
+        <div class="tags">
+          <span class="tag">原始文章</span><span class="tag">微信公众号</span>
+        </div>
+        <div class="date">2026-05-02</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-15-亚马逊选品核心维度.html">亚马逊选品的三个核心维度</a></h3>
+        <p class="desc">1. **利润率优先**：毛利率低于30%的产品不碰，扣除广告+仓储后净利润必须>15%</p>
+        <div class="tags">
+          <span class="tag">#亚马逊 #选品 #运营</span>
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-Listing优化.html">2026-05-19-Listing优化</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-02-四维协同-A9A10COSMO_Rufus.html">亚马逊广告高阶打法：A9+A10+COSMO+Rufus 四维协同，ACOS从35%压到12%</a></h3>
+        <p class="desc">**来源：** 微信公众号文章</p>
+        <div class="tags">
+          <span class="tag">原始文章</span><span class="tag">微信公众号</span>
+        </div>
+        <div class="date">2026-05-02</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-A9A10算法.html">2026-05-19-A9A10算法</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-财务与利润.html">2026-05-19-财务与利润</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-评论与QA.html">2026-05-19-评论与QA</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-选品方法论.html">2026-05-19-选品方法论</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-竞品分析.html">2026-05-19-竞品分析</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="amazon/2026-05-19-品牌打造.html">2026-05-19-品牌打造</a></h3>
+        <p class="desc">> **创建时间：** 2026-05-19</p>
+        <div class="tags">
+          <span class="tag">原始文章</span>
+        </div>
+        <div class="date">2026-05-19</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">问答</div>
+        <h3><a href="amazon/亚马逊运营高频问题FAQ.html">亚马逊运营高频问题 FAQ</a></h3>
+        <p class="desc">| 维度 | 工具/数据源 | 标准 |</p>
+        <div class="tags">
+          <span class="tag">选品</span><span class="tag">广告</span><span class="tag">站内流量</span><span class="tag">万词打法</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">对比</div>
+        <h3><a href="amazon/四大算法对比.html">四大算法对比</a></h3>
+        <p class="desc">| 维度 | A9 | A10 | COSMO | Rufus |</p>
+        <div class="tags">
+          <span class="tag">算法</span><span class="tag">A9算法</span><span class="tag">A10算法</span><span class="tag">COSMO</span><span class="tag">Rufus</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">总结</div>
+        <h3><a href="amazon/summaries/亚马逊运营全链路摘要.html">亚马逊运营全链路摘要</a></h3>
+        <p class="desc">> 综合所有知识库来源，提炼亚马逊运营的核心方法论体系。</p>
+        <div class="tags">
+          <span class="tag">选品</span><span class="tag">广告</span><span class="tag">站内流量</span><span class="tag">算法</span><span class="tag">万词打法</span><span class="tag">方法论</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <div class="area-section">
+    <h2>投资 · 量化 (88)</h2>
+    <div class="page-grid">
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-19-投资理念总纲.html">2026-05-19-投资理念总纲</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-19-量化策略库.html">2026-05-19-量化策略库</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/index.html">投资-量化知识库索引</a></h3>
+        <p class="desc">> 最后更新：2026-05-25 | 页面总数：10</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-19-投资洞察精华.html">2026-05-19-投资洞察精华</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库 - 从微信文章和投研中提炼</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">日志</div>
+        <h3><a href="quant/log.html">投资-量化 Wiki 操作日志</a></h3>
+        <p class="desc">> 格式：`## [日期] action | subject`</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">schema</div>
+        <h3><a href="quant/SCHEMA.html">投资-量化 Wiki Schema</a></h3>
+        <p class="desc">A股/美股/港股、可转债、期权、量化策略、基金组合、风控模型、投资心理学、巴菲特价值投资</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-19-投资工具箱.html">2026-05-19-投资工具箱</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-19-巴菲特年鉴.html">2026-05-19-巴菲特年鉴</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库 - 巴菲特致股东/合伙人信全集</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-19-可转债策略.html">2026-05-19-可转债策略</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/kb_wenying_invest.html">kb_wenying_invest</a></h3>
+        <p class="desc">> **版本**: 2.0 | **更新时间**: 2026-05-02</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/README.html">README</a></h3>
+        <p class="desc">> **路径**: `/root/.hermes-quantbot/quant_knowledge_base/`</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-21-期权交易实战手册v2.0.html">2026-05-21-期权交易实战手册v2.0</a></h3>
+        <p class="desc">> 来源：qiquan_gen_v2.py（PDF生成脚本）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1981_致股东信.html">1981_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1981</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1986_致股东信.html">1986_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1986</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/00_巴菲特投资理念总纲.html">00_巴菲特投资理念总纲</a></h3>
+        <p class="desc">> **整理说明**：本文件从巴菲特1957年至2015年致股东/合伙人信中精选核心投资思想，按主题分类整理，每条内容包含原文精华、提炼观点以及与稳盈君策略的关联。</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1997_致股东信.html">1997_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1997</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2005_致股东信.html">2005_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2005</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1977_致股东信.html">1977_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1977</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1982_致股东信.html">1982_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1982</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1994_致股东信.html">1994_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1994</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1975_致股东信.html">1975_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1975</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1959_致合伙人信.html">1959_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1959</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1970_致合伙人信.html">1970_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1970</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1966_致合伙人信.html">1966_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1966</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1999_致股东信.html">1999_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1999</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1990_致股东信.html">1990_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1990</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2017_致股东信.html">2017_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2017</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2008_致股东信.html">2008_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2008 年</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1965_致合伙人信.html">1965_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1965</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1978_致股东信.html">1978_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1978</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1993_致股东信.html">1993_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1993</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1998_致股东信.html">1998_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1998</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2003_致股东信.html">2003_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2003</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1969_致合伙人信.html">1969_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1969</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2007_致股东信.html">2007_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2007</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1967_致合伙人信.html">1967_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1967</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2001_致股东信.html">2001_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2001</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2018_致股东信.html">2018_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2018</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1960_致合伙人信.html">1960_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1960</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1964_致合伙人信.html">1964_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1964</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1968_致合伙人信.html">1968_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1968</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1957_致合伙人信.html">1957_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1957</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1985_致股东信.html">1985_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1985</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1992_致股东信.html">1992_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1992</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2014_致股东信.html">2014_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2014</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1961_致合伙人信.html">1961_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1961</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2004_致股东信.html">2004_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2004</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1983_致股东信.html">1983_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1983</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1995_致股东信.html">1995_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1995</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1963_致合伙人信.html">1963_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1963</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2000_致股东信.html">2000_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2000</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1971_致股东信.html">1971_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1971</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1979_致股东信.html">1979_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1979</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1973_致股东信.html">1973_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1973</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1958_致合伙人信.html">1958_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1958</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2006_致股东信.html">2006_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2006</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1972_致股东信.html">1972_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1972</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2012_致股东信.html">2012_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2012</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2002_致股东信.html">2002_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2002</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1974_致股东信.html">1974_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1974</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2016_致股东信.html">2016_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2016</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2011_致股东信.html">2011_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2011</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1989_致股东信.html">1989_致股东信</a></h3>
+        <p class="desc">巴菲特给股东的信1989</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1976_致股东信.html">1976_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1976</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1988_致股东信.html">1988_致股东信</a></h3>
+        <p class="desc">巴菲特给股东的信1988</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1962_致合伙人信.html">1962_致合伙人信</a></h3>
+        <p class="desc">巴菲特致合伙人的信1962</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2010_致股东信.html">2010_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2010</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2015_致股东信.html">2015_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2015</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1984_致股东信.html">1984_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1984</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1987_致股东信.html">1987_致股东信</a></h3>
+        <p class="desc">巴菲特给股东的信1987</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1980_致股东信.html">1980_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1980</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1996_致股东信.html">1996_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1996</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/1991_致股东信.html">1991_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信1991</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2009_致股东信.html">2009_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2009</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2013_致股东信.html">2013_致股东信</a></h3>
+        <p class="desc">巴菲特致股东的信2013</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="quant/concepts/仓位管理原则.html">仓位管理原则</a></h3>
+        <p class="desc">```</p>
+        <div class="tags">
+          <span class="tag">仓位管理</span><span class="tag">风控</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="quant/concepts/量化策略库.html">量化策略库</a></h3>
+        <p class="desc">| 属性 | 详情 |</p>
+        <div class="tags">
+          <span class="tag">量化</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="quant/concepts/投资理念总纲.html">投资理念总纲</a></h3>
+        <p class="desc">| 项目 | 内容 |</p>
+        <div class="tags">
+          <span class="tag">投资理念</span><span class="tag">方法论</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="quant/concepts/投资洞察精华.html">投资洞察精华</a></h3>
+        <p class="desc">| 评级 | 策略 | 行动 |</p>
+        <div class="tags">
+          <span class="tag">投资理念</span><span class="tag">洞察</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="quant/concepts/双低可转债策略.html">双低可转债轮动策略</a></h3>
+        <p class="desc">**进攻层核心仓位（占比25~30%，约24,000元）**</p>
+        <div class="tags">
+          <span class="tag">可转债</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">实体</div>
+        <h3><a href="quant/entities/稳盈君.html">稳盈君用户画像</a></h3>
+        <p class="desc">| 项目 | 内容 |</p>
+        <div class="tags">
+          <span class="tag">人物</span><span class="tag">投资用户</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">实体</div>
+        <h3><a href="quant/entities/巴菲特.html">巴菲特（Warren Buffett）</a></h3>
+        <p class="desc">| 属性 | 内容 |</p>
+        <div class="tags">
+          <span class="tag">价值投资</span><span class="tag">人物</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">SOP</div>
+        <h3><a href="quant/每周复盘SOP.html">每周复盘SOP</a></h3>
+        <p class="desc">1. **持仓健康度检查** — 运行 `stock_analysis.py`，浮亏扩大？浮盈守住？</p>
+        <div class="tags">
+          <span class="tag">SOP</span><span class="tag">复盘</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="quant/2026-05-23-第21周复盘.html">2026-05-23-第21周复盘</a></h3>
+        <p class="desc">> 持仓数据来源：用户截图（2026-05-22 15:25）+ 腾讯财经实时行情（2026-05-23）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="quant/kb_wenying_invest.html">kb_wenying_invest</a></h3>
+        <p class="desc">> **版本**: 2.0 | **更新时间**: 2026-05-02</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="quant/2026-05-21-期权交易实战手册v2.0.html">2026-05-21-期权交易实战手册v2.0</a></h3>
+        <p class="desc">> 来源：qiquan_gen_v2.py（PDF生成脚本）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="quant/2026-05-23-第21周复盘.html">2026-05-23-第21周复盘</a></h3>
+        <p class="desc">> 持仓数据来源：用户截图（2026-05-22 15:25）+ 腾讯财经实时行情（2026-05-23）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="quant/2026-05-19-投资工具箱.html">2026-05-19-投资工具箱</a></h3>
+        <p class="desc">> **来源**: 稳盈君专属量化投资知识库</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <div class="area-section">
+    <h2>跨境独立站 (14)</h2>
+    <div class="page-grid">
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="website/index.html">跨境独立站知识库索引</a></h3>
+        <p class="desc">> 最后更新：2026-05-25 | 页面总数：5</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="website/2026-05-21-不干胶大卷独立站-竞品分析报告.html">2026-05-21-不干胶大卷独立站-竞品分析报告</a></h3>
+        <p class="desc">> **调研时间：** 2026-05-21</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="website/2026-05-21-不干胶大卷独立站-Shopify配置方案.html">2026-05-21-不干胶大卷独立站-Shopify配置方案</a></h3>
+        <p class="desc">> **建站平台：** Shopify（B2B模式）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">日志</div>
+        <h3><a href="website/log.html">跨境独立站 Wiki 操作日志</a></h3>
+        <p class="desc">> 格式：`## [日期] action | subject`</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">schema</div>
+        <h3><a href="website/SCHEMA.html">跨境独立站 Wiki Schema</a></h3>
+        <p class="desc">Shopify 建站、SEO / GEO 内容策略、Google Ads / 社媒广告、流量渠道、转化率优化、B2B 询价流程</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="website/2026-05-21-不干胶大卷独立站-关键词研究报告.html">2026-05-21-不干胶大卷独立站-关键词研究报告</a></h3>
+        <p class="desc">> **调研时间：** 2026-05-21</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="website/concepts/竞品分析.html">不干胶大卷独立站竞品分析</a></h3>
+        <p class="desc">| 维度 | 内容 |</p>
+        <div class="tags">
+          <span class="tag">竞品</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="website/concepts/SEO策略.html">SEO内容策略</a></h3>
+        <p class="desc">| 字段 | 优化要求 |</p>
+        <div class="tags">
+          <span class="tag">SEO</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="website/concepts/关键词研究.html">独立站关键词研究策略</a></h3>
+        <p class="desc">| 类型 | 定义 | 示例 |</p>
+        <div class="tags">
+          <span class="tag">SEO</span><span class="tag">策略</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="website/concepts/Shopify配置方案.html">Shopify B2B独立站配置方案</a></h3>
+        <p class="desc">```</p>
+        <div class="tags">
+          <span class="tag">建站</span><span class="tag">SOP</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">实体</div>
+        <h3><a href="website/entities/Shopify.html">Shopify 建站平台</a></h3>
+        <p class="desc">**不干胶大卷独立站的建站方案（B2B模式）**</p>
+        <div class="tags">
+          <span class="tag">建站</span><span class="tag">平台</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="website/2026-05-21-不干胶大卷独立站-竞品分析报告.html">2026-05-21-不干胶大卷独立站-竞品分析报告</a></h3>
+        <p class="desc">> **调研时间：** 2026-05-21</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="website/2026-05-21-不干胶大卷独立站-Shopify配置方案.html">2026-05-21-不干胶大卷独立站-Shopify配置方案</a></h3>
+        <p class="desc">> **建站平台：** Shopify（B2B模式）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">原始</div>
+        <h3><a href="website/2026-05-21-不干胶大卷独立站-关键词研究报告.html">2026-05-21-不干胶大卷独立站-关键词研究报告</a></h3>
+        <p class="desc">> **调研时间：** 2026-05-21</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date"></div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <div class="area-section">
+    <h2>社交媒体 (3)</h2>
+    <div class="page-grid">
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="social/index.html">社交媒体运营知识库索引</a></h3>
+        <p class="desc">> 最后更新：2026-05-25 | 页面总数：0（目录新建中）</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">日志</div>
+        <h3><a href="social/log.html">社交媒体运营 Wiki 操作日志</a></h3>
+        <p class="desc">> 格式：`## [日期] action | subject`</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">schema</div>
+        <h3><a href="social/SCHEMA.html">社交媒体运营 Wiki Schema</a></h3>
+        <p class="desc">小红书运营、公众号运营、内容矩阵、选品种草、KOL/KOC策略、爆款内容结构、数据复盘</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <div class="area-section">
+    <h2>一建考证 (5)</h2>
+    <div class="page-grid">
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="exam/index.html">一建备考知识库索引</a></h3>
+        <p class="desc">> 最后更新：2026-05-25 | 页面总数：N</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">日志</div>
+        <h3><a href="exam/log.html">一建备考 Wiki 操作日志</a></h3>
+        <p class="desc">> 格式：`## [日期] action | subject`</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">schema</div>
+        <h3><a href="exam/SCHEMA.html">一级建造师备考 Wiki Schema</a></h3>
+        <p class="desc">一建考试（建筑实务、项目管理、建设工程法规）、备考计划、知识点提炼、刷题技巧</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="exam/concepts/赢得值管理.html">赢得值管理（EVM）</a></h3>
+        <p class="desc">| 指标 | 英文 | 含义 | 公式 |</p>
+        <div class="tags">
+          <span class="tag">管理</span><span class="tag">知识点</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">概念</div>
+        <h3><a href="exam/concepts/网络图计划.html">网络图计划技术</a></h3>
+        <p class="desc">| 特征 | 单代号 | 双代号 |</p>
+        <div class="tags">
+          <span class="tag">管理</span><span class="tag">知识点</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <div class="area-section">
+    <h2>AI 助手 (4)</h2>
+    <div class="page-grid">
+      
+      <div class="page-card">
+        <div class="type-badge"></div>
+        <h3><a href="ai/index.html">AI助手对话记录索引</a></h3>
+        <p class="desc">> 最后更新：2026-05-25 | 页面总数：1</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">日志</div>
+        <h3><a href="ai/log.html">AI助手对话记录 Wiki 操作日志</a></h3>
+        <p class="desc">> 格式：`## [日期] action | subject`</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">schema</div>
+        <h3><a href="ai/SCHEMA.html">AI助手对话记录 Wiki Schema</a></h3>
+        <p class="desc">跨业务线综合分析、老板指令记录、会议纪要、系统配置变更、多Agent协作记录</p>
+        <div class="tags">
+          
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+      <div class="page-card">
+        <div class="type-badge">总结</div>
+        <h3><a href="ai/summaries/多Agent共创知识库重构方案.html">多Agent共创知识库重构方案</a></h3>
+        <p class="desc">**日期**：2026-05-25</p>
+        <div class="tags">
+          <span class="tag">决策记录</span><span class="tag">全局</span>
+        </div>
+        <div class="date">2026-05-25</div>
+      </div>
+      
+    </div>
+  </div>
+  
+  
+
+  <!-- 标签云 -->
+  
+  <div class="tag-cloud">
+    
+    <a href="/tag/#亚马逊 #选品 #运营.html">#亚马逊 #选品 #运营</a>
+    
+    <a href="/tag/A10算法.html">A10算法</a>
+    
+    <a href="/tag/A9算法.html">A9算法</a>
+    
+    <a href="/tag/COSMO.html">COSMO</a>
+    
+    <a href="/tag/Listing.html">Listing</a>
+    
+    <a href="/tag/QA.html">QA</a>
+    
+    <a href="/tag/Rufus.html">Rufus</a>
+    
+    <a href="/tag/SEO.html">SEO</a>
+    
+    <a href="/tag/SOP.html">SOP</a>
+    
+    <a href="/tag/Sorftime.html">Sorftime</a>
+    
+    <a href="/tag/万词打法.html">万词打法</a>
+    
+    <a href="/tag/五维评分.html">五维评分</a>
+    
+    <a href="/tag/人物.html">人物</a>
+    
+    <a href="/tag/仓位管理.html">仓位管理</a>
+    
+    <a href="/tag/价值投资.html">价值投资</a>
+    
+    <a href="/tag/全局.html">全局</a>
+    
+    <a href="/tag/关键词.html">关键词</a>
+    
+    <a href="/tag/决策流程.html">决策流程</a>
+    
+    <a href="/tag/决策记录.html">决策记录</a>
+    
+    <a href="/tag/利润.html">利润</a>
+    
+    <a href="/tag/原始文章.html">原始文章</a>
+    
+    <a href="/tag/可转债.html">可转债</a>
+    
+    <a href="/tag/品牌.html">品牌</a>
+    
+    <a href="/tag/复盘.html">复盘</a>
+    
+    <a href="/tag/平台.html">平台</a>
+    
+    <a href="/tag/平台规则.html">平台规则</a>
+    
+    <a href="/tag/广告.html">广告</a>
+    
+    <a href="/tag/建站.html">建站</a>
+    
+    <a href="/tag/微信公众号.html">微信公众号</a>
+    
+    <a href="/tag/投资理念.html">投资理念</a>
+    
+    <a href="/tag/投资用户.html">投资用户</a>
+    
+    <a href="/tag/方法论.html">方法论</a>
+    
+    <a href="/tag/洞察.html">洞察</a>
+    
+    <a href="/tag/流量.html">流量</a>
+    
+    <a href="/tag/知识点.html">知识点</a>
+    
+    <a href="/tag/社会证明.html">社会证明</a>
+    
+    <a href="/tag/站内流量.html">站内流量</a>
+    
+    <a href="/tag/站外流量.html">站外流量</a>
+    
+    <a href="/tag/竞品.html">竞品</a>
+    
+    <a href="/tag/策略.html">策略</a>
+    
+    <a href="/tag/算法.html">算法</a>
+    
+    <a href="/tag/管理.html">管理</a>
+    
+    <a href="/tag/评论.html">评论</a>
+    
+    <a href="/tag/财务.html">财务</a>
+    
+    <a href="/tag/转化率.html">转化率</a>
+    
+    <a href="/tag/选品.html">选品</a>
+    
+    <a href="/tag/量化.html">量化</a>
+    
+    <a href="/tag/长期主义.html">长期主义</a>
+    
+    <a href="/tag/风控.html">风控</a>
+    
+  </div>
+  
+
+</div>
+
+<footer>
+  由金助理自动化生成 · Obsidian Vault · 167 个页面
+</footer>
+
+</body>
+</html>

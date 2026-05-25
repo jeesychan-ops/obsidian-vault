@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-23-SOP-广告架构搭建流程 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span>流程</span>
+  </div>
+  <h1>2026-05-23-SOP-广告架构搭建流程</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val">流程</span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#亚马逊广告架构搭建-sop-阿波罗广告框架">亚马逊广告架构搭建 SOP — 阿波罗广告框架</a></div>
+      
+      <div class="toc-item l2"><a href="#核心理念">核心理念</a></div>
+      
+      <div class="toc-item l2"><a href="#流程概览">流程概览</a></div>
+      
+      <div class="toc-item l2"><a href="#step-1-竞争度判断四象限">Step 1: 竞争度判断（四象限）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-2-阶段判断三信号">Step 2: 阶段判断（三信号）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-3-预算分配三笔钱">Step 3: 预算分配（三笔钱）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-4-四层广告结构搭建">Step 4: 四层广告结构搭建</a></div>
+      
+      <div class="toc-item l3"><a href="#第1层自动广告跑词养算法">第1层：自动广告（跑词+养算法）</a></div>
+      
+      <div class="toc-item l3"><a href="#第2层手动精准核心转化词">第2层：手动精准（核心转化词）</a></div>
+      
+      <div class="toc-item l3"><a href="#第3层asin定投竞品关联流量">第3层：ASIN定投（竞品关联流量）</a></div>
+      
+      <div class="toc-item l3"><a href="#第4层品牌广告sb保护品牌流量">第4层：品牌广告（SB，保护品牌流量）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-5-竞价策略选择">Step 5: 竞价策略选择</a></div>
+      
+      <div class="toc-item l2"><a href="#关键决策点">关键决策点</a></div>
+      
+      <div class="toc-item l2"><a href="#输出物清单">输出物清单</a></div>
+      
+      <div class="toc-item l2"><a href="#注意事项">注意事项</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-23-SOP-广告架构搭建流程</h1>
+      <div class="article-meta">流程 · 亚马逊运营</div>
+      <div class="content">
+        <h1 id="sop">亚马逊广告架构搭建 SOP — 阿波罗广告框架<a class="headerlink" href="#sop" title="Permanent link">&para;</a></h1>
+<h2 id="_1">核心理念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>新品广告架构 = 找词 + 养词 + 卡位 三阶段递进，不同阶段预算和结构完全不同。</p>
+</blockquote>
+<h2 id="_2">流程概览<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>竞争度判断 → 阶段判断 → 预算分配 → 四层结构搭建 → 执行
+</code></pre></div>
+
+<hr />
+<h2 id="step-1">Step 1: 竞争度判断（四象限）<a class="headerlink" href="#step-1" title="Permanent link">&para;</a></h2>
+<p><strong>判断依据（来自选品和竞品分析阶段）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>象限</th>
+<th>特征</th>
+<th>典型品类</th>
+<th>推荐广告策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高搜索量+低品牌集中度</td>
+<td>流量大、品牌不垄断</td>
+<td>新兴品类、功能型产品</td>
+<td>重投手动精准、快速占位</td>
+</tr>
+<tr>
+<td>高搜索量+高品牌集中度</td>
+<td>流量大、品牌强势</td>
+<td>红海大类目</td>
+<td>重投ASIN定投+差异化属性词</td>
+</tr>
+<tr>
+<td>低搜索量+低品牌集中度</td>
+<td>流量小、竞争分散</td>
+<td>细分小众品类</td>
+<td>重投长尾词+自动广告</td>
+</tr>
+<tr>
+<td>低搜索量+高品牌集中度</td>
+<td>流量小、品牌强势</td>
+<td>高度垄断品类</td>
+<td>ASIN定投为主，谨慎进入</td>
+</tr>
+</tbody>
+</table>
+<p><strong>判断方法：</strong><br />
+- 搜索量：Sorftime反查类目前10 ASIN的平均月搜索量<br />
+- 品牌集中度：Top 10 ASIN中自有品牌占比 &gt;60% = 高集中度</p>
+<hr />
+<h2 id="step-2">Step 2: 阶段判断（三信号）<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h2>
+<p><strong>新品冷启动期（第1-4周）</strong></p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>判断标准</th>
+<th>核心目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据积累信号</td>
+<td>评论&lt;10、BSR不稳定</td>
+<td>跑数据、养关键词质量分</td>
+</tr>
+<tr>
+<td>转化验证信号</td>
+<td>CVR不明、竞品对比未完成</td>
+<td>验证最优关键词和出价</td>
+</tr>
+<tr>
+<td>排名爬升信号</td>
+<td>自然排名&lt;100关键词少</td>
+<td>集中火力打核心转化词</td>
+</tr>
+</tbody>
+</table>
+<p><strong>稳定成长期（第5-12周）</strong></p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>判断标准</th>
+<th>核心目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据积累信号</td>
+<td>评论10-50、自然流量开始出现</td>
+<td>优化ACOS、从广告向自然过渡</td>
+</tr>
+<tr>
+<td>转化验证信号</td>
+<td>CVR稳定、主力词已验证</td>
+<td>拓展二级词和长尾词</td>
+</tr>
+<tr>
+<td>排名爬升信号</td>
+<td>部分核心词自然排名Top 50</td>
+<td>加大头部词投放、守住广告位</td>
+</tr>
+</tbody>
+</table>
+<p><strong>成熟稳定期（第13周+）</strong></p>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>判断标准</th>
+<th>核心目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>数据积累信号</td>
+<td>评论50+、BSR稳定</td>
+<td>防守为主、拓新品关联</td>
+</tr>
+<tr>
+<td>转化验证信号</td>
+<td>转化稳定、ACOS可预测</td>
+<td>精细化bid、降低TACOS</td>
+</tr>
+<tr>
+<td>排名爬升信号</td>
+<td>多词自然排名Top 30</td>
+<td>品牌词保护、竞品压制</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-3">Step 3: 预算分配（三笔钱）<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h2>
+<p><strong>新品冷启动期（$50-200/天为例）：</strong></p>
+<table>
+<thead>
+<tr>
+<th>预算层级</th>
+<th>占比</th>
+<th>活动类型</th>
+<th>匹配方式</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一笔钱</td>
+<td>50%</td>
+<td>尾部ASIN定投</td>
+<td>精准</td>
+<td>拿关联流量、降低竞争</td>
+</tr>
+<tr>
+<td>第二笔钱</td>
+<td>40%</td>
+<td>长尾关键词手动精准</td>
+<td>精准</td>
+<td>精准转化、快速出数据</td>
+</tr>
+<tr>
+<td>第三笔钱</td>
+<td>10%</td>
+<td>自动广告</td>
+<td>广泛</td>
+<td>跑词、养算法</td>
+</tr>
+</tbody>
+</table>
+<p><strong>稳定成长期：</strong></p>
+<table>
+<thead>
+<tr>
+<th>预算层级</th>
+<th>占比</th>
+<th>活动类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>第一笔钱</td>
+<td>50%</td>
+<td>核心大词手动精准</td>
+<td>精准+词组，慢慢接替长尾词</td>
+</tr>
+<tr>
+<td>第二笔钱</td>
+<td>30%</td>
+<td>长尾词+属性词</td>
+<td>稳定转化来源</td>
+</tr>
+<tr>
+<td>第三笔钱</td>
+<td>20%</td>
+<td>自动广告+ASIN定投</td>
+<td>跑新词、维护关联</td>
+</tr>
+</tbody>
+</table>
+<p><strong>成熟稳定期：</strong></p>
+<table>
+<thead>
+<tr>
+<th>预算层级</th>
+<th>占比</th>
+<th>活动类型</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>核心守</td>
+<td>40%</td>
+<td>核心大词</td>
+<td>固定预算、精细化bid</td>
+</tr>
+<tr>
+<td>防守攻</td>
+<td>30%</td>
+<td>竞品ASIN定投</td>
+<td>压制竞品、抢关联</td>
+</tr>
+<tr>
+<td>拓新品</td>
+<td>20%</td>
+<td>新品广告组</td>
+<td>为新品导流</td>
+</tr>
+<tr>
+<td>持续跑</td>
+<td>10%</td>
+<td>自动广告</td>
+<td>持续找新词</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-4">Step 4: 四层广告结构搭建<a class="headerlink" href="#step-4" title="Permanent link">&para;</a></h2>
+<h3 id="1">第1层：自动广告（跑词+养算法）<a class="headerlink" href="#1" title="Permanent link">&para;</a></h3>
+<p><strong>设置：</strong><br />
+- 匹配方式：广泛匹配（默认开启）<br />
+- 默认竞价：建议竞价 × 0.6-0.8（新预算有限，先低开）<br />
+- 预算：总预算 × 10-25%</p>
+<p><strong>优化节奏：</strong><br />
+- 第1周：不调bid，让系统学习<br />
+- 第2周：降低高ACOS（&gt;50%）词bid 20%<br />
+- 第3周：否定无转化的泛流量词<br />
+- 第4周起：把自动广告跑出的CVR&gt;5%的好词转移到手动精准</p>
+<h3 id="2">第2层：手动精准（核心转化词）<a class="headerlink" href="#2" title="Permanent link">&para;</a></h3>
+<p><strong>关键词来源：</strong> 关键词库（优先级A级+B级）</p>
+<p><strong>设置：</strong><br />
+- 匹配方式：精准匹配（主投）<br />
+- 出价：建议竞价 × 0.8-1.0<br />
+- Bid策略：只降低（冷启动期控制ACOS）</p>
+<p><strong>关键词选择标准：</strong><br />
+- 与产品强相关（不是泛流量）<br />
+- 月搜索量500-10000（太高竞争太激烈，太低没量）<br />
+- 竞品转化词（有真实购买意图）</p>
+<h3 id="3asin">第3层：ASIN定投（竞品关联流量）<a class="headerlink" href="#3asin" title="Permanent link">&para;</a></h3>
+<p><strong>ASIN来源：</strong><br />
+- 互补品（同一场景使用的不同产品）<br />
+- 替代品（同一需求的不同解决方案）<br />
+- 竞品ASIN（直接竞争同需求产品）</p>
+<p><strong>设置：</strong><br />
+- 匹配方式：同类商品 + 关联商品（双开）<br />
+- 出价：建议竞价 × 0.8-1.2（关联流量转化率略低，可适当降低）<br />
+- 预算：总预算 × 20-30%</p>
+<p><strong>优化节奏：</strong><br />
+- 第1周：观察每个ASIN的CTR和CVR<br />
+- 第2周：ACOS&gt;40%的ASIN降低bid 20%<br />
+- 第3周：CTR&lt;0.3%的ASIN暂停</p>
+<h3 id="4sb">第4层：品牌广告（SB，保护品牌流量）<a class="headerlink" href="#4sb" title="Permanent link">&para;</a></h3>
+<p><strong>启动条件：</strong> 有一定自然流量积累后开启（评论≥20，BSR稳定）</p>
+<p><strong>设置：</strong><br />
+- 广告类型：品牌推广（SB）<br />
+- 关键词：品牌词（自家品牌名）<br />
+- 竞价：建议竞价 × 0.8（品牌词竞争小，价格低）</p>
+<hr />
+<h2 id="step-5">Step 5: 竞价策略选择<a class="headerlink" href="#step-5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>竞价策略</th>
+<th>适用阶段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>只降低</td>
+<td>新品冷启动期</td>
+<td>控制ACOS，避免超支</td>
+</tr>
+<tr>
+<td>固定竞价</td>
+<td>数据稳定期</td>
+<td>稳定拿量</td>
+</tr>
+<tr>
+<td>动态只降低</td>
+<td>旺季前防守</td>
+<td>有转化就拿，没转化就降</td>
+</tr>
+<tr>
+<td>动态提高和降低</td>
+<td>转化稳定、冲排名</td>
+<td>在转化高峰抢位</td>
+</tr>
+</tbody>
+</table>
+<p><strong>新品期建议：</strong> 全部用"只降低"，等数据量积累到每词每天3-5次点击后再切换策略。</p>
+<hr />
+<h2 id="_3">关键决策点<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>决策点</th>
+<th>判断标准</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>竞争度象限</td>
+<td>高/低搜索量 × 高/低品牌集中度</td>
+<td>确定主投策略</td>
+</tr>
+<tr>
+<td>产品阶段</td>
+<td>冷启动/成长/稳定期</td>
+<td>确定预算分配</td>
+</tr>
+<tr>
+<td>预算分配</td>
+<td>三笔钱比例</td>
+<td>按阶段调整</td>
+</tr>
+<tr>
+<td>竞价策略</td>
+<td>新品只降低，稳定后动态</td>
+<td>按数据量切换</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_4">输出物清单<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>输出物</th>
+<th>格式</th>
+<th>存储位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>竞争度分析表</td>
+<td>Excel</td>
+<td>本地文件夹</td>
+</tr>
+<tr>
+<td>广告预算分配表</td>
+<td>Excel</td>
+<td>本地文件夹</td>
+</tr>
+<tr>
+<td>四层广告结构图</td>
+<td>Visio/XMind</td>
+<td>本地文件</td>
+</tr>
+<tr>
+<td>关键词-广告组映射表</td>
+<td>Excel</td>
+<td>广告活动命名</td>
+</tr>
+<tr>
+<td>竞价策略配置表</td>
+<td>Excel</td>
+<td>广告后台参考</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">注意事项<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>不要一开始就开太多广告组：</strong> 冷启动期3-5个关键词精准足矣，关键词太多分散预算和数据积累</li>
+<li><strong>自动广告是找词工具：</strong> 不要期望自动广告赚钱，它的任务是帮手动广告找词</li>
+<li><strong>ASIN定投先小预算测试：</strong> 先跑一周看哪个ASIN转化好，再加预算</li>
+<li><strong>新品前两周不要过度优化：</strong> 让算法学习，过度调整会破坏模型</li>
+<li><strong>每日限额设置：</strong> 新品期每日预算 = 目标ACOS × 预计日销售额</li>
+</ol>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-23-SOP-广告架构搭建流程 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

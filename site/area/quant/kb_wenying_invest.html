@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>kb_wenying_invest — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>kb_wenying_invest</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#稳盈君专属量化投资知识库">稳盈君专属量化投资知识库</a></div>
+      
+      <div class="toc-item l2"><a href="#一用户画像">一、用户画像</a></div>
+      
+      <div class="toc-item l2"><a href="#二投资红线绝对不能碰">二、投资红线（绝对不能碰）</a></div>
+      
+      <div class="toc-item l2"><a href="#三核心操作原则">三、核心操作原则</a></div>
+      
+      <div class="toc-item l2"><a href="#四当前持仓快照">四、当前持仓快照</a></div>
+      
+      <div class="toc-item l3"><a href="#止血优先级">止血优先级</a></div>
+      
+      <div class="toc-item l2"><a href="#五资产配置模板">五、资产配置模板</a></div>
+      
+      <div class="toc-item l2"><a href="#六核心策略可转债双低策略-">六、核心策略：可转债双低策略 ⭐</a></div>
+      
+      <div class="toc-item l3"><a href="#筛选条件">筛选条件</a></div>
+      
+      <div class="toc-item l3"><a href="#双低值计算">双低值计算</a></div>
+      
+      <div class="toc-item l3"><a href="#操作规则">操作规则</a></div>
+      
+      <div class="toc-item l3"><a href="#预期收益">预期收益</a></div>
+      
+      <div class="toc-item l2"><a href="#七策略归档库">七、策略归档库</a></div>
+      
+      <div class="toc-item l3"><a href="#-已验证可行">✅ 已验证·可行</a></div>
+      
+      <div class="toc-item l3"><a href="#-有价值需验证">⚠️ 有价值·需验证</a></div>
+      
+      <div class="toc-item l3"><a href="#-已排除">❌ 已排除</a></div>
+      
+      <div class="toc-item l2"><a href="#八每周复盘-sop">八、每周复盘 SOP</a></div>
+      
+      <div class="toc-item l3"><a href="#复盘内容">复盘内容</a></div>
+      
+      <div class="toc-item l3"><a href="#输出模板">输出模板</a></div>
+      
+      <div class="toc-item l2"><a href="#九微信文章分析-sop">九、微信文章分析 SOP</a></div>
+      
+      <div class="toc-item l3"><a href="#step-1抓取">Step 1：抓取</a></div>
+      
+      <div class="toc-item l3"><a href="#step-2可行性评估6条">Step 2：可行性评估（6条）</a></div>
+      
+      <div class="toc-item l3"><a href="#step-3评分与结论">Step 3：评分与结论</a></div>
+      
+      <div class="toc-item l3"><a href="#step-4归档">Step 4：归档</a></div>
+      
+      <div class="toc-item l2"><a href="#十工具脚本">十、工具脚本</a></div>
+      
+      <div class="toc-item l2"><a href="#十一目录结构">十一、目录结构</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>kb_wenying_invest</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="_1">稳盈君专属量化投资知识库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>版本</strong>: 2.0 | <strong>更新时间</strong>: 2026-05-02<br />
+<strong>路径</strong>: <code>/root/.hermes-quantbot/quant_knowledge_base/</code><br />
+<strong>访问权限</strong>: 仅限本人，独立于系统通用知识库和系统Skill</p>
+</blockquote>
+<hr />
+<h2 id="_2">一、用户画像<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>姓名</td>
+<td>稳盈君</td>
+</tr>
+<tr>
+<td>当前资金</td>
+<td><strong>94,889 元</strong>（从 16.3万亏损约 42%）</td>
+</tr>
+<tr>
+<td>投资周期</td>
+<td>可以很长，但短期需要看到成效建立信心</td>
+</tr>
+<tr>
+<td>操作风格</td>
+<td>调仓换仓为主，<strong>不直接割肉</strong></td>
+</tr>
+<tr>
+<td>核心偏好</td>
+<td>可转债双低策略作为进攻仓位</td>
+</tr>
+<tr>
+<td>沟通风格</td>
+<td>喜欢直接有效、拒绝废话，风趣毒舌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">二、投资红线（绝对不能碰）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>❌ 不预测大盘短期涨跌</li>
+<li>❌ 不追涨停板（流动性陷阱）</li>
+<li>❌ 不 ALL IN 单只股票</li>
+<li>❌ 不碰自己不懂的品种</li>
+<li>❌ 单只仓位不超过总仓位 <strong>20%</strong>（特殊情况不超过 30%）</li>
+<li>❌ 硬止损线：单只浮亏超过 <strong>25%</strong> 必须重新评估</li>
+</ol>
+<hr />
+<h2 id="_4">三、核心操作原则<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>仓位管理</strong></td>
+<td>试探仓 5% → 确认仓 10-15% → 重仓不超过 30%</td>
+</tr>
+<tr>
+<td><strong>软止损</strong></td>
+<td>组合整体 -10%、-15%、-20% 设警戒线</td>
+</tr>
+<tr>
+<td><strong>硬止损</strong></td>
+<td>单只浮亏超过 25% 必须重新评估</td>
+</tr>
+<tr>
+<td><strong>分散</strong></td>
+<td>同行业个股不超过 30%，永远留子弹</td>
+</tr>
+<tr>
+<td><strong>盈亏比</strong></td>
+<td>买前先算清楚，盈亏比 &gt; 1.5:1 才动手</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">四、当前持仓快照<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>快照日期</strong>: 2026-04-29 | <strong>总市值</strong>: 94,889 元</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>股票</th>
+<th>代码</th>
+<th>成本</th>
+<th>现价</th>
+<th>浮亏%</th>
+<th>市值</th>
+<th>仓位%</th>
+<th>标签</th>
+<th>操作建议</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>中国移动</td>
+<td>600941</td>
+<td>96.58</td>
+<td>96.63</td>
+<td>+0.1%</td>
+<td>19,326</td>
+<td>20%</td>
+<td>🟢防御仓</td>
+<td>持有，稳定收息</td>
+</tr>
+<tr>
+<td>长江电力</td>
+<td>600900</td>
+<td>26.97</td>
+<td>27.32</td>
+<td>+1.3%</td>
+<td>16,392</td>
+<td>17%</td>
+<td>🟢防御仓</td>
+<td>持有，防御核心</td>
+</tr>
+<tr>
+<td>分众传媒</td>
+<td>002027</td>
+<td>6.61</td>
+<td>6.29</td>
+<td>-4.8%</td>
+<td>15,725</td>
+<td>17%</td>
+<td>🟡困境反转</td>
+<td><strong>拒绝割肉</strong>，等反弹减仓</td>
+</tr>
+<tr>
+<td>海大集团</td>
+<td>002311</td>
+<td>52.84</td>
+<td>49.98</td>
+<td>-5.4%</td>
+<td>14,994</td>
+<td>16%</td>
+<td>🟡困境反转</td>
+<td><strong>拒绝割肉</strong>，等反弹减仓</td>
+</tr>
+<tr>
+<td>紫金矿业</td>
+<td>601899</td>
+<td>34.40</td>
+<td>33.30</td>
+<td>-3.2%</td>
+<td>13,320</td>
+<td>14%</td>
+<td>🟡困境反转</td>
+<td>轻套，资源股逻辑</td>
+</tr>
+<tr>
+<td>晶科科技</td>
+<td>601778</td>
+<td>6.50</td>
+<td>6.50</td>
+<td>0%</td>
+<td>7,800</td>
+<td>8%</td>
+<td>🔴待换仓</td>
+<td><strong>立即换双低债</strong>（零损耗）</td>
+</tr>
+<tr>
+<td>中国石油</td>
+<td>601857</td>
+<td>11.29</td>
+<td>12.22</td>
+<td>+8.3%</td>
+<td>7,332</td>
+<td>8%</td>
+<td>🟢防御仓</td>
+<td>持有，能源防御</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">止血优先级<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>晶科科技</strong> → 立即换双低债（成本=现价，零损耗）</li>
+<li><strong>困境反转三兄弟</strong>（分众/海大/紫金）→ 不割肉，等反弹减仓</li>
+<li>积累子弹仓 5,000~10,000 元后买入第一只双低债</li>
+</ol>
+<hr />
+<h2 id="_7">五、资产配置模板<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>总仓位 ~94,889元
+├── 防御层 50~55%   → 长电+移动+石油（稳定收息，股息3~5%）
+├── 困境反转层 20~25% → 分众+海大+紫金（等估值修复，不加仓）
+├── 进攻层 25~30%    → 双低可转债（~24,000元）
+└── 子弹仓 5~10%    → 预留现金（~5,000~10,000元）
+</code></pre></div>
+
+<hr />
+<h2 id="_8">六、核心策略：可转债双低策略 ⭐<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<h3 id="_9">筛选条件<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>价格</td>
+<td>100~115 元</td>
+</tr>
+<tr>
+<td>溢价率</td>
+<td>&lt; 20%</td>
+</tr>
+<tr>
+<td>评级</td>
+<td>AA 级以上</td>
+</tr>
+<tr>
+<td>到期收益率</td>
+<td>&gt; 0%</td>
+</tr>
+<tr>
+<td>剩余年限</td>
+<td>&gt; 1 年</td>
+</tr>
+<tr>
+<td>排除</td>
+<td>已公告强赎、正股 ST/*ST</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">双低值计算<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>双低值 = 价格 + 溢价率 × 100</strong>，越小越好</p>
+</blockquote>
+<h3 id="_11">操作规则<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>最大持仓</td>
+<td>3~5 只，单只 ≤ 15%</td>
+</tr>
+<tr>
+<td>买点</td>
+<td>回踩不崩再买，不追高</td>
+</tr>
+<tr>
+<td>止损</td>
+<td>-3% 硬止损</td>
+</tr>
+<tr>
+<td>止盈</td>
+<td>+5% 卖一半，强势回撤 -1% 走</td>
+</tr>
+<tr>
+<td>持有周期</td>
+<td>1~4 周为主</td>
+</tr>
+<tr>
+<td>调仓频率</td>
+<td>每月检视一次</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_12">预期收益<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>年化</strong>：约 15~25%（强势市场）</li>
+<li><strong>最大回撤</strong>：&lt; 5%（债底保护）</li>
+<li><strong>夏普比率</strong>：&gt; 1.0</li>
+</ul>
+<hr />
+<h2 id="_13">七、策略归档库<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<h3 id="_14">✅ 已验证·可行<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<h4 id="_15">双低可转债轮动<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<ul>
+<li>来源：集思录 + 实盘验证</li>
+<li>核心指标：双低值、价格、溢价率、评级</li>
+<li>年化：15~25% | 最大回撤：&lt;5% | 夏普：&gt;1.0</li>
+<li>执行难度：<strong>低</strong>（集思录直接筛选）</li>
+<li>适合仓位：进攻层 25~30%</li>
+</ul>
+<h4 id="_16">困境反转（分众传媒）<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<ul>
+<li>逻辑：ROE 46%、毛利率 69%、现金流好</li>
+<li>催化剂：消费复苏 → 广告需求回升</li>
+<li>风险：宏观经济不及预期</li>
+<li>策略：持有等估值修复，PE&lt;20 补仓</li>
+</ul>
+<hr />
+<h3 id="_17">⚠️ 有价值·需验证<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<h4 id="_18">三因子质地选股<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<ul>
+<li>来源：微信文章（避坑3指标·4年半800%）</li>
+<li>核心因子：低量蓄能 + 现金流增长 + 预期盈利增长</li>
+<li>借鉴：用现金流/净利润 &gt; 1 作为选股过滤条件</li>
+<li>评级：⭐⭐⭐（借鉴思路，不照搬）</li>
+</ul>
+<hr />
+<h3 id="_19">❌ 已排除<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>策略</th>
+<th>排除原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高频/日内可转债交易</td>
+<td>胜率要求 &gt;58%，执行难度极高，不适合小资金</td>
+</tr>
+<tr>
+<td>小市值轮动</td>
+<td>9.4万不够分散，流动性风险大，不碰</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sop">八、每周复盘 SOP<a class="headerlink" href="#sop" title="Permanent link">&para;</a></h2>
+<h3 id="_20">复盘内容<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>持仓健康度检查</strong> — 运行 <code>stock_analysis.py</code>，浮亏扩大？浮盈守住？</li>
+<li><strong>双低池子更新</strong> — 运行 <code>cb_dual_low_scan.py</code>，有无新机会？持仓债调仓？</li>
+<li><strong>市场环境判断</strong> — 大盘情绪、可转债市场整体中枢、热点方向</li>
+<li><strong>策略有效性评估</strong> — 本周收益 vs 沪深300，双低 vs 大盘</li>
+<li><strong>下周操作计划</strong> — 明确 1~3 个具体操作，不开新仓</li>
+</ol>
+<h3 id="_21">输出模板<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>📅 每周复盘 · YYYY-MM-DD
+
+📊 本周表现
+- 账户总值：X元（上周Y元，±Z%）
+- 持仓涨跌：XXXX
+- 双低进攻仓：XXXX
+
+🎯 下周计划
+1. [操作] 具体标的 + 条件
+2. [操作] 具体标的 + 条件
+3. [操作] 具体标的 + 条件（可选）
+
+💡 市场观察
+- 大盘：XXXX
+- 可转债：XXXX
+- 关注机会：XXXX
+</code></pre></div>
+
+<hr />
+<h2 id="sop_1">九、微信文章分析 SOP<a class="headerlink" href="#sop_1" title="Permanent link">&para;</a></h2>
+<h3 id="step-1">Step 1：抓取<a class="headerlink" href="#step-1" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>python3<span class="w"> </span>/root/.hermes/scripts/wechat_fetch.py<span class="w"> </span>--url<span class="w"> </span>&lt;链接&gt;
+</code></pre></div>
+
+<p>保存至：<code>articles/YYYYMMDD_标题.json</code></p>
+<h3 id="step-26">Step 2：可行性评估（6条）<a class="headerlink" href="#step-26" title="Permanent link">&para;</a></h3>
+<ol>
+<li>逻辑是否成立 — 因子有没有经济学/行为金融学依据</li>
+<li>回测数据是否可信 — 年化&gt;30%需警惕幸存者偏差/过拟合</li>
+<li>数据能否获取 — 散户能拿到所需数据吗</li>
+<li>资金量能否执行 — 9.4万够不够分散</li>
+<li>执行成本 — 手续费、滑点、时间精力</li>
+<li>是否符合用户约束 — 不止损、调仓换仓为主</li>
+</ol>
+<h3 id="step-3">Step 3：评分与结论<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>评分维度：逻辑完整性 / 数据可获取性 / 落地可行性 / 互补性</li>
+<li>结论：<strong>✅采纳</strong> / <strong>⚠️借鉴</strong> / <strong>❌不适用</strong></li>
+</ul>
+<h3 id="step-4">Step 4：归档<a class="headerlink" href="#step-4" title="Permanent link">&para;</a></h3>
+<ul>
+<li>采纳 → 存入 <code>strategies/</code></li>
+<li>借鉴 → 提取因子，融入现有策略</li>
+<li>不适用 → 记录原因</li>
+</ul>
+<hr />
+<h2 id="_22">十、工具脚本<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>持仓诊断</td>
+<td><code>~/.hermes-quantbot/scripts/stock_analysis.py</code></td>
+</tr>
+<tr>
+<td>单股诊断</td>
+<td><code>~/.hermes-quantbot/scripts/diagnosis.py</code></td>
+</tr>
+<tr>
+<td>双低扫描</td>
+<td><code>~/.hermes-quantbot/scripts/cb_dual_low_scan.py</code></td>
+</tr>
+<tr>
+<td>双低回测</td>
+<td><code>~/.hermes-quantbot/scripts/cb_dual_low_backtest.py</code></td>
+</tr>
+<tr>
+<td>微信文章抓取</td>
+<td><code>python3 /root/.hermes/scripts/wechat_fetch.py --url &lt;url&gt;</code></td>
+</tr>
+<tr>
+<td>飞书知识库</td>
+<td>链接：<a href="https://xinjiashuma.feishu.cn/base/KhndbEBSRaKsbosrhoqcBUMUn0e">xinjiashuma.feishu.cn/base/KhndbEBSRaKsbosrhoqcBUMUn0e</a></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_23">十一、目录结构<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>/root/.hermes-quantbot/quant_knowledge_base/
+├── kb_wenying_invest.json      ← 核心配置（JSON版，主配置）
+├── kb_wenying_invest.md        ← 本文件（Markdown版，快速查阅）
+├── README.md                   ← 使用说明
+├── articles/                   ← 微信文章原文（按日期命名）
+├── insights/insights.json       ← 提炼的投资洞察精华
+├── strategies/                 ← 策略研究笔记
+├── portfolios/                 ← 持仓快照存档
+└── weekly_review/              ← 每周复盘记录
+</code></pre></div>
+
+<hr />
+<p><em>本知识库仅供稳盈君本人使用，请勿与他人共享或混入系统通用知识库。</em><br />
+<em>当前版本 2.0，已同步 Skill（quant-strategy-kb）全部内容。</em></p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · kb_wenying_invest · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

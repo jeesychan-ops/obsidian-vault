@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>README — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>README</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#稳盈君专属量化投资知识库">稳盈君专属量化投资知识库</a></div>
+      
+      <div class="toc-item l2"><a href="#目录结构">目录结构</a></div>
+      
+      <div class="toc-item l2"><a href="#使用规则">使用规则</a></div>
+      
+      <div class="toc-item l3"><a href="#文章保存流程">文章保存流程</a></div>
+      
+      <div class="toc-item l3"><a href="#知识库更新时机">知识库更新时机</a></div>
+      
+      <div class="toc-item l2"><a href="#快速导航">快速导航</a></div>
+      
+      <div class="toc-item l2"><a href="#版本记录">版本记录</a></div>
+      
+      <div class="toc-item l2"><a href="#系统脚本">系统脚本</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>README</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="_1">稳盈君专属量化投资知识库<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>路径</strong>: <code>/root/.hermes-quantbot/quant_knowledge_base/</code><br />
+<strong>版本</strong>: 2.0（2026-05-02，已同步 Skill 全部内容）<br />
+<strong>访问权限</strong>: 仅限本人，独立于系统通用知识库</p>
+</blockquote>
+<hr />
+<h2 id="_2">目录结构<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>quant_knowledge_base/
+├── kb_wenying_invest.json       ← 核心配置（JSON版，主配置）
+├── kb_wenying_invest.md         ← 可读版，快速查阅（推荐）
+├── README.md                    ← 本文件
+│
+├── articles/                   ← 微信文章原文（按日期命名）
+│   └── YYYYMMDD_文章标题.json
+│
+├── insights/insights.json       ← 提炼的投资洞察精华
+│
+├── strategies/                 ← 策略研究笔记
+│   └── strategy_name.md
+│
+├── portfolios/                 ← 持仓快照存档
+│   └── portfolio_YYYYMMDD.json
+│
+└── weekly_review/              ← 每周复盘记录
+    └── review_YYYYWW.md
+</code></pre></div>
+
+<hr />
+<h2 id="_3">使用规则<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<h3 id="_4">文章保存流程<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li>用户发送微信链接</li>
+<li>抓取：<code>python3 /root/.hermes/scripts/wechat_fetch.py --url &lt;链接&gt;</code></li>
+<li>保存到 <code>articles/YYYYMMDD_标题.json</code></li>
+<li>提炼洞察，追加到 <code>insights/insights.json</code></li>
+<li>归档结论到 <code>strategies/</code> 或更新 <code>kb_wenying_invest.json</code></li>
+</ol>
+<h3 id="_5">知识库更新时机<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>时机</th>
+<th>更新位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>持仓变动</td>
+<td><code>kb_wenying_invest.json</code> → <code>portfolio_diagnosis</code></td>
+</tr>
+<tr>
+<td>策略研究结论</td>
+<td><code>strategies/&lt;策略名&gt;.md</code></td>
+</tr>
+<tr>
+<td>微信文章分析</td>
+<td><code>articles/</code> + <code>insights/insights.json</code> + <code>strategy_archive</code></td>
+</tr>
+<tr>
+<td>每周复盘</td>
+<td><code>weekly_review/review_YYYYWW.md</code></td>
+</tr>
+<tr>
+<td>月末总结</td>
+<td><code>portfolios/portfolio_YYYYMMDD.json</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_6">快速导航<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>你想知道</th>
+<th>看哪个文件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>我的持仓和资金</td>
+<td><code>kb_wenying_invest.json</code> → <code>portfolio_diagnosis</code></td>
+</tr>
+<tr>
+<td>我的投资原则</td>
+<td><code>kb_wenying_invest.md</code> 第2-3节</td>
+</tr>
+<tr>
+<td>可转债双低怎么筛</td>
+<td><code>kb_wenying_invest.md</code> 第6节</td>
+</tr>
+<tr>
+<td>分众/海大怎么处理</td>
+<td><code>kb_wenying_invest.json</code> → <code>portfolio_diagnosis.special_constraints</code></td>
+</tr>
+<tr>
+<td>晶科科技换什么</td>
+<td><code>kb_wenying_invest.md</code> 第4节"止血优先级"</td>
+</tr>
+<tr>
+<td>近期投研洞察</td>
+<td><code>insights/insights.json</code></td>
+</tr>
+<tr>
+<td>策略归档库</td>
+<td><code>kb_wenying_invest.json</code> → <code>strategy_archive</code></td>
+</tr>
+<tr>
+<td>微信文章原文</td>
+<td><code>articles/</code></td>
+</tr>
+<tr>
+<td>飞书知识库</td>
+<td>https://xinjiashuma.feishu.cn/base/KhndbEBSRaKsbosrhoqcBUMUn0e</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">版本记录<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>日期</th>
+<th>更新内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>2026-05-02</td>
+<td>初始创建，从会话记忆中提取</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>2026-05-02</td>
+<td>同步 Skill（quant-strategy-kb）全部内容，含策略SOP、资产配置、每周复盘模板</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_8">系统脚本<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>脚本</th>
+<th>路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>持仓诊断</td>
+<td><code>~/.hermes-quantbot/scripts/stock_analysis.py</code></td>
+</tr>
+<tr>
+<td>单股诊断</td>
+<td><code>~/.hermes-quantbot/scripts/diagnosis.py</code></td>
+</tr>
+<tr>
+<td>双低扫描</td>
+<td><code>~/.hermes-quantbot/scripts/cb_dual_low_scan.py</code></td>
+</tr>
+<tr>
+<td>双低回测</td>
+<td><code>~/.hermes-quantbot/scripts/cb_dual_low_backtest.py</code></td>
+</tr>
+<tr>
+<td>微信抓取</td>
+<td><code>python3 /root/.hermes/scripts/wechat_fetch.py --url &lt;url&gt;</code></td>
+</tr>
+</tbody>
+</table>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · README · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

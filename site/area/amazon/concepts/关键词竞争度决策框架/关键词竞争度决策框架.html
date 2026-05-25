@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>关键词竞争度决策框架 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span>概念</span>
+  </div>
+  <h1>关键词竞争度决策框架</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val">概念</span></div>
+      
+      <div class="meta-row"><span class="label">创建</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">更新</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">可信度</span><span class="val">high</span></div>
+      
+      
+      <div class="tags" style="margin-top:8px">
+        <span class="tag">广告</span><span class="tag">关键词</span><span class="tag">方法论</span><span class="tag">万词打法</span>
+      </div>
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#关键词竞争度决策框架">关键词竞争度决策框架</a></div>
+      
+      <div class="toc-item l2"><a href="#核心定义">核心定义</a></div>
+      
+      <div class="toc-item l2"><a href="#四层竞争模型">四层竞争模型</a></div>
+      
+      <div class="toc-item l2"><a href="#预算分配的节奏">预算分配的节奏</a></div>
+      
+      <div class="toc-item l3"><a href="#成长期逐步往中高竞争试探">成长期：逐步往中高竞争试探</a></div>
+      
+      <div class="toc-item l3"><a href="#中高竞争词不是不能投但如果在没有结构的情况下硬冲大概率是在为波动买单">中高竞争词不是不能投，但如果在没有结构的情况下硬冲，大概率是在为波动买单。</a></div>
+      
+      <div class="toc-item l3"><a href="#低竞争词不是边角料">低竞争词不是边角料</a></div>
+      
+      <div class="toc-item l2"><a href="#关键词升级路径连续迁移过程">关键词升级路径（连续迁移过程）</a></div>
+      
+      <div class="toc-item l3"><a href="#节奏标准">节奏标准</a></div>
+      
+      <div class="toc-item l2"><a href="#三层判断工具任何词该不该升级">三层判断工具（任何词该不该升级）</a></div>
+      
+      <div class="toc-item l2"><a href="#升级失败的三种信号">升级失败的三种信号</a></div>
+      
+      <div class="toc-item l2"><a href="#数据验证结果">数据验证结果</a></div>
+      
+      <div class="toc-item l2"><a href="#与其他概念的关系">与其他概念的关系</a></div>
+      
+      <div class="toc-item l2"><a href="#来源">来源</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>相关页面</h3>
+      
+      <div class="related-item"><a href="#">广告策略]] 站内流量 A9A10算法 [[万词打法</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>来源</h3>
+      <div class="source-item">raw/kb/amazon_kb_deduped.json</div>
+    </div>
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>关键词竞争度决策框架</h1>
+      <div class="article-meta">概念 · 亚马逊运营 · 更新于 2026-05-25</div>
+      <div class="content">
+        <h1 id="_1">关键词竞争度决策框架<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">核心定义<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>关键词竞争度的核心价值，从来不是选词问题，而是<strong>结构问题</strong>——钱该怎么从低竞争，一步一步推到中高竞争。</p>
+</blockquote>
+<p>核心问题不是"怎么分析竞争度"，而是：<strong>该不该从低竞争词，往中高竞争词走。</strong></p>
+<h2 id="_3">四层竞争模型<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>竞争度</th>
+<th>核心角色</th>
+<th>策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>塔尖（1%）</td>
+<td>高竞争</td>
+<td>锚定层</td>
+<td>稳住核心位置，控成本，不追放量</td>
+</tr>
+<tr>
+<td>腰部（20%）</td>
+<td>中高竞争</td>
+<td><strong>放大层</strong></td>
+<td>规模真正爆发的位置，必须由验证过的词承接</td>
+</tr>
+<tr>
+<td>扩展层（~30%）</td>
+<td>中竞争</td>
+<td>承上启下</td>
+<td>稳定出单，承接主流流量</td>
+</tr>
+<tr>
+<td>基部（79%）</td>
+<td>低竞争</td>
+<td>测试层</td>
+<td>找机会，验证后往上搬</td>
+</tr>
+</tbody>
+</table>
+<p><strong>执行口诀：低竞争找机会 → 中竞争做承接 → 中高竞争做放大 → 高竞争做卡位</strong></p>
+<h2 id="_4">预算分配的节奏<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<h3 id="_5">成长期：逐步往中高竞争试探<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>预算有限，就必须匹配阶段。成长期的钱不只是往中竞争倾斜，而是<strong>逐步往中高竞争试探</strong>。</p>
+</blockquote>
+<h3 id="_6">中高竞争词不是不能投，但如果在没有结构的情况下硬冲，大概率是在为波动买单。<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<h3 id="_7">低竞争词不是边角料<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h3>
+<p>低竞争词是<strong>未来中竞争甚至中高竞争词的来源</strong>，是用来转正和搬家的。</p>
+<h2 id="_8">关键词升级路径（连续迁移过程）<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>低竞争词跑出 → 7天验证 → 稳定出单 → 搬到中竞争
+中竞争词验证 → 14天判断 → 转化稳定 → 搬到中高竞争
+中高竞争词承接 → 持续放量 → 规模爆发
+</code></pre></div>
+
+<h3 id="_9">节奏标准<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>7天</strong>：看趋势，有没有稳定出单、转化是否跟上、成本是否可控</li>
+<li><strong>14天</strong>：做动作，能稳定的往上搬，不行的降回或否定</li>
+</ul>
+<h2 id="_10">三层判断工具（任何词该不该升级）<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>ABA 数据</strong>：看点击份额、转化份额是否被头部锁死，判断有没有进入空间</li>
+<li><strong>前台看竞争形态</strong>：品牌集中度、价格带、评分评论，判断打价格战还是功能战</li>
+<li><strong>广告数据</strong>：CPC 趋势、转化变化、广告位成本变化，判断是否该升级</li>
+</ol>
+<h2 id="_11">升级失败的三种信号<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>信号</th>
+<th>判断标准</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CVR 明显低于类目基准</td>
+<td>转化率差距大</td>
+<td>往上走 = 放大亏损</td>
+</tr>
+<tr>
+<td>预算撑不起分层</td>
+<td>钱不够</td>
+<td>结构跑不起来</td>
+</tr>
+<tr>
+<td>CPC 持续上涨 + 转化下滑</td>
+<td>竞争在加压</td>
+<td>硬冲容易被抬走</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_12">数据验证结果<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>结构一调整，数据变化很快：整体 ACoS 从 35% 降到 28%，中竞争词订单占比从 30% 提升到 45%，同时中高竞争词开始承接新增量，成为新的增长来源，低竞争层跑出 3 个高转化长尾词并完成转正。</p>
+</blockquote>
+<h2 id="_13">与其他概念的关系<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h2>
+<ul>
+<li>是 <span class="wikilink">万词打法</span> 的核心执行逻辑：万词不是盲目堆词，而是按竞争度分层推进</li>
+<li>依赖 <span class="wikilink">广告策略</span> 的四层广告结构作为执行载体</li>
+<li>通过 <span class="wikilink">站内流量</span> 的自然排名放大效应（广告带自然 → 自然带爆单）</li>
+<li>最终反哺 <span class="wikilink">A9A10算法</span> 的排名权重</li>
+</ul>
+<h2 id="_14">来源<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h2>
+<ul>
+<li>基于 amazon_kb_deduped.json 中 31 条独立知识提炼^[raw/kb/amazon_kb_deduped.json]</li>
+</ul>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 关键词竞争度决策框架 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>万词打法 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span>概念</span>
+  </div>
+  <h1>万词打法</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val">概念</span></div>
+      
+      <div class="meta-row"><span class="label">创建</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">更新</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">可信度</span><span class="val">high</span></div>
+      
+      
+      <div class="tags" style="margin-top:8px">
+        <span class="tag">广告</span><span class="tag">万词打法</span><span class="tag">关键词</span><span class="tag">策略</span>
+      </div>
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#万词打法">万词打法</a></div>
+      
+      <div class="toc-item l2"><a href="#本质定义">本质定义</a></div>
+      
+      <div class="toc-item l2"><a href="#流量金字塔结构">流量金字塔结构</a></div>
+      
+      <div class="toc-item l2"><a href="#为什么万词打法比死磕大词强-10-倍">为什么万词打法比死磕大词强 10 倍</a></div>
+      
+      <div class="toc-item l2"><a href="#关键词分层策略与匹配方式">关键词分层策略与匹配方式</a></div>
+      
+      <div class="toc-item l2"><a href="#关键词来源4-个渠道">关键词来源（4 个渠道）</a></div>
+      
+      <div class="toc-item l2"><a href="#落地三步">落地三步</a></div>
+      
+      <div class="toc-item l3"><a href="#step-17-天攒词10000-词">Step 1：7 天攒词（10000+ 词）</a></div>
+      
+      <div class="toc-item l3"><a href="#step-2广告分层搭建">Step 2：广告分层搭建</a></div>
+      
+      <div class="toc-item l3"><a href="#step-3持续优化与搬迁">Step 3：持续优化与搬迁</a></div>
+      
+      <div class="toc-item l2"><a href="#真实案例">真实案例</a></div>
+      
+      <div class="toc-item l3"><a href="#家用小型除湿机30-天冲-bsr-第-8">家用小型除湿机（30 天冲 BSR 第 8）</a></div>
+      
+      <div class="toc-item l3"><a href="#挂脖风扇45-天-acos-15月销-7000">挂脖风扇（45 天 ACOS 15%，月销 7000）</a></div>
+      
+      <div class="toc-item l2"><a href="#与其他概念的关系">与其他概念的关系</a></div>
+      
+      <div class="toc-item l2"><a href="#来源">来源</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>相关页面</h3>
+      
+      <div class="related-item"><a href="#">关键词竞争度决策框架]] 广告策略 四维算法协同体系 [[站内流量</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>来源</h3>
+      <div class="source-item">raw/articles/2026-05-02-万词打法.md</div><div class="source-item">raw/articles/2026-05-02-四维协同-A9A10COSMO_Rufus.md</div>
+    </div>
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>万词打法</h1>
+      <div class="article-meta">概念 · 亚马逊运营 · 更新于 2026-05-25</div>
+      <div class="content">
+        <h1 id="_1">万词打法<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<h2 id="_2">本质定义<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>万词打法不是堆 10000 个词瞎投，而是用 10000+ 精准长尾词，织一张密不透风的流量网，把竞品的流量全抢光。</p>
+</blockquote>
+<p>核心逻辑：<strong>用海量精准长尾词建流量金字塔，以小词堆出大爆款。</strong></p>
+<h2 id="_3">流量金字塔结构<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>塔尖（1%）：品牌词 + 高转化精准词
+  → 防守收割，保 ROI，竞价最高
+
+腰部（20%）：场景 + 属性 + 人群词
+  → 利润核心，CPC 低、转化稳，占总单量 60%+
+
+基部（79%）：泛相关 + 细分需求词
+  → 低价跑量、拓词养权重，给 Listing 喂数据、提自然排名
+</code></pre></div>
+
+<h2 id="10">为什么万词打法比死磕大词强 10 倍<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>大词死磕</th>
+<th>万词打法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPC</td>
+<td>$3-5</td>
+<td>$0.3-1</td>
+</tr>
+<tr>
+<td>转化率</td>
+<td>基准</td>
+<td>高 30-80%</td>
+</tr>
+<tr>
+<td>ACOS</td>
+<td>60%+</td>
+<td>20% 以内</td>
+</tr>
+<tr>
+<td>自然流量</td>
+<td>几乎为零</td>
+<td>飞轮式增长</td>
+</tr>
+<tr>
+<td>适用品类</td>
+<td>标品</td>
+<td>非标品绝杀（服装/家居/3C配件/宠物）</td>
+</tr>
+</tbody>
+</table>
+<p><strong>飞轮效应</strong>：广告点击/转化 → 反哺 A9 → 长尾词排名上去 → 大词自然跟着涨 → "广告带自然、自然带爆单"</p>
+<h2 id="_4">关键词分层策略与匹配方式<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>占比</th>
+<th>匹配方式</th>
+<th>竞价</th>
+<th>目标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>精准组（核心词）</td>
+<td>30%</td>
+<td>精准匹配</td>
+<td>$1.0</td>
+<td>稳住核心转化</td>
+</tr>
+<tr>
+<td>长尾组（黄金词）</td>
+<td>50%</td>
+<td>词组匹配</td>
+<td>$0.5</td>
+<td>规模放量</td>
+</tr>
+<tr>
+<td>广泛组（海量词）</td>
+<td>20%</td>
+<td>广泛匹配</td>
+<td>$0.3</td>
+<td>拓词养权重</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4">关键词来源（4 个渠道）<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>反查 Top 10 竞品 ASIN</strong> → 获取真实出单词</li>
+<li><strong>ABA 搜索词报告</strong> → 找到高点击份额但低竞争的词</li>
+<li><strong>亚马逊前台下拉框</strong> → 长尾词挖掘</li>
+<li><strong>买家评论高频词</strong> → 真实用户语言</li>
+</ol>
+<h2 id="_5">落地三步<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<h3 id="step-17-10000">Step 1：7 天攒词（10000+ 词）<a class="headerlink" href="#step-17-10000" title="Permanent link">&para;</a></h3>
+<ul>
+<li>核心词 1%（100 条）</li>
+<li>黄金长尾 22%（2200 条）</li>
+<li>海量长尾 77%（7700 条）</li>
+</ul>
+<h3 id="step-2">Step 2：广告分层搭建<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h3>
+<ul>
+<li>标题/五点/ST 全埋长尾</li>
+<li>QA 植入场景词</li>
+</ul>
+<h3 id="step-3">Step 3：持续优化与搬迁<a class="headerlink" href="#step-3" title="Permanent link">&para;</a></h3>
+<ul>
+<li>7 天验证趋势</li>
+<li>14 天做升级/降级动作</li>
+<li>把低竞争跑出的好词往中高竞争搬迁</li>
+</ul>
+<h2 id="_6">真实案例<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<h3 id="30-bsr-8">家用小型除湿机（30 天冲 BSR 第 8）<a class="headerlink" href="#30-bsr-8" title="Permanent link">&para;</a></h3>
+<ul>
+<li>背景：大词 "dehumidifier" CPC $2.8，ACOS 65%</li>
+<li>拓词：12000+ 词，含 "small dehumidifier for bathroom 300 sq ft"</li>
+<li>结果：曝光 128 万+，CPC $0.45，ACOS 18%，总单量涨 8 倍</li>
+</ul>
+<h3 id="45-acos-15-7000">挂脖风扇（45 天 ACOS 15%，月销 7000）<a class="headerlink" href="#45-acos-15-7000" title="Permanent link">&para;</a></h3>
+<ul>
+<li>背景：大词 "neck fan" CPC $1.9，ACOS 58%</li>
+<li>拓词：9800 词，聚焦 "hands free neck fan for outdoor work"</li>
+<li>结果：ACOS 15%，月销 7000+</li>
+</ul>
+<h2 id="_7">与其他概念的关系<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>万词打法是 <span class="wikilink">关键词竞争度决策框架</span> 的规模化执行：按竞争度分层建词、按节奏迁移</li>
+<li>依赖 <span class="wikilink">广告策略</span> 的四层广告结构作为落地载体</li>
+<li>与 <span class="wikilink">站内流量</span> 形成飞轮：广告长尾词 → 自然排名提升 → 降低广告依赖</li>
+<li>覆盖 <span class="wikilink">四维算法协同体系</span> 中的意图分层（信息型/购买型/对比型/场景型词）</li>
+</ul>
+<h2 id="_8">来源<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">2026-05-02-万词打法</span>（主来源）</li>
+<li><span class="wikilink">2026-05-02-四维协同-A9A10COSMO_Rufus</span>（辅助）</li>
+</ul>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 万词打法 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

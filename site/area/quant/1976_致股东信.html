@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1976_致股东信 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>1976_致股东信</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#1976年巴菲特致股东信">1976年巴菲特致股东信</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>1976_致股东信</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="1976">1976年巴菲特致股东信<a class="headerlink" href="#1976" title="Permanent link">&para;</a></h1>
+<p>巴菲特致股东的信1976<br />
+致伯克希尔哈撒韦公司的股东：<br />
+两年惨淡业绩后，1976 年经营业绩明显改善。去年我们预计保险承保业的进程将决定<br />
+我们收益的大小。最终，收益超过了我们的最高预期。这在很大程度上取决于国家赔偿公司<br />
+Phil Liesche 管理团队的杰出成绩。<br />
+以美元计，我们的营业利润达到1607.3 万美元，或说每股盈利16.47 美元。尽管这是<br />
+个创记录的数字，我们仍然认为股权回报率是衡量财务业绩的更重要的指标。本年我们的股<br />
+权回报率为17.3%，稍高于我们的长期平均收益，甚至还高于美国工业的平均股权回报率，<br />
+但远低于我们在1972 年19.8%的股权回报率。<br />
+考虑到所有可能的不利因素，目前我们预计1977 年的经营收益可能会有所改善，但股<br />
+权回报率可能会比1976 年稍低一点。<br />
+纺织业务<br />
+1976 年我们纺织部门经营业绩惨淡。无论以销售利润率还是资本回报率来衡量，纺织<br />
+部门的业绩都很差。在某种程度上，这是由于行业状况没有达到一年前的预期，但我们自身<br />
+的不足同样重要。在我们新开的Waumbec 运营中，营销和产能没能很好的匹配。对机器和员<br />
+工能力判断的不当导致了不利于我们的生产成本上的差异。Ken Chace 一如既往地坦诚汇报<br />
+问题并一直通过勤奋的努力来纠正它们。他以工作为乐，即使经营环境非常困难。<br />
+虽然一季度预期会亏损。我们初步预计1977 年纺织业务的盈利将等于或稍超过1976<br />
+年的水平。尽管目前的业绩不尽如人意，我们仍在寻找发展纺织业务的方法，并正在考虑一<br />
+个中等规模的收购。应当承认纺织业务无法提供一个高的投资回报预期。然而，我们恪守着<br />
+社会责任——它是新贝德福德和曼彻斯特的重要雇主——并相信未来获得平均的合理回报<br />
+是可能的。<br />
+保险承保业务<br />
+由于1975 年的灾难使最终费率的增加超过了残酷的成本的增加，意外险公司从1975<br />
+年灾难导致的困难运营中有所恢复。初步结果我们所拥有的财产和意外险公司1976 年的综<br />
+合赔付率为103，1975 年为108.3。（100 是承保的盈亏平衡点，综合赔付率高于100 代表承<br />
+保亏损）我们非常关注车险业务。本年其他车险公司的综合赔付率从113.5 下降到107.4，<br />
+我们自己的车险公司整体业绩的改进更有戏剧性，综合赔付率从115.4 下降到98.7。<br />
+我们在保险业最主要的业务，国家赔偿公司的传统车险和一般责任险今年业绩非常好，<br />
+实现利润显著高于行业平均水平。这要归功于Phil Liesche 及承保方面的Roland Miller<br />
+和索赔方面的Bill Lyons 的出色工作。<br />
+1976 年，竞争者终于意识到以往费率过低，因此国家赔偿公司的承保量大增。<br />
+但正如去年年报中所提到的，我们非常关注那些很容易受到经济和社会通胀影响的产品<br />
+线。目前的费率充足，明天就不一定了。我们的看法是不久以后，可能在1978 年，随着市<br />
+场的短期繁荣造成的不明智的竞争可能使整个行业在费率上落后于通胀水平。如果那样，我<br />
+们就要准备好迎接又一波定价不足的冲击，那样我们的成交量会大幅下降。<br />
+再保险业务中定价错误的影响比直接保险业务定价中犯类似错误的影响要长。George<br />
+Young，一个优秀的经理人，一直通过不断的努力来达到使其承保业务有利可图的目标，他<br />
+取消了许多费率不能进行合理调整的保单。像直接险一样，我们在再保险业务中不得不关注<br />
+已遭到通胀影响重创的意外险业务。短期来看，我们的再保险业务仍不会有太大发展。<br />
+我们的本土化公司业务在John Ringwalt 的管理下继续取得了实质性进展。综合赔付率<br />
+139</p>
+<p>从1975 年的108.4 下降到1976 年的102.7。综合赔付率里反映出由于一些公司规模太小导<br />
+致仍然存在多余的成本。内布拉斯加州居民财险公司，本土化公司中历史最久、规模最大的<br />
+公司也是1976 年本土化公司中业绩最好的一个，它在这些公司中赔付率最低。同时，内布<br />
+拉斯加州公司94.4 的综合赔付率也是史上最低的，这是它成立六年来第五次综合赔付率在<br />
+100 以下了。1976 年随着市场地位的显著提升，本土化公司保费收入增长率达到了78%。目<br />
+前我们计划在今年晚些时候成立一家新的本土化公司。<br />
+我们的附属公司，占据伊利诺伊州库克县地区汽车保险业务主要地位的家庭和汽车保险<br />
+公司，在1976 年经历了一个强劲复苏。这要直接归功于John Seward。John 在他任职的第<br />
+一年就对市场营销和承保评定方法进行了显著改革。我们的车险业务已经转移到一个六个月<br />
+的直接险中，这样我们就能对承保趋势有更快的反应了。<br />
+我们家庭和汽车保险公司的一般责任险业务也显著扩大并取得了很好的业绩。虽然家庭<br />
+和汽车保险公司能否取得持续的承保盈利仍有待证明，我们对John Seward 所取得的业绩已<br />
+经非常满意了。<br />
+总的来说，我们预计1977 年保险业会有个不错的业绩。目前承保量很高且费率应该可<br />
+以获得承保盈利。然而长远来看，保险行业有很多不利因素。特别是车险业务，它看起来极<br />
+易受公司控制外的政策和社会因素所引发的定价和管理问题的影响。<br />
+保险投资情况<br />
+1976 年随着可投资资产在更高的保费收入和更好的盈利之下的显著增长，保险投资的<br />
+税前投资收入从8,918,000 美元上升到10,820,000 美元，。在最近的报告中，我们提到了债<br />
+券账户上的未实现贬值，但我们认为这些市场波动的影响是次要的，因为我们的流动性和财<br />
+务实力使我们不太可能在不恰当的时机卖出这些债券。在1976 年，债券市场大幅上扬，这<br />
+使得我们的银行和保险公司拥有的债券组合的年末未实现收益有微幅上升。这也是次要的，<br />
+因为我们打算把大部分债券持有到期。较高债券价格的必然结果是再投资收益的下降。总的<br />
+来说，我们更喜欢我们的债券市值小于其账面价值。这样再投资时就能获得更有吸引力的利<br />
+率。<br />
+去年，我们提到我们期望1976 年会实现资本收益。事实上，我们在1976 年获得了主要<br />
+来自股票投资的996.2 万美元的税前资本收益。现在看来，1977 年同样是实现净资本收益<br />
+的一年。目前我们的股票组合中有一大笔未实现资本收益，而几年前我们的股票组合中有大<br />
+笔的未实现亏损。我们依然认为每年都在发生的市场波动相对而言是不重要的；我们股票组<br />
+合中的未实现资本收益，年终高达4570 万美元，在我们3 月21 日写这封信时已经下降了<br />
+500 万美元。<br />
+然而，我们认为所投资公司业务的进展是重要的。1976 年，我们对所投资公司的优秀<br />
+业绩表示满意。如果公司未来几年业绩继续如此出色的话，我们肯定能从股票投资中取得丰<br />
+厚的回报，而每年的股市波动是无关紧要的。<br />
+我们在1976 年12 月31 日持有的超过300 万美元的投资如下：<br />
+（我们找到的英文原版里此处省略）<br />
+你会发现，我们的主要持股相对较少。我们基于公司的长期表现进行投资，并会仔细考<br />
+虑如果整个收购公司所要考虑的因素：<br />
+（1）对公司有利的长期经济因素；<br />
+（2）有能力且忠诚的管理层；<br />
+（3）以整个收购企业的标准来度量，价格有吸引力；<br />
+（4）是我们所熟悉的行业，我们能判断其长期的经济特征。<br />
+140</p>
+<p>寻找到符合我们标准的公司很困难，这也是我们喜欢集中持股的原因之一。我们无法找<br />
+到一百只满足我们投资标准的股票。然而，我们觉得集中持有少量我们已确认有吸引力的股<br />
+票是非常舒适的。<br />
+我们打算长期持股，但有时我们也做短线投资，如对凯撒工业的投资。该公司预计1977<br />
+年母公司将进行现金红利和股票红利的分配。在该公司管理层宣布了红利分配方案后，我们<br />
+在1976 年买入了这家公司的股票。<br />
+银行业务<br />
+Eugene Abegg 我们附属银行伊利诺伊国民银行和伊利诺伊州的罗克福德信托投资公司<br />
+的总裁继续引领银行界——正如他在1931 年银行刚成立时所做的一样。<br />
+最近，克利夫兰国民城市公司，一家拥有真正出色管理的银行在一则广告中写道“1976<br />
+年我们平均资产收益率为1.34%，我们相信这是在所有主要银行公司中的最好水平。”在真<br />
+正的大银行中这是最好的盈利业绩，但伊利诺伊国民银行的盈利比国民城市公司的盈利水平<br />
+要高出接近50%，平均资产收益率大约为2%。<br />
+这一优秀的盈利记录在以下措施的作用下再次被实现了：<br />
+（1）对所有消费储蓄支付了最大利率（定期存款超过了总存款的三分之二）；<br />
+（2）保持了良好的流动性（出售的联邦基金加上目前买入的六个月以下美国政府债券<br />
+大约等于活期存款总额）；<br />
+（3）避免高利率的低劣贷款（1976 年贷款坏账约为12000 美元，或着说0.02%的坏账<br />
+率。这与1976 年的银行界的现行坏账率相比非常小）。<br />
+成本控制是银行成功的重要因素。该银行的雇员数量仍然保持在1969 年购买它时的水<br />
+平，尽管消费定期存款从3000 万上升到9000 万并在信托、旅行支票和数据处理等其他业务<br />
+上有显著的扩张。<br />
+蓝筹印花公司<br />
+1976 年我们增加了在蓝筹印花公司的权益，年底前我们已持有该公司33%的流通股。蓝<br />
+筹印花的股权对我们日益重要。蓝筹印花的财务报告摘要在我们所附的财务报表的脚注里。<br />
+另外，伯克希尔哈撒韦公司的股东可以从蓝筹印花公司的董事长秘书Robert H.那里得到现<br />
+在和后续的年报。他的地址是加利福尼亚州洛杉矶东南大道5801 号蓝筹印花公司，邮编<br />
+90040。<br />
+杂项<br />
+伯克希尔哈撒韦公司的子公司K&amp;W 第一年已表现出不错的业绩，销售额和利润较之1975<br />
+年均有适度增长。<br />
+我们只有不到四年的时间按规定的在1980 年12 月31 日之前把我们的银行部门剥离出<br />
+去。我们打算以一种对我们银行部门损害最小的方式完成这种剥离并为股东赢得最大利益。<br />
+最大的可能是我们以分拆上市的办法在1980 年把我们的银行部门剥离出去。<br />
+我们也希望在合适的时候对多元化零售公司进行合并。无论对蓝筹印花公司的整合还是<br />
+持股的增加都使这次并购有利可图。然而，希望与并购相关的各项任务都在1977 年推行是<br />
+不可能的。<br />
+沃伦.巴菲特<br />
+董事长<br />
+1977 年3 月21 日<br />
+141</p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 1976_致股东信 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

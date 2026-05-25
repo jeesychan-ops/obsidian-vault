@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-19-投资理念总纲 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-19-投资理念总纲</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#投资理念总纲">投资理念总纲</a></div>
+      
+      <div class="toc-item l2"><a href="#一用户画像">一、用户画像</a></div>
+      
+      <div class="toc-item l2"><a href="#二投资红线绝对不能碰">二、投资红线（绝对不能碰）</a></div>
+      
+      <div class="toc-item l2"><a href="#三核心操作原则">三、核心操作原则</a></div>
+      
+      <div class="toc-item l2"><a href="#四资产配置模板">四、资产配置模板</a></div>
+      
+      <div class="toc-item l2"><a href="#五策略周期原则">五、策略周期原则</a></div>
+      
+      <div class="toc-item l2"><a href="#六经典行为陷阱警示">六、经典行为陷阱警示</a></div>
+      
+      <div class="toc-item l3"><a href="#-高位重仓提前止损">❌ 高位重仓+提前止损</a></div>
+      
+      <div class="toc-item l3"><a href="#-止损线以下还换仓">❌ 止损线以下还换仓</a></div>
+      
+      <div class="toc-item l3"><a href="#-策略周期混淆">❌ 策略周期混淆</a></div>
+      
+      <div class="toc-item l2"><a href="#七量化思维框架">七、量化思维框架</a></div>
+      
+      <div class="toc-item l2"><a href="#八过拟合警示">八、过拟合警示</a></div>
+      
+      <div class="toc-item l3"><a href="#-数据修饰陷阱">⚠️ 数据修饰陷阱</a></div>
+      
+      <div class="toc-item l3"><a href="#-高年化陷阱">⚠️ 高年化陷阱</a></div>
+      
+      <div class="toc-item l2"><a href="#九收益目标参考">九、收益目标参考</a></div>
+      
+      <div class="toc-item l2"><a href="#十关联笔记">十、关联笔记</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-19-投资理念总纲</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="_1">投资理念总纲<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>来源</strong>: 稳盈君专属量化投资知识库<br />
+<strong>创建日期</strong>: 2026-05-19<br />
+<strong>版本</strong>: 2.0</p>
+</blockquote>
+<hr />
+<h2 id="_2">一、用户画像<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>姓名</td>
+<td>稳盈君</td>
+</tr>
+<tr>
+<td>当前资金</td>
+<td><strong>94,889 元</strong>（从 16.3万亏损约 42%）</td>
+</tr>
+<tr>
+<td>投资周期</td>
+<td>可以很长，但短期需要看到成效建立信心</td>
+</tr>
+<tr>
+<td>操作风格</td>
+<td>调仓换仓为主，<strong>不直接割肉</strong></td>
+</tr>
+<tr>
+<td>核心偏好</td>
+<td>可转债双低策略作为进攻仓位</td>
+</tr>
+<tr>
+<td>沟通风格</td>
+<td>喜欢直接有效、拒绝废话，风趣毒舌</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_3">二、投资红线（绝对不能碰）<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<ol>
+<li>❌ <strong>不预测大盘短期涨跌</strong></li>
+<li>❌ <strong>不追涨停板</strong>（流动性陷阱）</li>
+<li>❌ <strong>不 ALL IN 单只股票</strong></li>
+<li>❌ <strong>不碰自己不懂的品种</strong></li>
+<li>❌ <strong>单只仓位不超过总仓位 20%</strong>（特殊情况不超过 30%）</li>
+<li>❌ <strong>硬止损线：单只浮亏超过 25% 必须重新评估</strong></li>
+</ol>
+<hr />
+<h2 id="_4">三、核心操作原则<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>规则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>仓位管理</strong></td>
+<td>试探仓 5% → 确认仓 10-15% → 重仓不超过 30%</td>
+</tr>
+<tr>
+<td><strong>软止损</strong></td>
+<td>组合整体 -10%、-15%、-20% 设警戒线</td>
+</tr>
+<tr>
+<td><strong>硬止损</strong></td>
+<td>单只浮亏超过 25% 必须重新评估</td>
+</tr>
+<tr>
+<td><strong>分散</strong></td>
+<td>同行业个股不超过 30%，永远留子弹</td>
+</tr>
+<tr>
+<td><strong>盈亏比</strong></td>
+<td>买前先算清楚，盈亏比 &gt; 1.5:1 才动手</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_5">四、资产配置模板<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>总仓位 ~94,889元
+├── 防御层 50~55%   → 长电+移动+石油（稳定收息，股息3~5%）
+├── 困境反转层 20~25% → 分众+海大+紫金（等估值修复，不加仓）
+├── 进攻层 25~30%    → 双低可转债（~24,000元）
+└── 子弹仓 5~10%    → 预留现金（~5,000~10,000元）
+</code></pre></div>
+
+<hr />
+<h2 id="_6">五、策略周期原则<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>核心洞察（来自巴菲特1962年致合伙人信）</strong>: 评判投资业绩必须看经过一个牛熊周期的长期表现。股市总有牛熊，用六个月或一年衡量业绩没有意义。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>策略类型</th>
+<th>推荐周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>双低可转债</td>
+<td>1~4 周</td>
+</tr>
+<tr>
+<td>ETF趋势跟踪</td>
+<td>1~3 个月</td>
+</tr>
+<tr>
+<td>防御股/价值股</td>
+<td>1年以上</td>
+</tr>
+</tbody>
+</table>
+<p><strong>同一笔钱不能套在不同周期里。</strong></p>
+<hr />
+<h2 id="_7">六、经典行为陷阱警示<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">❌ 高位重仓+提前止损<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>案例</strong>: 2025年4月高位重仓科创50(40%)+设置止损线但看到红利ETF涨就提前换仓卖出</li>
+<li><strong>结果</strong>: 卖在最低点 → 错过反弹</li>
+<li><strong>本质</strong>: 行为金融学陷阱，不是分析错误</li>
+</ul>
+<h3 id="_9">❌ 止损线以下还换仓<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p>止损线是规则，不是心理安慰</p>
+</blockquote>
+<h3 id="_10">❌ 策略周期混淆<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<ul>
+<li>ETF策略周期 = 趋势跟踪（科创50）</li>
+<li>均值回归策略 = 红利ETF</li>
+<li><strong>两类不能互相比较</strong></li>
+</ul>
+<hr />
+<h2 id="_11">七、量化思维框架<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p><strong>核心三步</strong>: 假设 → 验证 → 迭代</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>纪律性</strong></td>
+<td>克服贪婪恐惧</td>
+</tr>
+<tr>
+<td><strong>数据驱动</strong></td>
+<td>替代主观判断</td>
+</tr>
+<tr>
+<td><strong>可复制性</strong></td>
+<td>策略规则明确</td>
+</tr>
+</tbody>
+</table>
+<p><strong>策略要随市场进化，'PE因子'失效后要找到新的有效因子。</strong></p>
+<hr />
+<h2 id="_12">八、过拟合警示<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h2>
+<h3 id="_13">⚠️ 数据修饰陷阱<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>警惕</strong>: "1月空仓"来规避小市值在1月的暴跌</li>
+<li><strong>本质</strong>: 让回测好看，但实盘毫无意义</li>
+<li><strong>检验</strong>: 看到高收益回测先问：有没有1月空仓？调仓周期是否刻意避开某些月份？</li>
+</ul>
+<h3 id="_14">⚠️ 高年化陷阱<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<ul>
+<li>年化 &gt;30% 需警惕幸存者偏差/过拟合</li>
+<li>回测期仅1年（牛市）的数据不可靠</li>
+</ul>
+<hr />
+<h2 id="_15">九、收益目标参考<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>数值</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>年化收益</td>
+<td>&gt;15%</td>
+<td>散户可追求的合理目标</td>
+</tr>
+<tr>
+<td>最大回撤</td>
+<td>&lt;15%</td>
+<td>心理可承受范围</td>
+</tr>
+<tr>
+<td>夏普比率</td>
+<td>&gt;1.0</td>
+<td>风险调整后收益</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_16">十、关联笔记<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">2026-05-19-量化策略库</span> - 各类量化策略详情</li>
+<li><span class="wikilink">2026-05-19-可转债策略</span> - 双低策略详解</li>
+<li><span class="wikilink">2026-05-19-投资工具箱</span> - 工具和脚本</li>
+<li><span class="wikilink">2026-05-19-巴菲特年鉴</span> - 价值投资理念</li>
+</ul>
+<hr />
+<p><em>本笔记整理自 /root/.hermes-quantbot/quant_knowledge_base/</em></p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-19-投资理念总纲 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-23-SOP-广告数据优化流程 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/amazon/">亚马逊运营</a>
+    &nbsp;/&nbsp;
+    <span>流程</span>
+  </div>
+  <h1>2026-05-23-SOP-广告数据优化流程</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val">流程</span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#亚马逊广告数据优化-sop-四步诊断循环">亚马逊广告数据优化 SOP — 四步诊断循环</a></div>
+      
+      <div class="toc-item l2"><a href="#核心理念">核心理念</a></div>
+      
+      <div class="toc-item l2"><a href="#流程概览">流程概览</a></div>
+      
+      <div class="toc-item l2"><a href="#step-1-数据采集每周固定时间">Step 1: 数据采集（每周固定时间）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-2-三率诊断核心指标体系">Step 2: 三率诊断（核心指标体系）</a></div>
+      
+      <div class="toc-item l3"><a href="#21-整体健康诊断">2.1 整体健康诊断</a></div>
+      
+      <div class="toc-item l3"><a href="#22-三率分层诊断">2.2 三率分层诊断</a></div>
+      
+      <div class="toc-item l2"><a href="#step-3-问题定位acos诊断三步法">Step 3: 问题定位（ACOS诊断三步法）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-4-优化动作每周执行清单">Step 4: 优化动作（每周执行清单）</a></div>
+      
+      <div class="toc-item l3"><a href="#41-关键词优化每周">4.1 关键词优化（每周）</a></div>
+      
+      <div class="toc-item l3"><a href="#42-预算优化每周">4.2 预算优化（每周）</a></div>
+      
+      <div class="toc-item l3"><a href="#43-bid策略调整每2周评估">4.3 BID策略调整（每2周评估）</a></div>
+      
+      <div class="toc-item l3"><a href="#44-结构优化每月">4.4 结构优化（每月）</a></div>
+      
+      <div class="toc-item l2"><a href="#step-5-效果追踪复盘闭环">Step 5: 效果追踪（复盘闭环）</a></div>
+      
+      <div class="toc-item l3"><a href="#周复盘模板">周复盘模板</a></div>
+      
+      <div class="toc-item l3"><a href="#月度复盘要点">月度复盘要点</a></div>
+      
+      <div class="toc-item l2"><a href="#关键决策点">关键决策点</a></div>
+      
+      <div class="toc-item l2"><a href="#输出物清单">输出物清单</a></div>
+      
+      <div class="toc-item l2"><a href="#注意事项">注意事项</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-23-SOP-广告数据优化流程</h1>
+      <div class="article-meta">流程 · 亚马逊运营</div>
+      <div class="content">
+        <h1 id="sop">亚马逊广告数据优化 SOP — 四步诊断循环<a class="headerlink" href="#sop" title="Permanent link">&para;</a></h1>
+<h2 id="_1">核心理念<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<blockquote>
+<p>广告优化是持续循环，不是一次性做完的。每周一个小循环，每月一个大循环。</p>
+</blockquote>
+<h2 id="_2">流程概览<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>数据采集 → 三率诊断 → 问题定位 → 优化动作 → 效果追踪
+</code></pre></div>
+
+<hr />
+<h2 id="step-1">Step 1: 数据采集（每周固定时间）<a class="headerlink" href="#step-1" title="Permanent link">&para;</a></h2>
+<p><strong>采集频率：</strong><br />
+- 每日：看整体ACOS和花费是否超预算（异常才动）<br />
+- 每周一：导出上周广告报告，做完整分析<br />
+- 每月末：月度复盘，重大策略调整</p>
+<p><strong>必下载的报告：</strong></p>
+<table>
+<thead>
+<tr>
+<th>报告名称</th>
+<th>用途</th>
+<th>下载位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>广告活动报告</td>
+<td>整体ACOS/TACOS/花费/销售额</td>
+<td>SP广告 → 报告 → 广告活动</td>
+</tr>
+<tr>
+<td>搜索词报告</td>
+<td>关键词转化数据</td>
+<td>SP广告 → 报告 → 搜索词</td>
+</tr>
+<tr>
+<td>投放报告（按ASIN）</td>
+<td>ASIN定投转化数据</td>
+<td>SP广告 → 报告 → 投放</td>
+</tr>
+<tr>
+<td>已推广商品报告</td>
+<td>每个ASIN的SP表现</td>
+<td>SP广告 → 报告 → 已推广商品</td>
+</tr>
+</tbody>
+</table>
+<p><strong>数据整理标准：</strong><br />
+每个报告导出后，按以下字段整理：<br />
+- 活动名称 / 广告组 / 关键词/ASIN<br />
+- 曝光 / 点击 / CTR / 订单数 / CVR / 花费 / 销售额 / ACOS / ROAS</p>
+<hr />
+<h2 id="step-2">Step 2: 三率诊断（核心指标体系）<a class="headerlink" href="#step-2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 整体健康诊断<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>指标</th>
+<th>计算公式</th>
+<th>健康标准</th>
+<th>预警线</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ACOS</td>
+<td>花费 / 销售额</td>
+<td>新品&lt;30%，稳定期&lt;20%</td>
+<td>&gt;目标ACOS×1.5</td>
+</tr>
+<tr>
+<td>TACOS</td>
+<td>广告花费 / 总销售额（含自然）</td>
+<td>&lt;15%优秀，&lt;20%合格</td>
+<td>&gt;20%</td>
+</tr>
+<tr>
+<td>ROAS</td>
+<td>销售额 / 花费</td>
+<td>&gt;3x合格，&gt;5x优秀</td>
+<td>&lt;2x</td>
+</tr>
+<tr>
+<td>广告占比</td>
+<td>广告花费 / 总销售额</td>
+<td>&lt;15%合格</td>
+<td>&gt;25%</td>
+</tr>
+</tbody>
+</table>
+<h3 id="22">2.2 三率分层诊断<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<p><strong>CTR（点击率）诊断：</strong></p>
+<table>
+<thead>
+<tr>
+<th>CTR区间</th>
+<th>判断</th>
+<th>优化方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;1.0%</td>
+<td>优秀，主图/价格有吸引力</td>
+<td>保持，看转化</td>
+</tr>
+<tr>
+<td>0.5%-1.0%</td>
+<td>正常，主图OK</td>
+<td>优化标题关键词相关性</td>
+</tr>
+<tr>
+<td>0.3%-0.5%</td>
+<td>偏低，主图可能有问题</td>
+<td>检查主图清晰度/差异化</td>
+</tr>
+<tr>
+<td>&lt;0.3%</td>
+<td>危险，主图/价格/排名问题</td>
+<td>优先优化主图</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CVR（转化率）诊断：</strong></p>
+<table>
+<thead>
+<tr>
+<th>CVR区间</th>
+<th>判断</th>
+<th>优化方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&gt;10%</td>
+<td>优秀，Listing转化力强</td>
+<td>适当加bid抢更多量</td>
+</tr>
+<tr>
+<td>5%-10%</td>
+<td>正常，Listing OK</td>
+<td>持续观察</td>
+</tr>
+<tr>
+<td>2%-5%</td>
+<td>偏低，Listing有问题</td>
+<td>优先优化Listing（标题/五点/A+）</td>
+</tr>
+<tr>
+<td>&lt;2%</td>
+<td>危险，流量不精准或Listing差</td>
+<td>检查关键词相关性+Listing</td>
+</tr>
+</tbody>
+</table>
+<p><strong>CPC（单次点击成本）诊断：</strong></p>
+<table>
+<thead>
+<tr>
+<th>CPC区间</th>
+<th>判断</th>
+<th>优化方向</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;$0.5</td>
+<td>便宜流量，长尾词区域</td>
+<td>可适当加bid</td>
+</tr>
+<tr>
+<td>$0.5-$1.5</td>
+<td>正常区间</td>
+<td>根据ACOS调整</td>
+</tr>
+<tr>
+<td>$1.5-$3.0</td>
+<td>偏高，核心词竞争激烈</td>
+<td>找更精准的长尾词替代</td>
+</tr>
+<tr>
+<td>&gt;$3.0</td>
+<td>很高，除非高毛利否则难盈利</td>
+<td>重新评估关键词策略</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-3-acos">Step 3: 问题定位（ACOS诊断三步法）<a class="headerlink" href="#step-3-acos" title="Permanent link">&para;</a></h2>
+<p><strong>第1步：先看整体ACOS，超目标多少？</strong></p>
+<ul>
+<li>ACOS超出目标≤10%：微调bid（降低5-10%）</li>
+<li>ACOS超出目标10-30%：检查关键词结构</li>
+<li>ACOS超出目标&gt;30%：重新审视Listing和关键词匹配</li>
+</ul>
+<p><strong>第2步：拆解到活动/广告组层级</strong></p>
+<ul>
+<li>哪个活动拖累整体ACOS？</li>
+<li>哪个关键词/ASIN的ACOS最高？</li>
+<li>高ACOS词占总花费多少？（如果&lt;10%，影响不大）</li>
+</ul>
+<p><strong>第3步：拆解到关键词/ASIN层级</strong></p>
+<table>
+<thead>
+<tr>
+<th>问题类型</th>
+<th>表现</th>
+<th>动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>高曝光低点击</td>
+<td>CTR&lt;0.3%，花费高无转化</td>
+<td>降低bid 20-30% 或精准否定</td>
+</tr>
+<tr>
+<td>高点击低转化</td>
+<td>CVR&lt;2%，花费高无订单</td>
+<td>检查关键词相关性 或加入否定</td>
+</tr>
+<tr>
+<td>低曝光高点击</td>
+<td>展示位置差</td>
+<td>提高bid 10-20%</td>
+</tr>
+<tr>
+<td>零订单词</td>
+<td>花费&gt;5次点击无订单</td>
+<td>精准否定 或暂停</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="step-4">Step 4: 优化动作（每周执行清单）<a class="headerlink" href="#step-4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 关键词优化（每周）<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<p><strong>调价触发条件（满足任一即可执行）：</strong><br />
+- 单个词花费&gt;$10且ACOS&gt;目标×1.5<br />
+- 单个词CTR&lt;0.3%且曝光&gt;1000<br />
+- 单个词点击&gt;15次且转化=0</p>
+<p><strong>调价幅度：</strong><br />
+- 降低bid：每次5-20%，不直接暂停（给数据积累机会）<br />
+- 提高bid：每次10-20%，不超过建议竞价的1.5倍<br />
+- 暂停/否定：花费&gt;30次点击仍无转化</p>
+<p><strong>否定投放：</strong><br />
+- 精准否定：点击&gt;20次无转化的具体词<br />
+- 短语否定：某类泛流量词大量低质点击（&gt;100次点击/周，转化&lt;1%）</p>
+<h3 id="42">4.2 预算优化（每周）<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<p><strong>判断标准：</strong><br />
+- 每日花费 &lt; 每日预算×70%：预算花不出去 → 检查是否曝光不足<br />
+- 每日花费 ≈ 每日预算（频繁撞线）：预算不够 → 提高10-20%</p>
+<p><strong>预算调整原则：</strong><br />
+- 稳定期广告活动不轻易降预算（避免破坏算法）<br />
+- 新品期广告活动有数据积累后，每周提高10-20%试探</p>
+<h3 id="43-bid2">4.3 BID策略调整（每2周评估）<a class="headerlink" href="#43-bid2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>当前阶段</th>
+<th>当前策略</th>
+<th>切换时机</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新品期</td>
+<td>只降低</td>
+<td>出现关键词日均点击≥5次且CVR稳定</td>
+</tr>
+<tr>
+<td>成长期</td>
+<td>固定竞价</td>
+<td>ACOS稳定在目标±10%内</td>
+</tr>
+<tr>
+<td>稳定期</td>
+<td>动态提高和降低</td>
+<td>有明确的冲排名目标（如BSR冲Top 50）</td>
+</tr>
+</tbody>
+</table>
+<h3 id="44">4.4 结构优化（每月）<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<p><strong>每月评估项：</strong><br />
+- 自动广告跑出的词，是否有CVR&gt;5%且ACOS&lt;25%的？<br />
+  → 立即转入手动精准单独建组<br />
+- ASIN定投中是否有ACOS&lt;20%且订单稳定的？<br />
+  → 提高bid 10-20%，放大流量<br />
+- 是否有活动长期ACOS&gt;目标×2且无法改善？<br />
+  → 暂停该活动，重新设计结构</p>
+<hr />
+<h2 id="step-5">Step 5: 效果追踪（复盘闭环）<a class="headerlink" href="#step-5" title="Permanent link">&para;</a></h2>
+<h3 id="_3">周复盘模板<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>维度</th>
+<th>上周</th>
+<th>本周</th>
+<th>趋势</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整体ACOS</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+<tr>
+<td>整体TACOS</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+<tr>
+<td>总花费</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+<tr>
+<td>总订单数</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+<tr>
+<td>平均CPC</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+<tr>
+<td>CTR均值</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+<tr>
+<td>CVR均值</td>
+<td></td>
+<td></td>
+<td>↑/↓/→</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_4">月度复盘要点<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>ACOS达标情况：</strong> 本月ACOS vs 目标ACOS</li>
+<li><strong>广告归因：</strong> 广告订单 vs 自然订单比例（理想：广告订单占30-40%，自然订单60-70%）</li>
+<li><strong>关键词质量：</strong> 本月新加入的词表现如何？淘汰的词是否正确？</li>
+<li><strong>竞品变化：</strong> 竞品是否调整了广告策略？是否需要调整ASIN定投？</li>
+<li><strong>下月预算规划：</strong> 根据上月数据和下月目标调整预算分配</li>
+</ol>
+<hr />
+<h2 id="_5">关键决策点<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>决策点</th>
+<th>判断标准</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整体ACOS</td>
+<td>vs 目标ACOS</td>
+<td>超标/达标/优秀</td>
+</tr>
+<tr>
+<td>CTR诊断</td>
+<td>&gt;0.5%正常，&lt;0.3%危险</td>
+<td>正常/偏低/危险</td>
+</tr>
+<tr>
+<td>CVR诊断</td>
+<td>&gt;5%正常，&lt;2%危险</td>
+<td>正常/偏低/危险</td>
+</tr>
+<tr>
+<td>关键词优化</td>
+<td>触发调价条件</td>
+<td>调bid/否词/暂停</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_6">输出物清单<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>输出物</th>
+<th>格式</th>
+<th>存储位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>周度广告数据报告</td>
+<td>Excel</td>
+<td>本地文件夹</td>
+</tr>
+<tr>
+<td>三率诊断表</td>
+<td>Excel</td>
+<td>本地文件夹</td>
+</tr>
+<tr>
+<td>优化动作记录表</td>
+<td>Excel</td>
+<td>每次调整记录</td>
+</tr>
+<tr>
+<td>周复盘模板</td>
+<td>Excel</td>
+<td>本地文件夹</td>
+</tr>
+<tr>
+<td>月度复盘报告</td>
+<td>Excel/文档</td>
+<td>本地文件夹</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_7">注意事项<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>不要只看ACOS：</strong> ACOS低但订单少没有意义，要结合订单量和TACOS综合判断</li>
+<li><strong>给数据时间：</strong> 新词/新广告组至少跑2周再做重大调整，算法需要时间学习</li>
+<li><strong>避免过度优化：</strong> 每天调整一次是大忌，频繁调整会破坏广告模型</li>
+<li><strong>记录每次调整：</strong> 每次调bid/预算/暂停都要记录时间和原因，便于复盘</li>
+<li><strong>竞品视角：</strong> 每月看1-2次竞品的广告位和投放词，了解竞争环境变化</li>
+</ol>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/amazon/">← 返回 亚马逊运营</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-23-SOP-广告数据优化流程 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

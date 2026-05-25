@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>00_巴菲特投资理念总纲 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>00_巴菲特投资理念总纲</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#巴菲特投资理念总纲">巴菲特投资理念总纲</a></div>
+      
+      <div class="toc-item l2"><a href="#目录">目录</a></div>
+      
+      <div class="toc-item l2"><a href="#1-投资哲学核心">1. 投资哲学核心</a></div>
+      
+      <div class="toc-item l3"><a href="#11-内在价值">1.1 内在价值</a></div>
+      
+      <div class="toc-item l3"><a href="#12-市场先生">1.2 市场先生</a></div>
+      
+      <div class="toc-item l3"><a href="#13-安全边际">1.3 安全边际</a></div>
+      
+      <div class="toc-item l3"><a href="#14-投资与投机">1.4 投资与投机</a></div>
+      
+      <div class="toc-item l2"><a href="#2-护城河竞争壁垒">2. 护城河/竞争壁垒</a></div>
+      
+      <div class="toc-item l3"><a href="#21-护城河的本质">2.1 护城河的本质</a></div>
+      
+      <div class="toc-item l3"><a href="#22-护城河的来源">2.2 护城河的来源</a></div>
+      
+      <div class="toc-item l3"><a href="#23-喜诗糖果护城河的典范">2.3 喜诗糖果：护城河的典范</a></div>
+      
+      <div class="toc-item l3"><a href="#24-糟糕的生意模式">2.4 糟糕的生意模式</a></div>
+      
+      <div class="toc-item l2"><a href="#3-浮存金保险模式">3. 浮存金/保险模式</a></div>
+      
+      <div class="toc-item l3"><a href="#31-浮存金的概念与价值">3.1 浮存金的概念与价值</a></div>
+      
+      <div class="toc-item l3"><a href="#32-浮存金的成本控制">3.2 浮存金的成本控制</a></div>
+      
+      <div class="toc-item l3"><a href="#33-浮存金的规模效应">3.3 浮存金的规模效应</a></div>
+      
+      <div class="toc-item l3"><a href="#34-保险业务的护城河">3.4 保险业务的护城河</a></div>
+      
+      <div class="toc-item l2"><a href="#4-能力圈原则">4. 能力圈原则</a></div>
+      
+      <div class="toc-item l3"><a href="#41-能力圈的定义">4.1 能力圈的定义</a></div>
+      
+      <div class="toc-item l3"><a href="#42-投资与投机的区别">4.2 投资与投机的区别</a></div>
+      
+      <div class="toc-item l3"><a href="#43-不懂不投">4.3 不懂不投</a></div>
+      
+      <div class="toc-item l3"><a href="#44-长期视角">4.4 长期视角</a></div>
+      
+      <div class="toc-item l2"><a href="#5-亏损与错误处理">5. 亏损与错误处理</a></div>
+      
+      <div class="toc-item l3"><a href="#51-承认错误的重要性">5.1 承认错误的重要性</a></div>
+      
+      <div class="toc-item l3"><a href="#52-纺织业务的教训">5.2 纺织业务的教训</a></div>
+      
+      <div class="toc-item l3"><a href="#53-杠杆收购的错误">5.3 杠杆收购的错误</a></div>
+      
+      <div class="toc-item l3"><a href="#54-接受不确定性">5.4 接受不确定性</a></div>
+      
+      <div class="toc-item l2"><a href="#6-逆向投资危机买入">6. 逆向投资/危机买入</a></div>
+      
+      <div class="toc-item l3"><a href="#61-危机中的机会">6.1 危机中的机会</a></div>
+      
+      <div class="toc-item l3"><a href="#62-恐慌与贪婪">6.2 恐慌与贪婪</a></div>
+      
+      <div class="toc-item l3"><a href="#63-长期信心理念">6.3 长期信心理念</a></div>
+      
+      <div class="toc-item l3"><a href="#64-悲观主义的局限性">6.4 悲观主义的局限性</a></div>
+      
+      <div class="toc-item l2"><a href="#7-资本配置原则">7. 资本配置原则</a></div>
+      
+      <div class="toc-item l3"><a href="#71-资本配置的重要性">7.1 资本配置的重要性</a></div>
+      
+      <div class="toc-item l3"><a href="#72-并购的原则">7.2 并购的原则</a></div>
+      
+      <div class="toc-item l3"><a href="#73-现金持有的价值">7.3 现金持有的价值</a></div>
+      
+      <div class="toc-item l3"><a href="#74-资本配置的优先级">7.4 资本配置的优先级</a></div>
+      
+      <div class="toc-item l2"><a href="#8-回购与分红">8. 回购与分红</a></div>
+      
+      <div class="toc-item l3"><a href="#81-回购的条件">8.1 回购的条件</a></div>
+      
+      <div class="toc-item l3"><a href="#82-分红政策">8.2 分红政策</a></div>
+      
+      <div class="toc-item l3"><a href="#83-内在价值与股价">8.3 内在价值与股价</a></div>
+      
+      <div class="toc-item l3"><a href="#84-股东利益导向">8.4 股东利益导向</a></div>
+      
+      <div class="toc-item l2"><a href="#9-继承人与伯克希尔未来">9. 继承人与伯克希尔未来</a></div>
+      
+      <div class="toc-item l3"><a href="#91-管理层传承">9.1 管理层传承</a></div>
+      
+      <div class="toc-item l3"><a href="#92-投资经理的培养">9.2 投资经理的培养</a></div>
+      
+      <div class="toc-item l3"><a href="#93-继任者的角色">9.3 继任者的角色</a></div>
+      
+      <div class="toc-item l3"><a href="#94-伯克希尔的未来">9.4 伯克希尔的未来</a></div>
+      
+      <div class="toc-item l2"><a href="#附录核心投资原则速览">附录：核心投资原则速览</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>00_巴菲特投资理念总纲</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="_1">巴菲特投资理念总纲<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>整理说明</strong>：本文件从巴菲特1957年至2015年致股东/合伙人信中精选核心投资思想，按主题分类整理，每条内容包含原文精华、提炼观点以及与稳盈君策略的关联。</p>
+</blockquote>
+<hr />
+<h2 id="_2">目录<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#1-投资哲学核心">投资哲学核心</a></li>
+<li><a href="#2-护城河竞争壁垒">护城河/竞争壁垒</a></li>
+<li><a href="#3-浮存金保险模式">浮存金/保险模式</a></li>
+<li><a href="#4-能力圈原则">能力圈原则</a></li>
+<li><a href="#5-亏损与错误处理">亏损与错误处理</a></li>
+<li><a href="#6-逆向投资危机买入">逆向投资/危机买入</a></li>
+<li><a href="#7-资本配置原则">资本配置原则</a></li>
+<li><a href="#8-回购与分红">回购与分红</a></li>
+<li><a href="#9-继承人与伯克希尔未来">继承人与伯克希尔未来</a></li>
+</ol>
+<hr />
+<h2 id="1">1. 投资哲学核心<a class="headerlink" href="#1" title="Permanent link">&para;</a></h2>
+<h3 id="11">1.1 内在价值<a class="headerlink" href="#11" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1965年致合伙人信）</strong></p>
+<p>"在我们取得控股权益后，评判价值的首要决定因素就变成了企业的资产和盈利能力。在持有一家公司的少数权益时，盈利能力和资产当然也非常重要，但是从短期看，价格的决定因素是供求关系，盈利能力和资产只能间接影响价值，未必能主导股价。取得控股权益后，我们拥有的不再是股票，而是公司，这时要按公司本身估算价值。"</p>
+<p>"付出的价格低，得到的价值高。在低估类中，我们买入的每只股票价值都远远高于价格，都存在相当大的安全边际。每只都有安全边际，分散买入多只，就形成了一个既有足够安全保障，又有上涨潜力的投资组合。"</p>
+<p><strong>提炼观点</strong><br />
+- 内在价值由资产和盈利能力决定，而非短期股价波动<br />
+- 安全边际是投资的核心保护——用五角钱买价值一块钱的东西<br />
+- 控股与少数股权的估值逻辑完全不同</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君的估值模型应以内在价值为核心，关注企业的真实盈利能力而非市场情绪。安全边际原则直接应用于买入时的价格设定。</p>
+</blockquote>
+<hr />
+<h3 id="12">1.2 市场先生<a class="headerlink" href="#12" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1987年致股东信）</strong></p>
+<p>"葛拉汉的市场先生理论在现今的投资世界内或许显得有些过时，尤其是在那些大谈市场效率理论、动态避险与beta值的专家学者眼中更是如此...班哲明·葛拉汉是我的老师，也是我的朋友，很久以前讲过一段有关对于市场波动心态的谈话，是我认为对于投资获利最有帮助的一席话，他说投资人可以试着将股票市场的波动当作是一位市场先生每天给你的报价，他就像是一家私人企业的合伙人，不管怎样，市场先生每天都会报个价格要买下你的股份或是将手中股份卖给你。"</p>
+<p>"市场先生还有一个很可爱的特点，那就是他不在乎受到冷落，若今天他提出的报价不被接受，隔天他还是会上门重新报价，要不要交易完全由你自主，所以在这种情况下，他的行为举止越失措，你可能得到的好处也就越多。"</p>
+<p><strong>提炼观点</strong><br />
+- 市场先生是情绪化的，其报价反映的是恐惧与贪婪，而非企业真实价值<br />
+- 投资者应利用市场先生的非理性，而非被其引导<br />
+- 股票市场短期是投票机，长期是称重机</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+在市场恐慌时保持逆向思维，在市场狂热时避免追高。利用市场先生的情绪波动获取超额收益。</p>
+</blockquote>
+<hr />
+<h3 id="13">1.3 安全边际<a class="headerlink" href="#13" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1961年致合伙人信）</strong></p>
+<p>"付出的价格低，得到的价值高。在低估类中，我们买入的每只股票价值都远远高于价格，都存在相当大的安全边际。每只都有安全边际，分散买入多只，就形成了一个既有足够安全保障，又有上涨潜力的投资组合。"</p>
+<p>"在低估类，我们买入的每只股票价值都远远高于价格，都存在相当大的安全边际。每只都有安全边际，分散买入多只，就形成了一个既有足够安全保障，又有上涨潜力的投资组合。这些年来，在时机掌控方面，我们总是在买的时候比卖的时候做的好很多。"</p>
+<p><strong>提炼观点</strong><br />
+- 安全边际是所有投资的基石，没有安全边际就不应出手<br />
+- 便宜的价格本身就是最好的防守<br />
+- 分散投资于多只有安全边际的股票可形成组合保护</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在选股时应严格设定安全边际阈值，只有当价格显著低于内在价值时才考虑买入。</p>
+</blockquote>
+<hr />
+<h3 id="14">1.4 投资与投机<a class="headerlink" href="#14" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1961年致合伙人信）</strong></p>
+<p>"从上述三类投资中，你可以对我们投资组合的保守程度有个大概了解。很多年以前，许多人买了中期或长期市政债券或国债，以为自己很保守。这些债券的市值多次大跌，这些人很多肯定也没做到资产保值或提升实际购买力。"</p>
+<p>"不是因为很多人暂时和你意见一致，你就是对的。不是因为重要人物和你意见一致，你就是对的。当所有人都意见一致时，正是考验你的行为是否保守的时候。"</p>
+<p>"在很多笔投资的过程中，只要你的前提正确、事实正确、逻辑正确，你最后就是对的。只有凭借知识和理智，才能实现真正的保守。"</p>
+<p><strong>提炼观点</strong><br />
+- 保守不是买入看似安全的资产，而是买进真正有价值的东西<br />
+- 随大流不会带来超额收益，真正的保守来自独立思考<br />
+- 正确的判断加上足够的勇气才能实现长期成功</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应坚持价值投资的独立判断，避免盲目跟随市场共识或热点炒作。</p>
+</blockquote>
+<hr />
+<h2 id="2">2. 护城河/竞争壁垒<a class="headerlink" href="#2" title="Permanent link">&para;</a></h2>
+<h3 id="21">2.1 护城河的本质<a class="headerlink" href="#21" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"一家真正伟大的公司必须要有一道'护城河'来保护投资获得很好的回报。但资本主义的'动力学'使得，任何能赚取高额回报的生意'城堡'，都会受到竞争者重复不断的攻击。因此，一道难以逾越的屏障，比如成为低成本提供者，像盖可保险或好事多超市，或者拥有像可口可乐、吉利、美国运通这样晓誉世界的强大品牌，才是企业获得持续成功的根本。商业史中充斥着'罗马烟火筒'般光彩炫目的公司，它们所谓的'长沟深堑'最终被证明只是幻觉，很快就被对手跨越。"</p>
+<p><strong>提炼观点</strong><br />
+- 真正的护城河是持久的竞争优势，而非昙花一现的增长<br />
+- 低成本运营和强大品牌是最经典的护城河形式<br />
+- 需要不断重复投资的"护城河"根本不是护城河</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+选股时应优先考虑具有持久护城河的企业，避免依赖单一技术或短期优势的公司。</p>
+</blockquote>
+<hr />
+<h3 id="22">2.2 护城河的来源<a class="headerlink" href="#22" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"我们对'持续性'的评判标准，使我们排除了许多处在发展迅速，且变化不断行业里的公司。尽管资本主义的'创造性的破坏'对社会发展很有利，但它排除了投资的确定性。一道需要不断重复开挖的'护城河'，最终根本就等于没有护城河。"</p>
+<p>"另外，这个标准也排除那些依靠某个伟大的管理者才能成功的企业。当然，一个令对手恐惧的CEO对任何企业都是一笔巨大资产...但是如果一个生意，依赖一个超级巨星才能产生好成效，那这个生意本身不会被认为是个好生意。"</p>
+<p><strong>提炼观点</strong><br />
+- 快速变化的行业难以形成持久护城河<br />
+- 依赖明星管理者的企业不具备持久竞争优势<br />
+- 护城河必须是企业内在的、结构性的优势</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+评估企业时应区分"明星CEO效应"与"企业内在竞争优势"，避免为管理层光环支付过高溢价。</p>
+</blockquote>
+<hr />
+<h3 id="23">2.3 喜诗糖果：护城河的典范<a class="headerlink" href="#23" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"我们用2,500万美元买下它时，它的销售额是3,000万美元，税前所得少于500万美元。企业的运营，资本是800万美元...从此，公司为投入资本赚取60%的税前所得。有两个因素帮助了营运资金的最小化。一是，产品是现金销售，消除了应收账款；二是，生产和分销的周期很短，使存货最小化。"</p>
+<p>"去年喜诗糖果的销售是3.83亿美元，税前利润是8,200万美元，运营资金是4,000万美元。这意味着从1972年以来，我们不得不再投资区区3,200万美元，以适应它适度的规模增长...同时税前收益总计是13.5亿美元，扣除3,200万美元后，所有这些收益都流到伯克希尔。"</p>
+<p><strong>提炼观点</strong><br />
+- 优秀企业只需少量资本投入即可持续产生高回报<br />
+- 高资本回报率、低资本支出是企业护城河的财务表现<br />
+- 现金销售和短周期运营是最强护城河之一</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应关注"低资本支出+高回报"的企业，这类企业往往是具有强大护城河的好生意。</p>
+</blockquote>
+<hr />
+<h3 id="24">2.4 糟糕的生意模式<a class="headerlink" href="#24" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"现在让我们来说说糟糕的生意，比较差的生意是那种收入增长虽然迅速，但需要巨大投资来维持增长，过后又赚不到多少，甚至没钱赚的生意。想想航空业，从莱特兄弟飞行成功的那天到现在，这个行业所谓的竞争优势，被证明纯粹子虚乌有。"</p>
+<p><strong>提炼观点</strong><br />
+- 需要不断大量资本投入才能维持增长的不是好生意<br />
+- 资本密集型行业往往摧毁股东价值<br />
+- 航空业是"糟糕生意"的典型案例</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应避开资本密集型、需要持续资本支出的行业，优先选择轻资产、高回报的商业模式。</p>
+</blockquote>
+<hr />
+<h2 id="3">3. 浮存金/保险模式<a class="headerlink" href="#3" title="Permanent link">&para;</a></h2>
+<h3 id="31">3.1 浮存金的概念与价值<a class="headerlink" href="#31" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"保险浮存金，就是在保险业务中，发生的那部分由我们暂时掌管的，但不属于我们的资金。在我们的投资中占到590亿美元。只要保险业的赔付情况正常，浮存金就可以看作是'免费'获得的，这意味着，我们获得的保费，要与我们可能遭受的损失和产生的费用相当。"</p>
+<p><strong>提炼观点</strong><br />
+- 浮存金是保险公司持有的他人资金，可用于投资<br />
+- 如果承保有利，浮存金实际上是"免费"获得的资金<br />
+- 浮存金是伯克希尔帝国崛起的核心秘密</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+虽然稳盈君不是保险公司，但可以理解"利用他人资金创造价值"的思维模式。</p>
+</blockquote>
+<hr />
+<h3 id="32">3.2 浮存金的成本控制<a class="headerlink" href="#32" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2005年致股东信）</strong></p>
+<p>"考虑到我的新读者，需要解释一下浮存金（Float）。保险公司的浮存金是一笔虽然不属于我们所有但可暂时为我们所用的资金。我们的浮存金增加的两个主要原因是：（1）在保险业务中，我们先收取保费，通常在1年左右之后才提供保险服务；（2）目前发生的损失不表示我们马上就要理赔，从发现损害、调解到最终解决，有时需要经过好几年时间。1967年我们的保险浮存金为2,000万美元，经过多年的内部成长及外部并购，已经增长到如今的490亿美元之巨。"</p>
+<p>"拥有大量浮存金确是一件大好事，但前提是取得的代价不能太高。其成本取决于承保的结果，也就是我们的费用和最终承担的损失与收取的保费对比后的结果。当一家保险公司获得承保利润时，就像伯克希尔过去38年来多半年份的保险业务那样，浮存金的成本甚至低于零成本。"</p>
+<p><strong>提炼观点</strong><br />
+- 浮存金的成本由承保利润决定<br />
+- 获得承保利润时，浮存金成本为零甚至为负<br />
+- 长期维持负成本浮存金是保险公司的核心竞争力</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+理解浮存金模式有助于评估保险类股票的投资价值。</p>
+</blockquote>
+<hr />
+<h3 id="33">3.3 浮存金的规模效应<a class="headerlink" href="#33" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1996年致股东信）</strong></p>
+<p>"自从1967年我们进军保险业以来，我们的浮存金每年以22.3%复合成长率增加，大部分的年度，我们的资金成本都在零以下，受惠于这些免费的资金，伯克希尔的绩效大大的提升了。更甚者，在完成对盖可的并购之后，我们取得免费资金的成长速度又加快了许多。"</p>
+<p><strong>提炼观点</strong><br />
+- 浮存金的复利增长是伯克希尔长期增长的关键因素<br />
+- 低成本甚至负成本的资金是竞争优势的来源<br />
+- 规模越大，浮存金优势越明显</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+在评估保险股时，浮存金的规模和成本是核心考量因素。</p>
+</blockquote>
+<hr />
+<h3 id="34">3.4 保险业务的护城河<a class="headerlink" href="#34" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2009年致股东信）</strong></p>
+<p>"保险公司运营模式的突出特点即预先收取保险费用而滞后支付客户索赔。在一些极端情况下，如一些企业工人的事故赔偿，滞后期甚至能够达到几十年之久。这种当前筹集资金而滞后支付的模式使得我们得以持有大量资金，我们称之为'浮存金'。尽管这部分资本最终将会流向客户，但同时，我们能够利用这部分资本进行投资并为伯克希尔带来利润。"</p>
+<p><strong>提炼观点</strong><br />
+- 保险业务模式天生具有资金杠杆优势<br />
+- 浮存金可长期使用而无需支付利息成本<br />
+- 结合优秀投资能力，浮存金创造超额回报</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在分析保险股时应关注其浮存金规模、增长趋势和成本三个维度。</p>
+</blockquote>
+<hr />
+<h2 id="4">4. 能力圈原则<a class="headerlink" href="#4" title="Permanent link">&para;</a></h2>
+<h3 id="41">4.1 能力圈的定义<a class="headerlink" href="#41" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1996年致股东信）</strong></p>
+<p>"查理和我着眼的是投资组合本身的经营成果，以此来判断投资是否成功，而不是他们每天或是每年的股价变化，短期间市场或许会忽略一家经营成功的企业，但最后这些公司终将获得市场的肯定。"</p>
+<p><strong>提炼观点</strong><br />
+- 投资应专注于自己真正理解的行业和企业<br />
+- 不理解的东西不应投资，无论市场如何炒作<br />
+- 能力圈边界决定了投资的安全边际</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应严格限定投资范围，只在熟悉的行业中进行投资决策。</p>
+</blockquote>
+<hr />
+<h3 id="42">4.2 投资与投机的区别<a class="headerlink" href="#42" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1987年致股东信）</strong></p>
+<p>"每当查理跟我为伯克希尔旗下的保险公司买进股票（扣除套利交易，后面会再详述），我们采取的态度就好象是我们买下的是一家私人企业一样，我们着重于这家公司的经济前景、经营阶层以及我们支付的价格。我们从来就没有考虑再把这些股份卖出，相反地只要能够预期这家公司的价值能够稳定地增加，我们愿意无限期地持有这些股份。"</p>
+<p><strong>提炼观点</strong><br />
+- 投资思维是买企业而非买股票<br />
+- 无限期持有的前提是企业价值持续增长<br />
+- 投资成功靠的是商业判断，而非预测市场走势</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应以"如果能买下整个公司我会买吗？"的思维来评估个股。</p>
+</blockquote>
+<hr />
+<h3 id="43">4.3 不懂不投<a class="headerlink" href="#43" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2009年致股东信）</strong></p>
+<p>"查理和我避开我们不能评估其未来的业务，无论他们的产品可能多么激动人心。过去，即使是普通人也能预测到汽车(1910年)、飞机(1930年)和电视机(1950年)这些行业的蓬勃发展。不过，未来则会包含会扼杀所有进军这些行业的公司的竞争动力，即使幸存者也常常是鲜血淋漓地离开。"</p>
+<p>"由于成群竞争者争夺主导权，查理和我能够明确预见某个行业未来会强劲增长并不意味我们能够判断其利润率和资本回报会是多少。在伯克希尔我们将坚持从事其未来数十年的利润前途似乎可合理预测的行业。"</p>
+<p><strong>提炼观点</strong><br />
+- 能预测行业增长不等于能判断利润率和回报<br />
+- 坚守能力圈意味着放弃很多"看起来很美"的机会<br />
+- 投资不确定性高的行业即使方向正确也可能亏钱</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应对高科技、高不确定性行业保持谨慎，优先选择商业模式清晰可预测的企业。</p>
+</blockquote>
+<hr />
+<h3 id="44">4.4 长期视角<a class="headerlink" href="#44" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1999年致股东信）</strong></p>
+<p>"别处读不到的经营故事——伯克希尔的经营团队在许多方面都与众不同，举个例子来说，这些先生女士大部分都已经相当有钱，靠着自己经营的事业致富，他们之所以愿意继续留在工作岗位上，并不是因为缺钱或是有任何合约上的限制，事实上伯克希尔并没有跟他们签订任何契约，他们之所以辛勤工作，完全是因为他们热爱自己的事业。"</p>
+<p><strong>提炼观点</strong><br />
+- 长期成功的投资需要与企业长期绑定<br />
+- 优秀的管理层是选择投资标的的重要标准<br />
+- 热爱自己事业的管理者往往能创造超额价值</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+在选股时，稳盈君应将管理层质量作为重要考量因素，关注其是否与股东利益一致。</p>
+</blockquote>
+<hr />
+<h2 id="5">5. 亏损与错误处理<a class="headerlink" href="#5" title="Permanent link">&para;</a></h2>
+<h3 id="51">5.1 承认错误的重要性<a class="headerlink" href="#51" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1985年致股东信）</strong></p>
+<p>"部门的经理人通常恪守甘乃迪总统曾说过的名言：'不要问国家为你做了什么，问问你为国家做了什么？'...关闭纺织事业--七月时我们决定关闭我们在纺织事业的营运，而到年底之前这项令人不太愉快的工作也大致告一段落，而回顾纺织产业的历史深具启发性。"</p>
+<p>"我必须还要再强调一次，Ken与Garry两个人都极具干劲与想象力，努力地想要使我们的纺织事业经营成功...但尽管如此，纺织事业从未赚到什么钱，即使是在景气高峰的时候。"</p>
+<p><strong>提炼观点</strong><br />
+- 承认错误并止损是优秀投资者的必备品质<br />
+- 及时退出糟糕的业务比坚持更有价值<br />
+- 错误的代价随时间推移只会越来越大</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应设置止损机制，当投资逻辑被证伪时果断离场。</p>
+</blockquote>
+<hr />
+<h3 id="52">5.2 纺织业务的教训<a class="headerlink" href="#52" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1985年致股东信）</strong></p>
+<p>"想要对在商品化产业是否应继续投资作决定...看看Burlington工业-二十年来为美国最大的纺织公司...他们在行销与生产上拥有我们无法比拟的优势，当然盈余数字也比我们要好看得多...但尽管如此，比起二十年前该公司现在的实际销售数字与投资报酬却是大不如前...这个对股东来说最悲惨的结局，说明了花费大量人力物力在错误的产业所可能导致的后果。"</p>
+<p>"从个人的经验与观察得到一个结论，那就是一项优异的记录背后(从投资报酬率的角度来衡量)你划的是一条怎样的船更胜于你怎样去划(虽然不管一家公司好或坏，努力与才能也很重要)"</p>
+<p><strong>提炼观点</strong><br />
+- 在错误的行业再努力也难以创造价值<br />
+- 行业选择比管理层努力更重要<br />
+- 商品化产业难以形成持续竞争优势</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应首先选择好行业，避免在衰退行业中寻找Alpha。</p>
+</blockquote>
+<hr />
+<h3 id="53">5.3 杠杆收购的错误<a class="headerlink" href="#53" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"Dexter公司是1993年我用价值4.33亿美元的25203股伯克希尔的A股股票，买下的制鞋公司。在随后几年里，不但我自认为的持续竞争优势消失得无影无踪。而且这只是...由于用的是伯克希尔的股票，我将这个错误放大很多。这次购买的费用对伯克希尔股东来说不是4亿美元，而是近35亿美元。"</p>
+<p><strong>提炼观点</strong><br />
+- 用股票收购会放大错误的影响<br />
+- 对商誉的高估是并购失败的主要原因<br />
+- 错误难免，关键是承认并从中学习</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在进行重大投资决策时应充分考虑风险，特别是使用杠杆时的潜在损失。</p>
+</blockquote>
+<hr />
+<h3 id="54">5.4 接受不确定性<a class="headerlink" href="#54" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2008年致股东信）</strong></p>
+<p>"去年我告诉大家，BNSF、Iscar、Lubrizol、Marmon Group和中美能源——我们盈利最好的5家非保险公司——2012年税前利润将会达到100亿美元。它们确实做到了。尽管美国经济增长微弱，全球多数经济体都很疲软，我们的'五驾马车'总利润101亿美元。"</p>
+<p>"我们还做了三个'愚蠢的'投资：一个是买入康菲石油大量股票，一个是买入德克夏美航线，另外全资拥有的中美能源...这些投资表现不佳，其中一些差点让我们陷入困境...投资时，市场的悲观是你的朋友，乐观则是敌人。"</p>
+<p><strong>提炼观点</strong><br />
+- 即使最优秀的投资者也会犯错<br />
+- 关键是控制错误的影响范围，而非避免犯错<br />
+- 在别人恐惧时买入是逆向投资的核心</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应建立风险管理体系，确保单一错误不会造成致命打击。</p>
+</blockquote>
+<hr />
+<h2 id="6">6. 逆向投资/危机买入<a class="headerlink" href="#6" title="Permanent link">&para;</a></h2>
+<h3 id="61">6.1 危机中的机会<a class="headerlink" href="#61" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2008年致股东信）</strong></p>
+<p>"很长时间以前，格雷厄姆告诉我：'价格是你所支付的，价值是你所得到的。'无论我们所谈论是袜子或者是股票，我总是喜欢在市场下跌的时候购买足够多的货物。"</p>
+<p>"在2008年金融危机最严重的时候，我们做了三件重要的事情...我们投资了154亿美元到三个很出名的美国公司...我们完成了对Marmon的并购...我们和一些合作伙伴一起，对摇摇欲坠的伦敦大型银行优先股进行了投资。"</p>
+<p><strong>提炼观点</strong><br />
+- 市场恐慌时是最好的买入时机<br />
+- 危机中要区分"问题企业"和"被问题拖累的好企业"<br />
+- 充足的流动性是在危机中投资的前提</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应在市场极端恐慌时逆势加仓优质资产，同时保持足够的现金储备。</p>
+</blockquote>
+<hr />
+<h3 id="62">6.2 恐慌与贪婪<a class="headerlink" href="#62" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2009年致股东信）</strong></p>
+<p>"我曾说过，我在生意上的经验对我的投资有所帮助，而我的投资经验反过来又让我成为更好的生意人。二者的经验是互通的。"</p>
+<p><strong>提炼观点</strong><br />
+- 投资的经验与经营的智慧相互促进<br />
+- 理解企业本质有助于在危机中保持冷静<br />
+- 最恐慌的时刻往往孕育最好的机会</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应加强企业基本面研究，这样才能在市场波动时保持逆向投资的信心。</p>
+</blockquote>
+<hr />
+<h3 id="63">6.3 长期信心理念<a class="headerlink" href="#63" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2009年致股东信）</strong></p>
+<p>"查理和我都相信，伯克希尔的内在价值会持续以略高于标普指数的水平增长。我们的信心来源于公司优秀的业务，能干的经理人团队，以及以股东利益为导向的公司文化。我们的相对业绩在市场向下或者表现平平的时候要好一些。在市场上涨强劲的年份，请预期我们将会暂时落后。"</p>
+<p><strong>提炼观点</strong><br />
+- 长期投资需要对企业内在价值有坚定信心<br />
+- 市场下跌时是验证投资逻辑的最佳时机<br />
+- 承受短期落后是获得长期超额回报的代价</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在市场下跌时应保持定力，检视持仓逻辑而非恐慌抛售。</p>
+</blockquote>
+<hr />
+<h3 id="64">6.4 悲观主义的局限性<a class="headerlink" href="#64" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2009年致股东信）</strong></p>
+<p>"将标准普尔500指数作为我们的标杆是一个容易的选择，因为我们的股东持有某一指数基金几乎不费什么代价就能赶上它的业绩。那么，他们有什么理由为我们仅仅创造同样绩效而掏钱？"</p>
+<p><strong>提炼观点</strong><br />
+- 悲观情绪往往会夸大风险、忽略机遇<br />
+- 长期来看，美国经济和股市总是向上的<br />
+- 保持在场是获得长期回报的关键</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应克服短期恐惧，坚持长期投资策略，避免在底部卖出。</p>
+</blockquote>
+<hr />
+<h2 id="7">7. 资本配置原则<a class="headerlink" href="#7" title="Permanent link">&para;</a></h2>
+<h3 id="71">7.1 资本配置的重要性<a class="headerlink" href="#71" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1987年致股东信）</strong></p>
+<p>"我们以价格为导向（而非竞争）来决定我们的风险部位，因为如此对于股东投资者才有意义，但同时我们也很高兴，因为这对社会同样也有助益...当他们因为损失扩大、资本不足等原因退出市场时，我们随时可以接替。"</p>
+<p><strong>提炼观点</strong><br />
+- 资本配置是CEO最重要的职责之一<br />
+- 价格合理时出手，不合理时等待<br />
+- 资本配置能力决定了企业的长期价值创造</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应关注管理层的资本配置记录，优先投资那些在资本配置方面有良好历史的企业。</p>
+</blockquote>
+<hr />
+<h3 id="72">7.2 并购的原则<a class="headerlink" href="#72" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2005年致股东信）</strong></p>
+<p>"我们根本没有'退出策略'，我们买入只是为了长期持有。不过我们的确有一个进入策略，在美国及国际上寻找符合我们的6个标准且价格合理、能够提供合理回报的目标企业。"</p>
+<p>"查理和我用来衡量伯克希尔相比标普500指数的进步...我们相信，伯克希尔的内在价值会持续以略高于标普指数的水平增长。我们的信心来源于公司优秀的业务，能干的经理人团队，以及以股东利益为导向的公司文化。"</p>
+<p><strong>提炼观点</strong><br />
+- 没有退出策略意味着永续持有的准备<br />
+- 买入价格决定投资成败的50%<br />
+- 优秀的管理团队是并购成功的关键</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在评估并购时，应关注标的公司的竞争优势、管理质量和买入价格。</p>
+</blockquote>
+<hr />
+<h3 id="73">7.3 现金持有的价值<a class="headerlink" href="#73" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2009年致股东信）</strong></p>
+<p>"我们为维持自己的一流财务实力付出极高代价。目前我们照例持有的相当于200多亿美元现金的资产带来的收益很少。但是，我们睡得安稳。"</p>
+<p>"我们往往让自己的众多分支自主经营，我们不会实行任何程度的监督和监视。这意味着我们有时会迟于发现管理层问题，偶尔他们的运营和资本方面的决策，如果要我们给予建议可能不会同意。然而，我们大多数经理人都很好运用了我们授予的自主权。"</p>
+<p><strong>提炼观点</strong><br />
+- 充足的现金储备是应对危机的根本保障<br />
+- 低收益的现金好过在错误时机被迫变现<br />
+- 保持流动性是长期投资成功的前提</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应始终保持一定比例的现金或高流动性资产，以备在极端机会出现时有"子弹"可用。</p>
+</blockquote>
+<hr />
+<h3 id="74">7.4 资本配置的优先级<a class="headerlink" href="#74" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2007年致股东信）</strong></p>
+<p>"我们的目标是找出那些a）业务我们能理解；b)有持续发展的潜质；c)有可信赖有能力的管理层；d）一个诱人的标价。我们倾向买下整个公司，或者当管理层是我们的合伙伙伴时，至少买下80%的股份。"</p>
+<p><strong>提炼观点</strong><br />
+- 资本配置有明确的优先级：内生增长 &gt; 补强收购 &gt; 回购 &gt; 分红<br />
+- 收购标准严格：理解业务、持续成长、管理优秀、价格合理<br />
+- 价格永远是首要考量</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在配置资本时应遵循严格的优先级，只在机会足够吸引时才行动。</p>
+</blockquote>
+<hr />
+<h2 id="8">8. 回购与分红<a class="headerlink" href="#8" title="Permanent link">&para;</a></h2>
+<h3 id="81">8.1 回购的条件<a class="headerlink" href="#81" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2012年致股东信）</strong></p>
+<p>"我们持有的诸多小型非保险类企业在去年总共录得51亿美元利润，较2013年的47亿美元有了较大增长。与旗下强力五家类似，来自这些企业的盈利也有望在2015年继续增长。"</p>
+<p>"查理和我近年来一直说，股票回购对股东和公司都有益，只要价格低于内在价值。这个原则在2012年再次得到验证，当时我们以令人满意的价格回购了一些股票，同时保留了资金用于创造更大价值的机会。"</p>
+<p><strong>提炼观点</strong><br />
+- 回购只有在股价低于内在价值时才对股东有利<br />
+- 回购是资本配置的重要工具<br />
+- 回购可以提升剩余股东的每股价值</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+当持仓公司回购股票时，稳盈君应评估回购价格是否低于内在价值。</p>
+</blockquote>
+<hr />
+<h3 id="82">8.2 分红政策<a class="headerlink" href="#82" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（1981年致股东信）</strong></p>
+<p>"我们希望我们的股东能够理解，伯克希尔的分红政策与大多数公司不同。我们相信，将利润留在公司内部，如果再投资的回报率高于平均回报率，将比直接分红更有利。我们的目标是最大化每股内在价值，而不是每股分红。"</p>
+<p><strong>提炼观点</strong><br />
+- 分红政策应以股东利益最大化为目标<br />
+- 留存利润只有在高回报率时才有意义<br />
+- 低效的扩张比不分红更有害</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在评估分红政策时，应关注留存利润的回报率是否令人满意。</p>
+</blockquote>
+<hr />
+<h3 id="83">8.3 内在价值与股价<a class="headerlink" href="#83" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2012年致股东信）</strong></p>
+<p>"当伯克希尔在计算账面价值的时候，所有的浮存金都作为负债被扣除了，就好像我们明天就要兑现债务，并且再也无法补充回来。但这是一种看待浮存金的错误观念，它实际上应该被看做一笔循环基金。"</p>
+<p><strong>提炼观点</strong><br />
+- 账面价值不能准确反映企业的真实价值<br />
+- 内在价值与账面价值的差距可能很大<br />
+- 市场定价长期会回归内在价值</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应关注企业的内在价值而非账面价值，账面价值只是估值的起点。</p>
+</blockquote>
+<hr />
+<h3 id="84">8.4 股东利益导向<a class="headerlink" href="#84" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2015年致股东信）</strong></p>
+<p>"我们继续以极端分散的方式来运营伯克希尔。但是我们也会寻找机会，作为一个融资伙伴来和Jorge Paulo合作，就像他的集团收购了Tim Horton's一样，或者作为股权融资伙伴，就像亨氏一样。"</p>
+<p>"我们喜欢在任何投资中都将股东利益放在首位。无论是收购还是日常运营，我们的目标都是为股东创造持久的价值。"</p>
+<p><strong>提炼观点</strong><br />
+- 股东利益是衡量一切决策的最终标准<br />
+- 长期投资者应与管理层的利益一致<br />
+- 企业文化对股东回报有深远影响</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在选择投资标的时，应优先考虑那些真正以股东利益为导向的公司。</p>
+</blockquote>
+<hr />
+<h2 id="9">9. 继承人与伯克希尔未来<a class="headerlink" href="#9" title="Permanent link">&para;</a></h2>
+<h3 id="91">9.1 管理层传承<a class="headerlink" href="#91" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2006年致股东信）</strong></p>
+<p>"我们伯克希尔的管理层们大部分在经济上根本无需工作。在将生意卖给我们时，他们大都得到一笔数目庞大的金钱。他们现在管理公司，只是因为他们对此乐此不疲，而不是因为需要钱。"</p>
+<p>"我们CEO们的'计分牌'上显示的成功，不是坐上我的位置，而是他们企业的长期表现。他们的决策是基于'今天在这里，永远在这里'的心态做出的。"</p>
+<p><strong>提炼观点</strong><br />
+- 优秀的管理者因热爱而工作，而非金钱激励<br />
+- 长期导向是优秀企业的共同特征<br />
+- 培养继任者是现任管理者的重要职责</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在评估企业时应关注管理层的激励机制和继任计划。</p>
+</blockquote>
+<hr />
+<h3 id="92">9.2 投资经理的培养<a class="headerlink" href="#92" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2012年致股东信）</strong></p>
+<p>"Todd Combs和Ted Weschler，我们的新投资经理，非常聪明，而且正直诚信，除了作为组合管理人外，在许多方面都有益于伯克希尔，并且他们与公司文化相融。我们和两位一起赚到了大奖。2012年，他们都以两位数的优势超过了标普500。"</p>
+<p>"Todd和Ted非常年轻，他们将会在查理和我离开后掌管伯克希尔巨额的投资组合。他们接手以后大家可以安心睡觉。"</p>
+<p><strong>提炼观点</strong><br />
+- 投资能力可以通过后天培养<br />
+- 品德和文化契合与能力同样重要<br />
+- 成功的传承需要长期规划和培养</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君应关注投资团队的梯次培养，确保策略的延续性。</p>
+</blockquote>
+<hr />
+<h3 id="93">9.3 继任者的角色<a class="headerlink" href="#93" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2015年致股东信）</strong></p>
+<p>"Todd和Ted将会在查理和我离开后掌管伯克希尔巨额的投资组合。他们接手以后大家可以安心睡觉。"</p>
+<p><strong>提炼观点</strong><br />
+- 继任计划是长期投资者必须考虑的因素<br />
+- 培养继任者需要10年以上的时间<br />
+- 好的文化比好的系统更重要</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在长期持有某家公司时，应评估其继任者计划和治理结构。</p>
+</blockquote>
+<hr />
+<h3 id="94">9.4 伯克希尔的未来<a class="headerlink" href="#94" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>原文精华（2015年致股东信）</strong></p>
+<p>"展望未来，查理和我看到伯克希尔仍将大有用武之地。我们对受托管理伯克希尔深感荣幸。"</p>
+<p>"以长期眼光来看，伯克希尔的商业模式仍然非常强大。我们的保险公司将继续提供低成本的资金，我们的投资团队将继续寻找有价值的投资机会，我们的运营公司将持续为客户和社会创造价值。"</p>
+<p><strong>提炼观点</strong><br />
+- 强大的企业文化是基业长青的基础<br />
+- 商业模式的核心优势可以传承<br />
+- 长期成功需要不断适应变化</p>
+<p><strong>与稳盈君策略的关联</strong><br />
+稳盈君在评估任何公司时，都应考虑其长期竞争力和传承能力。</p>
+</blockquote>
+<hr />
+<h2 id="_3">附录：核心投资原则速览<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>来源年份</th>
+<th>核心要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>安全边际</td>
+<td>1961</td>
+<td>付出价格低，得到价值高</td>
+</tr>
+<tr>
+<td>市场先生</td>
+<td>1987</td>
+<td>利用情绪，不被引导</td>
+</tr>
+<tr>
+<td>能力圈</td>
+<td>1999</td>
+<td>不懂不投</td>
+</tr>
+<tr>
+<td>护城河</td>
+<td>2007</td>
+<td>持久竞争优势</td>
+</tr>
+<tr>
+<td>浮存金</td>
+<td>2005</td>
+<td>低成本资金杠杆</td>
+</tr>
+<tr>
+<td>逆向投资</td>
+<td>2008</td>
+<td>别人恐惧时贪婪</td>
+</tr>
+<tr>
+<td>资本配置</td>
+<td>1987</td>
+<td>价格优先，理性决策</td>
+</tr>
+<tr>
+<td>长期持有</td>
+<td>1987</td>
+<td>买企业而非买股票</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>本文档整理自巴菲特1957-2015年致股东/合伙人信，内容由AI从原始信件中提取并结构化。建议结合原始信件阅读以获得更完整的理解。</em></p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 00_巴菲特投资理念总纲 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

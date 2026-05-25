@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shopify B2B独立站配置方案 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/website/">跨境独立站</a>
+    &nbsp;/&nbsp;
+    <span>概念</span>
+  </div>
+  <h1>Shopify B2B独立站配置方案</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val">概念</span></div>
+      
+      <div class="meta-row"><span class="label">创建</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">更新</span><span class="val">2026-05-25</span></div>
+      
+      
+      <div class="meta-row"><span class="label">可信度</span><span class="val">high</span></div>
+      
+      
+      <div class="tags" style="margin-top:8px">
+        <span class="tag">建站</span><span class="tag">SOP</span>
+      </div>
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#shopify-b2b独立站配置方案">Shopify B2B独立站配置方案</a></div>
+      
+      <div class="toc-item l2"><a href="#网站地图site-map">网站地图（Site Map）</a></div>
+      
+      <div class="toc-item l2"><a href="#首页模块顺序10个模块">首页模块顺序（10个模块）</a></div>
+      
+      <div class="toc-item l2"><a href="#产品页模板">产品页模板</a></div>
+      
+      <div class="toc-item l2"><a href="#技术seo配置">技术SEO配置</a></div>
+      
+      <div class="toc-item l2"><a href="#b2b询价工作流">B2B询价工作流</a></div>
+      
+      <div class="toc-item l2"><a href="#上线前检查清单">上线前检查清单</a></div>
+      
+      <div class="toc-item l2"><a href="#月度维护任务">月度维护任务</a></div>
+      
+      <div class="toc-item l2"><a href="#与其他概念的关系">与其他概念的关系</a></div>
+      
+      <div class="toc-item l2"><a href="#来源">来源</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>相关页面</h3>
+      
+      <div class="related-item"><a href="#">Shopify]] 关键词研究 竞品分析 [[SEO策略</a></div>
+      
+    </div>
+    
+
+    
+    <div class="sidebar-box">
+      <h3>来源</h3>
+      <div class="source-item">raw/articles/Shopify配置方案.md</div>
+    </div>
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>Shopify B2B独立站配置方案</h1>
+      <div class="article-meta">概念 · 跨境独立站 · 更新于 2026-05-25</div>
+      <div class="content">
+        <h1 id="shopify-b2b">Shopify B2B独立站配置方案<a class="headerlink" href="#shopify-b2b" title="Permanent link">&para;</a></h1>
+<h2 id="site-map">网站地图（Site Map）<a class="headerlink" href="#site-map" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">www</span><span class="p">.</span><span class="o">[</span><span class="n">yourbrand</span><span class="o">]</span><span class="p">.</span><span class="n">com</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">首页</span><span class="err">（</span><span class="n">Home</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">关于我们</span><span class="err">（</span><span class="n">About</span><span class="w"> </span><span class="n">Us</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">产品</span><span class="err">（</span><span class="n">Products</span><span class="err">）</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">薄膜材料</span><span class="err">（</span><span class="n">BOPP</span><span class="o">/</span><span class="n">PET</span><span class="o">/</span><span class="n">PP</span><span class="err">）</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">纸类材料</span><span class="err">（</span><span class="n">热敏</span><span class="o">/</span><span class="n">铜版</span><span class="err">）</span>
+<span class="err">│</span><span class="w">   </span><span class="err">├──</span><span class="w"> </span><span class="n">特种材料</span><span class="err">（</span><span class="n">耐高温</span><span class="o">/</span><span class="n">冷冻</span><span class="o">/</span><span class="n">防伪</span><span class="err">）</span>
+<span class="err">│</span><span class="w">   </span><span class="err">└──</span><span class="w"> </span><span class="n">配件</span><span class="err">（</span><span class="n">热转印碳带</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">应用场景</span><span class="err">（</span><span class="n">Applications</span><span class="err">）</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">资源中心</span><span class="err">（</span><span class="n">Resources</span><span class="err">）★</span><span class="w"> </span><span class="n">SEO核心</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">询价</span><span class="err">（</span><span class="n">Request</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Quote</span><span class="err">）★</span><span class="w"> </span><span class="n">核心转化</span>
+<span class="err">├──</span><span class="w"> </span><span class="n">联系我们</span><span class="err">（</span><span class="n">Contact</span><span class="w"> </span><span class="n">Us</span><span class="err">）</span>
+<span class="err">└──</span><span class="w"> </span><span class="n">FAQ</span>
+</code></pre></div>
+
+<h2 id="10">首页模块顺序（10个模块）<a class="headerlink" href="#10" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Hero Section — 主标题 + CTA按钮</li>
+<li>Trust Bar — ISO认证 / FSC认证 / 32年老厂</li>
+<li>Core Product Categories — 3列产品分类</li>
+<li>Why Choose Us — 工厂直供 / ISO认证 / 灵活MOQ / 技术支持</li>
+<li>Product Highlights — 6-8主打产品</li>
+<li>Application Industries — 6列行业图标</li>
+<li>Technical Resources CTA — 资源下载引流</li>
+<li>Factory/About Preview — 工厂实景</li>
+<li>Testimonials — 客户评价</li>
+<li>Footer — 全站链接</li>
+</ol>
+<h2 id="_1">产品页模板<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>产品标题格式：<code>BOPP Self Adhesive Label Roll - White Gloss 500mm x 1000m</code></li>
+<li>关键参数面板（B2B核心）：材质/厚度/宽幅/长度/胶型/耐温/认证</li>
+<li>询价表单（核心转化）：姓名/公司/邮箱/电话/数量/规格</li>
+</ul>
+<h2 id="seo">技术SEO配置<a class="headerlink" href="#seo" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>要求</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta Title</td>
+<td>50-60字符，含核心关键词</td>
+</tr>
+<tr>
+<td>Meta Description</td>
+<td>150-160字符，含CTA</td>
+</tr>
+<tr>
+<td>URL Handle</td>
+<td>简短含关键词</td>
+</tr>
+<tr>
+<td>Image ALT</td>
+<td>含关键词，1-2句话</td>
+</tr>
+<tr>
+<td>Schema Markup</td>
+<td>JSON-LD（产品/FAQ/Organization）</td>
+</tr>
+</tbody>
+</table>
+<h2 id="b2b">B2B询价工作流<a class="headerlink" href="#b2b" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>客户类型</th>
+<th>响应策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>新访客</td>
+<td>48小时内主动邮件跟进</td>
+</tr>
+<tr>
+<td>表单询价客户</td>
+<td>24小时内报价</td>
+</tr>
+<tr>
+<td>样品申请客户</td>
+<td>优先处理</td>
+</tr>
+<tr>
+<td>大客户（MOQ&gt;500/月）</td>
+<td>专属客户经理</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_2">上线前检查清单<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Shopify后台：域名绑定+HTTPS生效</li>
+<li>所有页面：Meta Title + Description 已填写</li>
+<li>所有产品图：ALT文本已填写</li>
+<li>Google Search Console：网站已提交，站点地图已上传</li>
+<li>GA4：已安装，事件跟踪已配置</li>
+<li>移动端测试：所有页面正常显示</li>
+<li>页面速度：PageSpeed &gt; 80分</li>
+</ul>
+<h2 id="_3">月度维护任务<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>时间</th>
+<th>任务</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>每周</td>
+<td>检查询价表单，48小时内响应；发布1篇博客</td>
+</tr>
+<tr>
+<td>每月</td>
+<td>查看GA4数据；检查关键词排名</td>
+</tr>
+<tr>
+<td>每季度</td>
+<td>内容审计（死链/过期内容）</td>
+</tr>
+<tr>
+<td>每半年</td>
+<td>竞品分析回顾</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">与其他概念的关系<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>本方案是 <span class="wikilink">Shopify</span> 平台的具体应用</li>
+<li>技术SEO配置是 <span class="wikilink">关键词研究</span> 的落地执行</li>
+<li>竞品分析是本方案的竞争环境输入（<span class="wikilink">竞品分析</span>）</li>
+<li>资源中心/博客是 <span class="wikilink">SEO策略</span> 的内容载体</li>
+</ul>
+<h2 id="_5">来源<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">2026-05-21-不干胶大卷独立站-Shopify配置方案</span></li>
+</ul>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/website/">← 返回 跨境独立站</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · Shopify B2B独立站配置方案 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

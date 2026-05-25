@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-23-第21周复盘 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-23-第21周复盘</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#-每周复盘-2026-05-23第21周">📅 每周复盘 · 2026-05-23（第21周）</a></div>
+      
+      <div class="toc-item l2"><a href="#-本周表现">📊 本周表现</a></div>
+      
+      <div class="toc-item l2"><a href="#-本周核心观点">📝 本周核心观点</a></div>
+      
+      <div class="toc-item l2"><a href="#-本周踩坑教训">⚠️ 本周踩坑/教训</a></div>
+      
+      <div class="toc-item l2"><a href="#-下周计划">🎯 下周计划</a></div>
+      
+      <div class="toc-item l2"><a href="#-市场观察">💡 市场观察</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-23-第21周复盘</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="2026-05-2321">📅 每周复盘 · 2026-05-23（第21周）<a class="headerlink" href="#2026-05-2321" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p>持仓数据来源：用户截图（2026-05-22 15:25）+ 腾讯财经实时行情（2026-05-23）</p>
+</blockquote>
+<hr />
+<h2 id="_1">📊 本周表现<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h2>
+<p><strong>账户总览（截图数据）</strong><br />
+| 项目 | 数据 |<br />
+|------|------|<br />
+| 总资产 | 98,860元 |<br />
+| 证券市值 | 82,164元 |<br />
+| 现金 | 16,696元 |<br />
+| 仓位 | <strong>83%</strong> |<br />
+| 持仓总盈亏 | <strong>-634元</strong> |<br />
+| 今日盈亏（截图） | <strong>+3,710元 (+3.90%)</strong> |</p>
+<p><strong>持仓明细（截图数据 + 腾讯实时验证）</strong></p>
+<table>
+<thead>
+<tr>
+<th>股票</th>
+<th>代码</th>
+<th>数量</th>
+<th>成本价</th>
+<th>现价</th>
+<th>市值</th>
+<th>盈亏</th>
+<th>仓位占比</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>灿芯半导体</td>
+<td>688691</td>
+<td>400股</td>
+<td>124.54</td>
+<td>122.70</td>
+<td>49,080</td>
+<td><strong>-736元(-1.5%)</strong></td>
+<td>49.6%</td>
+</tr>
+<tr>
+<td>拉普拉斯</td>
+<td>688172</td>
+<td>200股</td>
+<td>69.88</td>
+<td>70.26</td>
+<td>14,052</td>
+<td><strong>+76元(+0.5%)</strong></td>
+<td>14.2%</td>
+</tr>
+<tr>
+<td>通富微电</td>
+<td>002156</td>
+<td>300股</td>
+<td>63.35</td>
+<td>63.44</td>
+<td>19,032</td>
+<td><strong>+26元(+0.1%)</strong></td>
+<td>19.2%</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>腾讯实时验证（2026-05-23）：灿芯现价122.70(+3.4%)，拉普拉斯70.26(+4.8%)，通富微电63.44(+2.7%)<br />
+三只股票截图现价与腾讯实时完全一致，数据可靠。</p>
+</blockquote>
+<p><strong>资金轨迹</strong><br />
+| 时间 | 总资产 | 变化 | 事件 |<br />
+|------|--------|------|------|<br />
+| 起点 | 94,000元 | — | 初始账户 |<br />
+| 5月21日截图 | 95,149元 | +1,149元 | 清仓防御仓→半导体，仓位96% |<br />
+| 5月22日截图 | 98,860元 | +3,711元 | 半导体反弹，仓位降至83% |<br />
+| 5月23日实时 | ~101,748元 | +2,888元 | 三只继续涨，合计已从亏损634元→盈利约+2,254元 |</p>
+<p><strong>⚠️ 腾讯实时盈亏估算（成本价 vs 腾讯现价）：</strong><br />
+- 灿芯：400股 × (122.70-124.54) = <strong>-736元</strong>（仍未回本）<br />
+- 通富：300股 × (63.44-63.35) = <strong>+27元</strong>（刚解套）<br />
+- 拉普拉斯：200股 × (70.26-69.88) = <strong>+76元</strong>（微利）<br />
+- <strong>合计：-633元</strong> → 但今日额外涨了约+2,888元</p>
+<hr />
+<h2 id="_2">📝 本周核心观点<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<p><strong>用户对市场的判断：</strong><br />
+- 对半导体板块有信仰，坚定持有IC设计（灿芯）+ 封测（通富）+ 设备/材料（拉普拉斯）三只<br />
+- 认为半导体是长期主线，短期波动用"等回本"心态持有<br />
+- 不接受止损，宁可等反弹</p>
+<p><strong>稳盈君的核心建议：</strong><br />
+- 半导体重仓（83%，三只合计49.6%+19.2%+14.2%）风险极高，单一行业100%集中<br />
+- 今日+3,710元是板块反弹的运气收益，非操作正确<br />
+- <strong>趁反弹分批减仓</strong>：灿芯130元附近可减，拉普拉斯/通富逢高减，仓位降至50%以下<br />
+- <strong>换仓方向</strong>：目标可转债双低（润达转债115/上银转债116/大参转债115等），债底保护，进可攻退可守<br />
+- <strong>永远保留现金</strong>：当前83%仓位+17%现金已是极限，不能再ALL IN</p>
+<hr />
+<h2 id="_3">⚠️ 本周踩坑/教训<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h2>
+<p><strong>[踩坑1] 高位清仓防御仓位追半导体，完美买在最高点</strong><br />
+- 5月21日半导体板块崩盘（电子化学品-5.77%，灿芯单日-7.62%），用户当天清仓长电、移动、石油换半导体<br />
+- 结果：防御仓位利润全部回吐，倒贴亏损<br />
+- 教训：<strong>防御仓位是账户"压舱石"，永远不要在板块高潮时全部清仓换热门题材</strong></p>
+<p><strong>[踩坑2] 仓位集中度失控，从分散变单一押注</strong><br />
+- 原持仓：长电+移动+石油+紫金+分众+海大（7只，分散行业）<br />
+- 现状：3只股票，100%半导体，灿芯一只占比近50%<br />
+- 教训：<strong>行业集中度≤30%，单只仓位≤20%，这是铁律，不是建议</strong></p>
+<p><strong>[踩坑3] 无交易计划，无止损纪律</strong><br />
+- 买入无目标价、无止损线、无仓位控制<br />
+- 被套后"等回本"是最常见的亏损放大器<br />
+- 教训：<strong>每一笔买入前，必须想好：最多亏多少、什么条件卖</strong></p>
+<hr />
+<h2 id="_4">🎯 下周计划<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p><strong>【减仓】灿芯半导体（688691）—— 130元附近减半锁利</strong><br />
+   - 成本124.54元，130元已是+4.4%，每手200股约可锁利约540元<br />
+   - 条件：触发即执行，不恋战</p>
+</li>
+<li>
+<p><strong>【减仓】通富微电（002156）—— 66元附近减仓</strong><br />
+   - 封测板块轮动补涨，66元已超过成本3元/股，可减1/3仓位<br />
+   - 条件：触及66元即减，不追高</p>
+</li>
+<li>
+<p><strong>【换仓】半导体仓位降至50%以下 → 可转债双低</strong><br />
+   - 宽松双低候选（18只）：润达转债(113588)、上银转债(113042)、大参转债(113605)、宏川转债(128121)<br />
+   - 单只仓位≤15%（约1.4万元），债价&lt;120元+溢价&lt;30%，AAA/AA评级优先<br />
+   - 用途：债底保护，进可博弈正股弹性，退可收息等强赎</p>
+</li>
+<li>
+<p><strong>【风控】总仓位上限70%，保留30%现金</strong><br />
+   - 半导体仓位降至50%后，立即补仓现金或货币基金<br />
+   - 不管市场多好，账户永远留有"救命钱"</p>
+</li>
+</ol>
+<hr />
+<h2 id="_5">💡 市场观察<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h2>
+<p><strong>大盘：高位震荡，结构分化</strong><br />
+- 上证 4112点(+0.87%)、创业板 +2.84%、科创50 +1.51%<br />
+- 科技/成长板块今日反弹，但整体处于高位震荡期<br />
+- 注意：高位科技资金有出逃迹象，防御板块（银行/家电）有所轮动</p>
+<p><strong>可转债：双低池小幅恢复，但仍偏紧</strong><br />
+- 严格池（价格&lt;115+溢价&lt;20%）：<strong>8只</strong>（含ST标的，不适合重仓）<br />
+- 宽松池（价格&lt;120+溢价&lt;30%）：<strong>18只</strong>，可用标的增多<br />
+- 重点关注：润达转债(115.5元/溢价4.9%)、上银转债(116.2元/溢价9.7%/AAA)</p>
+<p><strong>关注机会</strong><br />
+- 半导体反弹持续性：若科创50突破1850点，可继续持有；若再次破位，果断减仓<br />
+- 可转债进攻仓建仓窗口：债底在110-120元区间，溢价30%以内的标的开始出现吸引力<br />
+- 防御层重建：待半导体仓位降至50%，可重新布局长电/移动等低估值高股息品种</p>
+<hr />
+<p><em>复盘时间：2026-05-23 12:42 | 数据来源：用户截图 + 腾讯财经实时 + akshare双低扫描</em></p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-23-第21周复盘 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

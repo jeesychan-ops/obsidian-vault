@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1971_致股东信 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>1971_致股东信</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#1971年巴菲特致股东信">1971年巴菲特致股东信</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>1971_致股东信</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="1971">1971年巴菲特致股东信<a class="headerlink" href="#1971" title="Permanent link">&para;</a></h1>
+<p>巴菲特致股东的信1971<br />
+致Berkshire 公司全体股东：<br />
+今天很高兴报告我们1971 年的营业利润，扣除资本利得，我们的股东权益比年初增加<br />
+了14%。这个结果大大高于美国工业平均值，而且是在我们纺织业务对利润贡献不大的情况<br />
+下，这些都归功于我们五年前开始的业务重组。我们管理层的主要目标仍然是提高资产报酬<br />
+率和净资产收益率。但是我们应该意识到保持这样高的投资回报率比较困难，因为整个60<br />
+年代的投资回报都不是很高。<br />
+纺织业务<br />
+和大多数纺织企业一样，我们71 年的业务经营比较困难，利润率也不理想。管理层努<br />
+力减低成本，生产一些价格不敏感利润低的产品。然而，如果没有这些努力我们可能会陷入<br />
+亏损的状态。这一年制订计划减少库存起到了比较好的效果，雇佣也比较稳定。<br />
+正如去年说的，Ken Chace 和他的管理层在这样一个不景气的行业中苦苦抗争。大环境<br />
+不好他们付出了更加大的努力。最近我们加强销售力量的努力产生了一些正面作用。随着我<br />
+们纺织业务的改善，我们期望在明年纺织业务会有更好的利润率（尽管不会太高）。<br />
+保险业务<br />
+交通事故的降低以及今年没有发生特大灾难，这两个因素加在一起使我们的财产人寿保<br />
+险业务今年表现异常的好，虽然还存在一些不足，我们还是因此受惠。我们的传统业务（仍<br />
+然是最大的一部分）是一些处在特殊政策和非标准化下的保险业务。当标准化市场由于利润<br />
+较低而变得很难经营时，我们的业务增长了很多。这是几年之前的情况，70 和71 年也是这<br />
+样。<br />
+既然保险业已经变成了高盈利的行业，更多的公司在这一领域寻找机会，在一些地区投<br />
+保费用也发生了下降。我们继续保持盈利状态主要归功于我们的主要目标，但是这意味着<br />
+72 年国民保险公司的业务将发生重大下降。Jack Ringwalt 和Phil Liesche 继续指导这些<br />
+业务的进行。再保险业务（在两年中实现了很快的发展，这都要归功于George Young）也<br />
+是相同的状况。我们在69 年进入再保险领域，那时利率上升很快，市场容量也变得紧张。<br />
+再保险业务71 年表现的非常好。如今利率下降，又出现了很多强大的竞争对手。为了应对<br />
+不利的环境，我们希望72 年的业务有所缩减。我们不会为我们的保险业务设置目标（再保<br />
+险业务也是如此），因为如果忽略盈利，任何虚幻的目标都可以实现。当出现大灾难和保险<br />
+索赔上升时，我们希望我们有能力调集足够的资金来处理这些问题。<br />
+我们"home-state"保险业务在1970 年开始，这一年我们建立了Cornhusker Casualty<br />
+公司。迄今为止，公司在市场或是保费水平上都发展的很好。因此我们又建立了两家公司<br />
+Lakeland Fire&amp;Casualty 公司（明尼苏达州1971）和Texas United Insurance（1972）。<br />
+这几家公司都会在各自领域努力发展，为投保人提供大公司的水准，和小公司一样的方便、<br />
+灵活的服务。John Ringwalt 统一管理这几家公司。他工作勤奋又很有天分，把自己的想法<br />
+付诸实践。这些"home-state"公司现在仍然比较小，1971 年只有150 万的保费收入。我们<br />
+估计72 年保费收入会翻倍。我们将建立更好的考核标准，对绩效进行评估。<br />
+71 年收购Home&amp;Automobile 保险公司（总部芝加哥）是我们的一项重大工作。公司由<br />
+Victor Raab 创建，公司开始时是由Victor 投资的一家汽车保险公司起家，71 年赚取了750<br />
+万的保费。Vic 和Jack Ringwalt，Gene Abegg 一样很有天赋，而且对工作充满激情。这三<br />
+个人把公司不断发展壮大，在把公司卖给了伯克希尔之后，他们得到了现金，现在仍然痴迷<br />
+于自己的工作，并因此感到自豪。Vic 创立公司后公司实现了快速发展，但是他的才能受制<br />
+126</p>
+<p>于资金的缺乏。我们为公司提供了大量的资金，这将使公司建立分支机构拓展业务，向其他<br />
+人口稠密地区拓展。<br />
+总之，把Home and Auto 公司业务增加到我们的业务中，将会抵消我们National<br />
+Indemnity Company 的再保险业务的下降，这样做是值得商榷的。但是，我们在70 年和71<br />
+年业务的增长所带来的额外收入将会使我们在未来几年受益。这样，尽管保费收入不尽人意，<br />
+我们保险业务的前景还是相当好的。<br />
+银行业<br />
+我们的银行子公司（Illinois National Bank&amp;Trust Company）在利润上继续保持着比<br />
+较好的发展势头，1971 年我们的税后利润超过了平均存款2%（税后2%after tax on average<br />
+deposits），这些都是在我们（1）没有借款（除了偶然性的储备平衡交易），（2）保持高于<br />
+平均水平的流动性，（3）贷款损失率低于平均水平，（4）利用了超过了50%的定期存款，在<br />
+一年产生了最大的利率。这些成就都要归功于Gene Abegg 和Bob Kline 卓越的管理。在1971<br />
+年，贷款和投资产生的利率是很低的。最近几年，Illinois National 的存款大大高于行业<br />
+平均值。例如，存款所付利息已经从1969 年的170 万增加到了1971 年的270 万。但是，银<br />
+行的盈利仍然保持着。这一年我们付出了很大的努力，也取得了很好的效果。现在的利率比<br />
+71 年还低，银行业72 年的获利比较困难。Illinois National 的存款收入主要来自于定期<br />
+存款，但现在产生的利润比较少。要想使我们72 年的利润达到71 年的水平，就需要做好成<br />
+本控制。<br />
+金融<br />
+因为71 年我们保险附属子公司的增长，我们重组了伯克希尔的银行贷款，来为我们的<br />
+子公司提供额外的资本。这项财务政策效果显得特别正确，尤其是当我们今年购买<br />
+Home&amp;Auto 公司时。我们的保险和银行子公司保持着良好的公众信用。我们的基本信条是建<br />
+立一个强大的金融体系，使我们能够尽到应尽的义务。这样，我们将会继续推进我们的金融<br />
+布局，最大限度的增强我们的金融力量，使子公司可以达到母公司的水平。<br />
+沃伦·巴菲特<br />
+董事会主席<br />
+1972 年3 月13 日<br />
+127</p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 1971_致股东信 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>

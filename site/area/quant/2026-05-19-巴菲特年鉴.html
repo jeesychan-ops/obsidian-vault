@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026-05-19-巴菲特年鉴 — 知识库</title>
+<style>
+:root {
+  --bg: #0d1117; --surface: #161b22; --border: #30363d;
+  --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+  --tag-bg: #1f2937; --tag-text: #9ca3af;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+       background: var(--bg); color: var(--text); line-height: 1.7; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─ Header ─ */
+header { border-bottom: 1px solid var(--border); padding: 20px 40px;
+         display: flex; align-items: center; gap: 16px; }
+.breadcrumb { font-size: 13px; color: var(--muted); }
+.breadcrumb a { color: var(--muted); }
+.breadcrumb a:hover { color: var(--accent); text-decoration: none; }
+header h1 { font-size: 18px; font-weight: 700; }
+
+/* ─ Layout ─ */
+.layout { display: flex; max-width: 1100px; margin: 0 auto; padding: 32px 40px; gap: 40px; }
+
+/* ─ Sidebar ─ */
+.sidebar { width: 220px; flex-shrink: 0; }
+.sidebar-box { background: var(--surface); border: 1px solid var(--border);
+              border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.sidebar-box h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+                  letter-spacing: 0.5px; margin-bottom: 10px; }
+.meta-row { display: flex; justify-content: space-between; padding: 3px 0;
+            border-bottom: 1px solid rgba(48,54,61,0.5); }
+.meta-row:last-child { border-bottom: none; }
+.meta-row .label { color: var(--muted); }
+.meta-row .val { color: var(--text); }
+.tag { display: inline-block; background: var(--tag-bg); color: var(--tag-text);
+       font-size: 11px; padding: 2px 8px; border-radius: 4px; margin: 2px; }
+.tags { margin-top: 4px; }
+
+/* ─ TOC ─ */
+.toc { background: var(--surface); border: 1px solid var(--border);
+       border-radius: 8px; padding: 16px; margin-bottom: 16px; font-size: 13px; }
+.toc h3 { font-size: 11px; color: var(--muted); text-transform: uppercase;
+          letter-spacing: 0.5px; margin-bottom: 10px; }
+.toc-item { padding: 3px 0; }
+.toc-item.l2 { padding-left: 12px; }
+.toc-item.l3 { padding-left: 24px; }
+.toc-item a { color: var(--muted); }
+.toc-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Related ─ */
+.related-item { padding: 4px 0; }
+.related-item a { color: var(--muted); font-size: 13px; }
+.related-item a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Sources ─ */
+.source-item { padding: 4px 0; font-size: 12px; color: var(--muted); }
+
+/* ─ Main ─ */
+.main { flex: 1; min-width: 0; }
+
+/* ─ Article ─ */
+.article { background: var(--surface); border: 1px solid var(--border);
+           border-radius: 8px; padding: 32px; }
+.article h1 { font-size: 22px; font-weight: 700; margin-bottom: 8px;
+              border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+.article-meta { font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+
+/* ─ MD styles ─ */
+.article h2 { font-size: 18px; font-weight: 600; margin: 28px 0 12px;
+               border-left: 3px solid var(--accent); padding-left: 10px; }
+.article h3 { font-size: 15px; font-weight: 600; margin: 20px 0 10px; color: #c9d1d9; }
+.article h4 { font-size: 14px; font-weight: 600; margin: 16px 0 8px; }
+.article p { margin-bottom: 14px; color: #c9d1d9; }
+.article ul, .article ol { margin: 0 0 14px 20px; color: #c9d1d9; }
+.article li { margin-bottom: 4px; }
+.article blockquote { border-left: 3px solid var(--accent); padding: 8px 16px;
+                       margin: 16px 0; background: rgba(88,166,255,0.05);
+                       border-radius: 0 4px 4px 0; color: var(--muted); }
+.article table { width: 100%; border-collapse: collapse; margin: 16px 0;
+                 font-size: 14px; }
+.article th, .article td { border: 1px solid var(--border); padding: 8px 12px; text-align: left; }
+.article th { background: rgba(88,166,255,0.08); color: var(--accent); }
+.article td { color: #c9d1d9; }
+.article tr:hover td { background: rgba(88,166,255,0.03); }
+.article code { background: rgba(88,166,255,0.1); color: #79c0ff;
+                padding: 1px 5px; border-radius: 4px; font-size: 13px; font-family: 'Fira Code', monospace; }
+.article pre { background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+               padding: 16px; overflow-x: auto; margin: 16px 0; }
+.article pre code { background: none; padding: 0; color: var(--text); }
+.article img { max-width: 100%; border-radius: 6px; margin: 12px 0; }
+.article a { color: var(--accent); }
+.article hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+.article .wikilink { color: #79c0ff; background: rgba(88,166,255,0.1);
+                     padding: 0 4px; border-radius: 3px; }
+
+/* ─ Footer nav ─ */
+.page-nav { display: flex; justify-content: space-between; margin-top: 24px;
+            padding-top: 16px; border-top: 1px solid var(--border); font-size: 13px; }
+.page-nav a { color: var(--muted); }
+.page-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ─ Footer ─ */
+footer { border-top: 1px solid var(--border); padding: 20px 40px;
+         color: var(--muted); font-size: 12px; margin-top: 40px; }
+
+@media (max-width: 768px) {
+  .layout { flex-direction: column; padding: 16px; }
+  .sidebar { width: 100%; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="breadcrumb">
+    <a href="/">知识库</a>
+    &nbsp;/&nbsp;
+    <a href="/area/quant/">投资 · 量化</a>
+    &nbsp;/&nbsp;
+    <span></span>
+  </div>
+  <h1>2026-05-19-巴菲特年鉴</h1>
+</header>
+
+<div class="layout">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar-box">
+      <h3>页面信息</h3>
+      <div class="meta-row"><span class="label">类型</span><span class="val"></span></div>
+      
+      
+      
+      
+    </div>
+
+    
+    <div class="toc">
+      <h3>目录</h3>
+      
+      <div class="toc-item l1"><a href="#巴菲特年鉴">巴菲特年鉴</a></div>
+      
+      <div class="toc-item l2"><a href="#一投资哲学核心">一、投资哲学核心</a></div>
+      
+      <div class="toc-item l3"><a href="#-内在价值">🔷 内在价值</a></div>
+      
+      <div class="toc-item l3"><a href="#-市场先生">🔷 市场先生</a></div>
+      
+      <div class="toc-item l3"><a href="#-安全边际">🔷 安全边际</a></div>
+      
+      <div class="toc-item l3"><a href="#-投资与投机">🔷 投资与投机</a></div>
+      
+      <div class="toc-item l2"><a href="#二护城河竞争壁垒">二、护城河/竞争壁垒</a></div>
+      
+      <div class="toc-item l3"><a href="#-护城河的本质">🔷 护城河的本质</a></div>
+      
+      <div class="toc-item l3"><a href="#-护城河的来源">🔷 护城河的来源</a></div>
+      
+      <div class="toc-item l3"><a href="#-糟糕的生意模式">🔷 糟糕的生意模式</a></div>
+      
+      <div class="toc-item l2"><a href="#三能力圈原则">三、能力圈原则</a></div>
+      
+      <div class="toc-item l3"><a href="#-能力圈的定义">🔷 能力圈的定义</a></div>
+      
+      <div class="toc-item l3"><a href="#-不懂不投">🔷 不懂不投</a></div>
+      
+      <div class="toc-item l3"><a href="#-长期视角">🔷 长期视角</a></div>
+      
+      <div class="toc-item l2"><a href="#四亏损与错误处理">四、亏损与错误处理</a></div>
+      
+      <div class="toc-item l3"><a href="#-承认错误的重要性">🔷 承认错误的重要性</a></div>
+      
+      <div class="toc-item l3"><a href="#-纺织业务的教训">🔷 纺织业务的教训</a></div>
+      
+      <div class="toc-item l3"><a href="#-杠杆收购的错误">🔷 杠杆收购的错误</a></div>
+      
+      <div class="toc-item l2"><a href="#五逆向投资危机买入">五、逆向投资/危机买入</a></div>
+      
+      <div class="toc-item l3"><a href="#-危机中的机会">🔷 危机中的机会</a></div>
+      
+      <div class="toc-item l3"><a href="#-悲观主义的局限性">🔷 悲观主义的局限性</a></div>
+      
+      <div class="toc-item l3"><a href="#-长期信心理念">🔷 长期信心理念</a></div>
+      
+      <div class="toc-item l2"><a href="#六浮存金保险模式">六、浮存金/保险模式</a></div>
+      
+      <div class="toc-item l3"><a href="#-浮存金的概念与价值">🔷 浮存金的概念与价值</a></div>
+      
+      <div class="toc-item l3"><a href="#-浮存金的成本控制">🔷 浮存金的成本控制</a></div>
+      
+      <div class="toc-item l2"><a href="#七资本配置原则">七、资本配置原则</a></div>
+      
+      <div class="toc-item l3"><a href="#-资本配置的优先级">🔷 资本配置的优先级</a></div>
+      
+      <div class="toc-item l3"><a href="#-现金持有的价值">🔷 现金持有的价值</a></div>
+      
+      <div class="toc-item l2"><a href="#八回购与分红">八、回购与分红</a></div>
+      
+      <div class="toc-item l3"><a href="#-回购的条件">🔷 回购的条件</a></div>
+      
+      <div class="toc-item l3"><a href="#-分红政策">🔷 分红政策</a></div>
+      
+      <div class="toc-item l2"><a href="#九核心投资原则速览">九、核心投资原则速览</a></div>
+      
+      <div class="toc-item l2"><a href="#十关键年份要点">十、关键年份要点</a></div>
+      
+      <div class="toc-item l3"><a href="#1957-1969合伙企业时期">1957-1969（合伙企业时期）</a></div>
+      
+      <div class="toc-item l3"><a href="#1970-1999伯克希尔时期">1970-1999（伯克希尔时期）</a></div>
+      
+      <div class="toc-item l3"><a href="#2000-2018成熟期">2000-2018（成熟期）</a></div>
+      
+      <div class="toc-item l2"><a href="#十一实战要点总结">十一、实战要点总结</a></div>
+      
+      <div class="toc-item l3"><a href="#-应该做的">✅ 应该做的</a></div>
+      
+      <div class="toc-item l3"><a href="#-不应该做的">❌ 不应该做的</a></div>
+      
+      <div class="toc-item l2"><a href="#十二关联笔记">十二、关联笔记</a></div>
+      
+      <div class="toc-item l2"><a href="#十三原始信件列表">十三、原始信件列表</a></div>
+      
+    </div>
+    
+
+    
+
+    
+
+  </aside>
+
+  <!-- Main content -->
+  <main class="main">
+    <div class="article">
+      <h1>2026-05-19-巴菲特年鉴</h1>
+      <div class="article-meta"> · 投资 · 量化</div>
+      <div class="content">
+        <h1 id="_1">巴菲特年鉴<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h1>
+<blockquote>
+<p><strong>来源</strong>: 稳盈君专属量化投资知识库 - 巴菲特致股东/合伙人信全集<br />
+<strong>创建日期</strong>: 2026-05-19<br />
+<strong>涵盖年份</strong>: 1957-2018</p>
+</blockquote>
+<hr />
+<h2 id="_2">一、投资哲学核心<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h2>
+<h3 id="_3">🔷 内在价值<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1965年致合伙人信</p>
+</blockquote>
+<ul>
+<li>内在价值由<strong>资产和盈利能力</strong>决定，而非短期股价波动</li>
+<li>安全边际是投资的核心保护——用五角钱买价值一块钱的东西</li>
+<li>控股与少数股权的估值逻辑完全不同</li>
+</ul>
+<h3 id="_4">🔷 市场先生<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1987年致股东信</p>
+</blockquote>
+<ul>
+<li>市场先生是情绪化的，其报价反映的是<strong>恐惧与贪婪</strong>，而非企业真实价值</li>
+<li>投资者应利用市场先生的非理性，而非被其引导</li>
+<li>股票市场短期是<strong>投票机</strong>，长期是<strong>称重机</strong></li>
+</ul>
+<h3 id="_5">🔷 安全边际<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1961年致合伙人信</p>
+</blockquote>
+<ul>
+<li>安全边际是所有投资的基石，没有安全边际就不应出手</li>
+<li>便宜的价格本身就是最好的防守</li>
+<li>分散投资于多只有安全边际的股票可形成组合保护</li>
+</ul>
+<h3 id="_6">🔷 投资与投机<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1961年致合伙人信</p>
+</blockquote>
+<ul>
+<li>保守不是买入看似安全的资产，而是买进真正有价值的东西</li>
+<li>随大流不会带来超额收益，真正的保守来自<strong>独立思考</strong></li>
+<li>正确的判断加上足够的勇气才能实现长期成功</li>
+</ul>
+<hr />
+<h2 id="_7">二、护城河/竞争壁垒<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h2>
+<h3 id="_8">🔷 护城河的本质<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2007年致股东信</p>
+</blockquote>
+<ul>
+<li>真正的护城河是<strong>持久的竞争优势</strong>，而非昙花一现的增长</li>
+<li>低成本运营和强大品牌是最经典的护城河形式</li>
+<li>需要不断重复投资的"护城河"根本不是护城河</li>
+</ul>
+<h3 id="_9">🔷 护城河的来源<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2007年致股东信</p>
+</blockquote>
+<ul>
+<li>快速变化的行业难以形成持久护城河</li>
+<li>依赖明星管理者的企业不具备持久竞争优势</li>
+<li>护城河必须是企业<strong>内在的、结构性的</strong>优势</li>
+</ul>
+<h3 id="_10">🔷 糟糕的生意模式<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2007年致股东信</p>
+</blockquote>
+<ul>
+<li>需要不断大量资本投入才能维持增长的不是好生意</li>
+<li><strong>资本密集型行业</strong>往往摧毁股东价值</li>
+<li>航空业是"糟糕生意"的典型案例</li>
+</ul>
+<hr />
+<h2 id="_11">三、能力圈原则<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h2>
+<h3 id="_12">🔷 能力圈的定义<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1996年致股东信</p>
+</blockquote>
+<ul>
+<li>投资应专注于自己<strong>真正理解</strong>的行业和企业</li>
+<li>不理解的东西不应投资，无论市场如何炒作</li>
+<li>能力圈边界决定了投资的安全边际</li>
+</ul>
+<h3 id="_13">🔷 不懂不投<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2009年致股东信</p>
+</blockquote>
+<ul>
+<li>能预测行业增长不等于能判断利润率和回报</li>
+<li>坚守能力圈意味着放弃很多"看起来很美"的机会</li>
+<li>投资不确定性高的行业即使方向正确也可能亏钱</li>
+</ul>
+<h3 id="_14">🔷 长期视角<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1999年致股东信</p>
+</blockquote>
+<ul>
+<li>长期成功的投资需要与企业长期绑定</li>
+<li>优秀的管理层是选择投资标的的重要标准</li>
+<li>热爱自己事业的管理者往往能创造超额价值</li>
+</ul>
+<hr />
+<h2 id="_15">四、亏损与错误处理<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h2>
+<h3 id="_16">🔷 承认错误的重要性<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1985年致股东信</p>
+</blockquote>
+<ul>
+<li>承认错误并止损是优秀投资者的必备品质</li>
+<li>及时退出糟糕的业务比坚持更有价值</li>
+<li>错误的代价随时间推移只会越来越大</li>
+</ul>
+<h3 id="_17">🔷 纺织业务的教训<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1985年致股东信</p>
+</blockquote>
+<ul>
+<li>在错误的行业再努力也难以创造价值</li>
+<li><strong>行业选择比管理层努力更重要</strong></li>
+<li>商品化产业难以形成持续竞争优势</li>
+</ul>
+<h3 id="_18">🔷 杠杆收购的错误<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2007年致股东信</p>
+</blockquote>
+<ul>
+<li>用股票收购会放大错误的影响</li>
+<li>对商誉的高估是并购失败的主要原因</li>
+<li>错误难免，关键是承认并从中学习</li>
+</ul>
+<hr />
+<h2 id="_19">五、逆向投资/危机买入<a class="headerlink" href="#_19" title="Permanent link">&para;</a></h2>
+<h3 id="_20">🔷 危机中的机会<a class="headerlink" href="#_20" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2008年致股东信</p>
+</blockquote>
+<ul>
+<li>市场恐慌时是<strong>最好的买入时机</strong></li>
+<li>危机中要区分"问题企业"和"被问题拖累的好企业"</li>
+<li>充足的流动性是在危机中投资的前提</li>
+</ul>
+<h3 id="_21">🔷 悲观主义的局限性<a class="headerlink" href="#_21" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2009年致股东信</p>
+</blockquote>
+<ul>
+<li>悲观情绪往往会夸大风险、忽略机遇</li>
+<li>长期来看，经济和股市总是向上的</li>
+<li><strong>保持在场</strong>是获得长期回报的关键</li>
+</ul>
+<h3 id="_22">🔷 长期信心理念<a class="headerlink" href="#_22" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2009年致股东信</p>
+</blockquote>
+<ul>
+<li>长期投资需要对企业内在价值有<strong>坚定信心</strong></li>
+<li>市场下跌时是验证投资逻辑的最佳时机</li>
+<li>承受短期落后是获得长期超额回报的代价</li>
+</ul>
+<hr />
+<h2 id="_23">六、浮存金/保险模式<a class="headerlink" href="#_23" title="Permanent link">&para;</a></h2>
+<h3 id="_24">🔷 浮存金的概念与价值<a class="headerlink" href="#_24" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2007年致股东信</p>
+</blockquote>
+<ul>
+<li>浮存金是保险公司持有的他人资金，可用于投资</li>
+<li>如果承保有利，浮存金实际上是"<strong>免费</strong>"获得的资金</li>
+<li>浮存金是伯克希尔帝国崛起的核心秘密</li>
+</ul>
+<h3 id="_25">🔷 浮存金的成本控制<a class="headerlink" href="#_25" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2005年致股东信</p>
+</blockquote>
+<ul>
+<li>浮存金的成本由<strong>承保利润</strong>决定</li>
+<li>获得承保利润时，浮存金成本为零甚至为负</li>
+<li>长期维持负成本浮存金是保险公司的核心竞争力</li>
+</ul>
+<hr />
+<h2 id="_26">七、资本配置原则<a class="headerlink" href="#_26" title="Permanent link">&para;</a></h2>
+<h3 id="_27">🔷 资本配置的优先级<a class="headerlink" href="#_27" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2007年致股东信</p>
+</blockquote>
+<ul>
+<li>资本配置有明确的优先级：<strong>内生增长 &gt; 补强收购 &gt; 回购 &gt; 分红</strong></li>
+<li>收购标准严格：理解业务、持续成长、管理优秀、价格合理</li>
+<li><strong>价格永远是首要考量</strong></li>
+</ul>
+<h3 id="_28">🔷 现金持有的价值<a class="headerlink" href="#_28" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2009年致股东信</p>
+</blockquote>
+<ul>
+<li>充足的现金储备是应对危机的根本保障</li>
+<li>低收益的现金好过在错误时机被迫变现</li>
+<li>保持流动性是长期投资成功的前提</li>
+</ul>
+<hr />
+<h2 id="_29">八、回购与分红<a class="headerlink" href="#_29" title="Permanent link">&para;</a></h2>
+<h3 id="_30">🔷 回购的条件<a class="headerlink" href="#_30" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 2012年致股东信</p>
+</blockquote>
+<ul>
+<li>回购只有在股价<strong>低于内在价值</strong>时才对股东有利</li>
+<li>回购是资本配置的重要工具</li>
+<li>回购可以提升剩余股东的每股价值</li>
+</ul>
+<h3 id="_31">🔷 分红政策<a class="headerlink" href="#_31" title="Permanent link">&para;</a></h3>
+<blockquote>
+<p><strong>来源</strong>: 1981年致股东信</p>
+</blockquote>
+<ul>
+<li>将利润留在公司内部，如果再投资的回报率高于平均回报率，将比直接分红更有利</li>
+<li>低效的扩张比不分红更有害</li>
+</ul>
+<hr />
+<h2 id="_32">九、核心投资原则速览<a class="headerlink" href="#_32" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>原则</th>
+<th>来源年份</th>
+<th>核心要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>安全边际</td>
+<td>1961</td>
+<td>付出价格低，得到价值高</td>
+</tr>
+<tr>
+<td>市场先生</td>
+<td>1987</td>
+<td>利用情绪，不被引导</td>
+</tr>
+<tr>
+<td>能力圈</td>
+<td>1999</td>
+<td>不懂不投</td>
+</tr>
+<tr>
+<td>护城河</td>
+<td>2007</td>
+<td>持久竞争优势</td>
+</tr>
+<tr>
+<td>浮存金</td>
+<td>2005</td>
+<td>低成本资金杠杆</td>
+</tr>
+<tr>
+<td>逆向投资</td>
+<td>2008</td>
+<td>别人恐惧时贪婪</td>
+</tr>
+<tr>
+<td>资本配置</td>
+<td>1987</td>
+<td>价格优先，理性决策</td>
+</tr>
+<tr>
+<td>长期持有</td>
+<td>1987</td>
+<td>买企业而非买股票</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_33">十、关键年份要点<a class="headerlink" href="#_33" title="Permanent link">&para;</a></h2>
+<h3 id="1957-1969">1957-1969（合伙企业时期）<a class="headerlink" href="#1957-1969" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>核心主题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1957</td>
+<td>低估类/套利类投资分类，安全边际原则</td>
+</tr>
+<tr>
+<td>1962</td>
+<td>周期是评判一切策略的基准</td>
+</tr>
+<tr>
+<td>1964</td>
+<td>复利的力量</td>
+</tr>
+<tr>
+<td>1967</td>
+<td>闲聊法发现低估股</td>
+</tr>
+</tbody>
+</table>
+<h3 id="1970-1999">1970-1999（伯克希尔时期）<a class="headerlink" href="#1970-1999" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>核心主题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1972</td>
+<td>喜诗糖果：护城河案例</td>
+</tr>
+<tr>
+<td>1987</td>
+<td>市场先生理论详解</td>
+</tr>
+<tr>
+<td>1996</td>
+<td>能力圈与浮存金</td>
+</tr>
+<tr>
+<td>1999</td>
+<td>长期视角与管理层</td>
+</tr>
+</tbody>
+</table>
+<h3 id="2000-2018">2000-2018（成熟期）<a class="headerlink" href="#2000-2018" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>核心主题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2007</td>
+<td>护城河完整阐述</td>
+</tr>
+<tr>
+<td>2008</td>
+<td>金融危机中的逆向投资</td>
+</tr>
+<tr>
+<td>2012</td>
+<td>回购原则与继任计划</td>
+</tr>
+<tr>
+<td>2015</td>
+<td>伯克希尔未来展望</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="_34">十一、实战要点总结<a class="headerlink" href="#_34" title="Permanent link">&para;</a></h2>
+<h3 id="_35">✅ 应该做的<a class="headerlink" href="#_35" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>买有安全边际的股票</strong> - 付出的价格低，得到的价格高</li>
+<li><strong>利用市场先生的情绪</strong> - 别人恐惧时贪婪，别人贪婪时恐惧</li>
+<li><strong>坚守能力圈</strong> - 不懂不投</li>
+<li><strong>选择有护城河的企业</strong> - 持久竞争优势</li>
+<li><strong>保持现金储备</strong> - 在机会出现时有"子弹"可用</li>
+<li><strong>长期持有</strong> - 买企业而非买股票</li>
+</ol>
+<h3 id="_36">❌ 不应该做的<a class="headerlink" href="#_36" title="Permanent link">&para;</a></h3>
+<ol>
+<li>预测短期市场走势</li>
+<li>投资自己不懂的行业</li>
+<li>在错误的行业寻找Alpha</li>
+<li>在高估值时追入</li>
+<li>忽视管理层质量</li>
+<li>使用过高杠杆</li>
+</ol>
+<hr />
+<h2 id="_37">十二、关联笔记<a class="headerlink" href="#_37" title="Permanent link">&para;</a></h2>
+<ul>
+<li><span class="wikilink">2026-05-19-投资理念总纲</span> - 核心原则</li>
+<li><span class="wikilink">2026-05-19-量化策略库</span> - 策略详情</li>
+<li><span class="wikilink">2026-05-19-可转债策略</span> - 双低策略</li>
+<li><span class="wikilink">2026-05-19-投资工具箱</span> - 工具和脚本</li>
+</ul>
+<hr />
+<h2 id="_38">十三、原始信件列表<a class="headerlink" href="#_38" title="Permanent link">&para;</a></h2>
+<p>巴菲特致股东/合伙人信涵盖以下年份：</p>
+<ul>
+<li><strong>1957-1969</strong>: 致合伙人信（共13封）</li>
+<li><strong>1970-2018</strong>: 致股东信（共49封）</li>
+</ul>
+<blockquote>
+<p>📌 原始信件位于: <code>/root/.hermes-quantbot/quant_knowledge_base/articles/巴菲特/</code></p>
+</blockquote>
+<hr />
+<p><em>本笔记整理自巴菲特1957-2018年致股东/合伙人信</em></p>
+      </div>
+    </div>
+
+    <div class="page-nav">
+      <span>&nbsp;</span>
+      <a href="/area/quant/">← 返回 投资 · 量化</a>
+    </div>
+  </main>
+
+</div>
+
+<footer>
+  <a href="/">知识库总览</a> · 2026-05-19-巴菲特年鉴 · 由金助理生成
+</footer>
+
+<script>
+// 相关页面跳转（本地 wikilinks 修复）
+document.querySelectorAll('.related-item a').forEach(link => {
+  link.addEventListener('click', function(e) {
+    e.preventDefault();
+    const title = this.textContent.trim();
+    // 模糊匹配目标页面
+    const allLinks = document.querySelectorAll('.page-card h3 a');
+    // 简单降级：直接跳转首页搜索
+    window.location.href = '/?q=' + encodeURIComponent(title);
+  });
+});
+</script>
+
+</body>
+</html>
