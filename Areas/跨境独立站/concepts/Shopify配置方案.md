@@ -1,15 +1,15 @@
 ---
-title: Shopify B2B独立站配置方案
+title: Shopify独立站建站方案
 created: 2026-05-25
 updated: 2026-05-25
 type: concept
 tags: [建站, SOP]
 sources: [raw/articles/Shopify配置方案.md]
-related: [[Shopify]] [[关键词研究]] [[竞品分析]] [[SEO策略]]
+related: [[Shopify]] [[关键词研究]] [[竞品分析]] [[SEO与内容策略]]
 confidence: high
 ---
 
-# Shopify B2B独立站配置方案
+# Shopify独立站建站方案
 
 ## 网站地图（Site Map）
 
@@ -91,7 +91,7 @@ www.[yourbrand].com
 - 本方案是 [[Shopify]] 平台的具体应用
 - 技术SEO配置是 [[关键词研究]] 的落地执行
 - 竞品分析是本方案的竞争环境输入（[[竞品分析]]）
-- 资源中心/博客是 [[SEO策略]] 的内容载体
+- 资源中心/博客是 [[SEO与内容策略]] 的内容载体
 
 ## 来源
 
