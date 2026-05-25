@@ -38,3 +38,19 @@ owner: QuantBot
 - Shopify配置方案.md → raw/articles/
 - 关键词研究报告.md → raw/articles/
 - 竞品分析报告.md → raw/articles/
+
+## [2026-05-25] merge | 知识库重复内容合并整理
+**合并操作：**
+- `concepts/投资理念总纲.md` + `仓位管理原则.md` 各自去重，移除重复的三层仓位结构
+- `concepts/量化策略库.md` 移除双低可转债详情（已独立成页）
+- `entities/稳盈君.md` 只保留用户画像，移除外延策略内容
+- `concepts/投资洞察精华.md` 精简策略评级速查表
+
+**归档操作：**
+- 迁入根目录 6个散落的 2026-05-19-*.md → `raw/articles/`
+- 迁入根目录 `每周复盘/` 目录 → 内容已存 `raw/weekly/`
+- 清理 `知识库/kb_wenying_invest.md`（与 `raw/kb/` 重复）
+- 清理 `知识库/期权交易实战手册v2.0.md`（与 `raw/kb/` 重复）
+
+**更新操作：**
+- `index.md` — 反映合并后实际页面，添加知识库结构图和日志记录
