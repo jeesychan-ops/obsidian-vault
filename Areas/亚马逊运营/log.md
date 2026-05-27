@@ -50,6 +50,38 @@ owner: AmazonBot
 - [x] 补全各类型分类下的所有页面
 - [x] 移除"现有知识库资产（未完成Wiki化）"失效标注
 
+### 增量更新（2026-05-26）
+- 新抓取：[[2026-05-26-悬崖效应-选品工具系统性盲区]]（Sorftime AI Studio，39046字）
+  - 核心：硬阈值筛选的悬崖效应，指数排序替代方案，AI工具工程地基四大支柱
+  - 新建 entity → entities/2026-05-26-悬崖效应-选品工具系统性盲区.md
+- 新抓取：[[2026-05-26-AI时代Amazon高阶选品方法论]]（阿波罗广告增长实战营，7877字）
+  - 核心：推广难度六维度公式，算法友好型产品四维模型，未来竞争维度转变
+  - 新建 entity → entities/2026-05-26-AI时代Amazon高阶选品方法论.md
+- 新抓取：[[2026-05-26-新品上架前准备五模块审定框架]]（亚马逊全流程系统化实战，7877字）
+  - 核心：五模块审定框架，预发布九类准备动作，Day -60~Day 0作战地图
+  - 新建 entity → entities/2026-05-26-新品上架前准备五模块审定框架.md（文件名保留，title改为"四模块"）
+- 归档至： raw/articles/2026-05-26-悬崖效应-选品盲区-Sorftime.md
+- 归档至： raw/articles/2026-05-26-AI时代Amazon高阶选品方法论.md
+- 归档至： raw/articles/2026-05-26-产品不是死在广告里而是死在上架之前.md
+- 按 llm-wiki skill 规范重整：3个raw文件加frontmatter(sha256)，3个entity页补全frontmatter+wikilinks+sources，index.md加入3个新页面，log.md记录本次操作
+- index.md 页面总数更新：23 → 26
+- index.md 更正：第三篇Module 5（预发布九类准备动作）是课程卖点的列表，没有操作细节，已全部删除；Day -25~-10内容改为简述"预发布准备：Listing+视觉+定价+广告框架预判+用户画像落地"；related中删除SOP-关键词库（该关联是错误添加的）；index.md中删除对SOP-关键词库搭建流程的错误补充说明
+
+### 增量更新（2026-05-26 下半场）— Alexa知识库升级
+- 抓取4篇新文章（来源：阿波罗 + 天气指挥家）
+  - A9专利（13297字，SHA=c665179fea1161ba）：六种搜索意图类型+搜索路径地图
+  - Rufus被Alexa取代（7495字，SHA=ed832383054fc1f8）：对话式购物+AI直接读Listing+价格历史透明化
+  - Alexa实操（6524字，SHA=994fe9bc8b234008）：RPO五步法+七天执行清单
+  - Alexa升级（14910字，SHA=906eb0a2cba1f872）：80%搜索页AI推荐+五步优化+7天行动清单
+- 新建 concepts/：A9搜索意图六分法.md、RPO-推理路径优化.md
+- 更新 entities/Rufus购物助手.md：标记deprecated，注明已合并进Alexa for Shopping
+- 更新 concepts/Alexa_for_Shopping与答案位.md：追加对话式购物逻辑+Buy for Me+组合关系表达
+- 更新 comparisons/四大算法对比.md：Rufus→Alexa for Shopping，更新六列内容，新增外部内容策略行
+- 更新 concepts/四维算法协同体系.md：第四维改为Alexa，新增RPO核心策略
+- 更新 queries/亚马逊运营高频问题FAQ.md：Q7/Q8 Rufus→Alexa，补充外部内容策略
+- 更新 index.md：页面总数26→28，新增两个概念页，Rufus→Alexa标注废弃
+- log.md记录本次操作
+
 ### 增量更新（2026-05-25）
 - 新抓取：[[2026-05-25-Alexa_for_Shopping_答案位]]（苏乐subi，3552字）
 - 新建 Entity： Rufus购物助手.md 补充「Rufus 合并进 Alexa for Shopping」说明
