@@ -1,7 +1,7 @@
 # 稳盈君专属量化投资知识库
 
 > **版本**: 2.0 | **更新时间**: 2026-05-02
-> **路径**: `/home/ubuntu/agents/quantbot/quant_knowledge_base/`
+> **路径**: `/root/.hermes-quantbot/quant_knowledge_base/`
 > **访问权限**: 仅限本人，独立于系统通用知识库和系统Skill
 
 ---
@@ -223,7 +223,7 @@ python3 /root/.hermes/scripts/wechat_fetch.py --url <链接>
 ## 十一、目录结构
 
 ```
-/home/ubuntu/agents/quantbot/quant_knowledge_base/
+/root/.hermes-quantbot/quant_knowledge_base/
 ├── kb_wenying_invest.json      ← 核心配置（JSON版，主配置）
 ├── kb_wenying_invest.md        ← 本文件（Markdown版，快速查阅）
 ├── README.md                   ← 使用说明
