@@ -2,7 +2,7 @@
   "version": "2.0",
   "built_at": "2026-05-02",
   "updated_at": "2026-05-02",
-  "path": "/root/.hermes-quantbot/quant_knowledge_base/",
+  "path": "/home/ubuntu/agents/quantbot/quant_knowledge_base/",
   "owner": "稳盈君（ou_54d73bf486cbc171eeca3fd918c2ca65）",
   "description": "稳盈君专属投资知识库 — 仅限本人使用，独立于系统通用知识库和系统Skill",
   "meta": {
@@ -173,7 +173,7 @@
         "step": 1,
         "name": "抓取文章",
         "command": "python3 /root/.hermes/scripts/wechat_fetch.py --url <链接>",
-        "save_to": "/root/.hermes-quantbot/quant_knowledge_base/articles/YYYYMMDD_标题.json"
+        "save_to": "/home/ubuntu/agents/quantbot/quant_knowledge_base/articles/YYYYMMDD_标题.json"
       },
       {
         "step": 2,

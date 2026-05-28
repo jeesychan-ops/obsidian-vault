@@ -1,6 +1,6 @@
 # 稳盈君专属量化投资知识库
 
-> **路径**: `/root/.hermes-quantbot/quant_knowledge_base/`
+> **路径**: `/home/ubuntu/agents/quantbot/quant_knowledge_base/`
 > **版本**: 2.0（2026-05-02，已同步 Skill 全部内容）
 > **访问权限**: 仅限本人，独立于系统通用知识库
 
