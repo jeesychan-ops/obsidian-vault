@@ -101,3 +101,9 @@ owner: AmazonBot
 - 新建 Entity： Rufus购物助手.md 补充「Rufus 合并进 Alexa for Shopping」说明
 - 新建 Concept： [[Alexa_for_Shopping与答案位]]
 - 归档至： raw/articles/2026-05-25-Alexa_for_Shopping_答案位.md
+
+## 2026-05-28
+- 新增: SOP/竞品分析完整SOP (7步竞品分析, 5篇微信文章提炼)
+- 来源: 拆解100个对手/可复用判断结构/竞品分析6年老运营/选品3硬指标/2000月销案例
+- 抓取: 7篇微信文章 (8个URL含1重复)
+- 词库: Garden Tools 10竞品×72关键词飞书文档
