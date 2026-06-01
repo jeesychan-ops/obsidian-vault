@@ -149,3 +149,23 @@ owner: AmazonBot
   - AI挖掘场景提示词两套
 - index.md 更新：新增概念页索引
 - 关联强化：与[[Listing优化]]形成"底座+清单"双层结构
+
+### 增量更新（2026-06-01）— 关联流量布局 Product Graph 打法入库
+- 来源：阿波罗《亚马逊AI推荐流量占比突破30%》（mp.weixin.qq.com/s/v6tO2FHUFP-dtCEH0o17Hw，8295字）
+- 内容甄别：硬货密集（专利引用+30%数据+三段打法+四大特征产品），尾巴是 Skills 工具引流+实战营招生（已剔除）
+- raw归档：raw/articles/2026-06-01-关联流量布局-Product_Graph打法.md
+- 新建概念页：concepts/关联流量布局-Product_Graph打法.md
+  - 核心数据：关联流量占比30%（第二大入口）
+  - 范式转移：Amazon = AI推荐决策系统（非搜索电商）
+  - 底层专利五大要素：User Intent/Semantic Understanding/Product Association/Behavioral Feedback/Recommendation Graph
+  - 三段式打法：广告抢入口+行为养关联+后台做闭环
+  - AI时代四大特征产品：强场景/强人群/强问题/强语义标签
+  - 未来最危险产品：无法建立关联关系的产品
+  - 竞争维度转变：Keyword→Intent / Ranking→Semantic / Review→Recommendation
+- 5处反向链接建联：
+  - concepts/站内流量.md（专题深化）
+  - concepts/广告策略.md（新增第四层：商品投放）
+  - concepts/Listing文案思维框架.md（双向互证四大特征）
+  - entities/A9A10算法.md（专利五大要素新增）
+  - index.md（新页面索引）
+- 重大互证发现：阿波罗"AI时代四大特征产品" = 一味君"用户-场景-卖点"思维框架，**两篇方法论完全对应**
