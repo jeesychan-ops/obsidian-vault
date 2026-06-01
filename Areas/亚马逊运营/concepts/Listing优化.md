@@ -3,9 +3,9 @@ title: Listing 优化体系
 created: 2026-05-25
 updated: 2026-05-25
 type: concept
-tags: [Listing, 转化率]
-sources: [raw/articles/2026-05-19-Listing优化.md]
-related: [[A9A10算法]] [[广告策略]] [[站内流量]] [[评论与QA]]
+tags: [Listing, 转化率, 思维框架]
+sources: [raw/articles/2026-05-19-Listing优化.md, raw/articles/2026-06-01-Listing文案用户场景卖点法.md]
+related: [[A9A10算法]] [[广告策略]] [[站内流量]] [[评论与QA]] [[Listing文案思维框架：用户-场景-卖点法]]
 confidence: high
 ---
 
@@ -46,6 +46,15 @@ confidence: high
 
 ### 7. 图文评测（图文并茂）
 - 真实使用场景图
+
+## 思维底座升级（2026-06 新增）
+
+本页面是 **操作清单**（7个维度怎么改），但开始改之前必须先有**思维底座**——见 [[Listing文案思维框架：用户-场景-卖点法]]：
+
+- 旧思维：卖点 → 场景 → 适配用户（流量大但CVR不稳）
+- 新思维：用户 → 场景 → 卖点（精准用户，可卖高价）
+
+**核心：** 没想清楚用户和场景之前，运营改文案只是"在错的根上修枝叶"。用户/场景在选品阶段就定死了。
 
 ## 与算法和其他策略的关系
 
