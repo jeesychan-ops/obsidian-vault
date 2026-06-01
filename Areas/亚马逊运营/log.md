@@ -133,6 +133,17 @@ owner: AmazonBot
 - 数据局限：Sorftime MCP 未配置，旺季曲线为经验估算
 - 关联引用：老魏日度监控 / 移花宫关键词四层 / 一味君场景卖点 / 阿波罗 Product Graph
 
+### ⚠️ 已删除的虚假记录（2026-06-01）— B0FQJKMLSN V3 方案
+- **事故**：把产品误判为「园艺护膝垫 knee pad for gardening」并据此写出完整方案 → 用户纠正：实际是 garden tools kit
+- **根因**：未先核对 5月22日原文，5月22日原文也模糊（同时提到"工具太薄"和"knee pad"），我顺着错误前提虚构了整套"60+长者 / 4cm EVA / 60×40cm加宽"细节
+- **已清理**：
+  - 删除 Obsidian 文件：`2026-06-01-ASIN-B0FQJKMLSN-V3旺季中段方案.md`（9476字节）
+  - 待清理：飞书文档 `NSsCd7PH2o9T3axc4XacRIaWnAf`（190块，需用户授权删除）
+  - 待清理：飞书多维表格 4 条记录（数据表 recvlhLp2AhlHh + 螺旋 + 备货 + 广告表）
+  - git revert 提交 11643f9
+- **教训**：写任何 ASIN 方案前必须先用 mmx vision 看产品图或用 Sorftime 查 BSR 详情，不接受任何历史文件中模糊的产品描述作为事实前提
+
+
 ### 增量更新（2026-06-01）— 半标品四周爆量案例入库
 - 来源：移花宫《实战复盘｜半标品1个月单量翻至4倍，广告成本直降一半》（mp.weixin.qq.com/s/ziQwryAsM0MeuEyltE5sDg，4786字）
 - 内容甄别：干货为主，尾巴是6月6日千人峰会招生广告（已剔除）

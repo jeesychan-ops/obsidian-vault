@@ -4,7 +4,7 @@ created: 2026-05-25
 updated: 2026-06-01
 owner: AmazonBot
 last_full_reorg: 2026-05-25
-page_count: 26
+page_count: 25
 ---
 
 # 亚马逊运营知识库索引
