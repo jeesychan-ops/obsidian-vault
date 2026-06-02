@@ -7,7 +7,7 @@ owner: WebsiteBot
 
 # 跨境独立站知识库索引
 
-> 最后更新：2026-05-25 | 页面总数：10
+> 最后更新：2026-06-02 | 页面总数：12
 
 ---
 
@@ -23,6 +23,7 @@ owner: WebsiteBot
 - [[SEO与内容策略]] — 站内SEO + 内容策略 + 技术SEO + GEO优化（合并原SEO策略）
 - [[Google Ads广告投放策略]] — 搜索广告结构 + 受众定向 + 出价策略 + 数据监控
 - [[社媒广告策略]] — Facebook/Instagram/TikTok/Pinterest 平台选择 + 受众定向 + 内容方向
+- [[程序化SEO]] — 用「抓数据+AI生成+多语种翻译+自动发布」管线规模化生产 SEO 页面，4 个月零文章做到月点击 20 万的方法论
 
 ## SOPs（标准流程）
 
@@ -49,6 +50,7 @@ owner: WebsiteBot
 | raw/articles/2026-05-21-不干胶大卷独立站-Shopify配置方案.md | ✅ 已提炼 → [[Shopify配置方案]] |
 | raw/articles/2026-05-21-不干胶大卷独立站-竞品分析报告.md | ✅ 已提炼 → [[竞品分析]] |
 | raw/articles/2026-05-21-不干胶大卷独立站-关键词研究报告.md | ✅ 已提炼 → [[关键词研究]] |
+| raw/articles/2026-06-02-ProductHunt管线-多语种程序化SEO.md | ✅ 已提炼 → [[程序化SEO]] |
 
 ---
 
