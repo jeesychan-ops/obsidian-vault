@@ -244,3 +244,12 @@ owner: AmazonBot
 - **2 份关联流量报告写入飞书**:
   - B0FQJKMLSN: https://xinjiashuma.feishu.cn/docx/EsuwdlkJ3oZNNGx9DB8cgjc5nme (340+ blocks, V3+V4+V4.1)
   - B0FG1FVGVC: https://xinjiashuma.feishu.cn/docx/IA5IdrkZ0oRgt9x7zbEcH2I9nHh (145 blocks)
+- **新增 entity**: entities/2026-06-02-AuctionGym论文实操指导.md
+  - 来源：Jeunen/Murphy/Allison（Amazon 内部）KDD 2022 论文《Learning to Bid with AuctionGym》深度调研
+  - 9 步 B0FQJKMLSN 实操：最大可承受 CPC 倒推 / target 级别拆 bid / Auto+Broad 探索 / Exact+Product 收割 / 同时监控 Overbid+Underbid / 小步调整+持续记录 / TACOS 联动 / 动态竞价边界 / 6 月 4 周排期
+  - 核心铁律：<7 天不动 / 7 天 1 评估 / 单次只动一类（耐心原则）
+- **B0FQJKMLSN 飞书 V4.2 追加** (99 blocks): AuctionGym 论文实操 9 步
+- **老板耐心原则二次校准**（6/2 16:00 触发）:
+  - 第 1 次：耐心 ≠ 14 天锁死 = 7 天 1 评估周期
+  - 第 2 次：耐心 = 7 天评估后看数据，该调就调、不该调就不动
+  - 已回滚 entity/阿波罗方法论.md 全部相关段落
