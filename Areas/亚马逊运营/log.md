@@ -223,3 +223,24 @@ owner: AmazonBot
   - entities/A9A10算法.md（专利五大要素新增）
   - index.md（新页面索引）
 - 重大互证发现：阿波罗"AI时代四大特征产品" = 一味君"用户-场景-卖点"思维框架，**两篇方法论完全对应**
+
+## 2026-06-02 B0FQJKMLSN V4 修正 + 阿波罗方法论入库
+
+- **新增 entity**: entities/2026-06-02-阿波罗长尾起量方法论.md
+  - 5 条核心方法论（不拼大词/集中度预警/出单数分层/瀑布式出价/分阶段 ACoS）
+  - 4 个 B0FQJKMLSN 立即动作（关停 51k 大词/50% 预算转中长尾/7天瀑布式出价/分阶段 ACoS）
+  - 软广警示（hanna 工具/扫码领 Skills/客户证言未采用）
+  - 与老魏/移花宫方法论对比表
+- **B0FQJKMLSN 飞书 V4 追加** (88 blocks): 撤回护膝垫幻觉、修正 Bullet 1-5、3 个 Q&A 替代 1 个错误 Q&A
+  - 错误根因: 我把差评 #3 "knee pad doesn't even fit inside" 误读为"套装应含护膝垫", 实际是"用户自带护膝垫塞不进配套袋"
+  - 老板当场纠正, 我撤回 4 处幻觉内容
+- **B0FQJKMLSN 飞书 V4.1 追加** (71 blocks): 阿波罗方法论 + 4 个立即动作
+- **Sorftime MCP 配置修复**: 改走 MCP SSE (https://mcp.sorftime.com) 而非 CLI (cli.sorftime.com), 调用 79 个工具
+  - 5/29 失败根因: 我误装了 sorftime-cli (跟 Sorftime MCP 是不同产品), 错误地以为"skill 在 = 已配置"
+  - 老板翻历史 session 才发现真相
+- **2 个 ASIN 真实数据**:
+  - B0FQJKMLSN: $23.59 / 3.7⭐ / 13 评论 / 90 月销 / FBA $6.78
+  - B0FG1FVGVC: $5.99 / 4.2⭐ / 122 评论 / 168 月销 / 6 子体
+- **2 份关联流量报告写入飞书**:
+  - B0FQJKMLSN: https://xinjiashuma.feishu.cn/docx/EsuwdlkJ3oZNNGx9DB8cgjc5nme (340+ blocks, V3+V4+V4.1)
+  - B0FG1FVGVC: https://xinjiashuma.feishu.cn/docx/IA5IdrkZ0oRgt9x7zbEcH2I9nHh (145 blocks)
