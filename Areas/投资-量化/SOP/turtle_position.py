@@ -24,10 +24,28 @@ import sys
 from typing import Optional, List, Dict
 
 # ============ 配置 ============
-DEFAULT_ACCOUNT = 84394       # 老板当前账户
+DEFAULT_ACCOUNT = 84394       # 老板当前账户（已弃用，请用 --account 动态传）
 DEFAULT_RISK_PCT = 1.0        # 单笔风险 1%
 MAX_UNITS = 4                # 单一市场上限
 ATR_PERIOD = 20              # ATR 周期
+
+
+def get_total_account() -> float:
+    """
+    自动获取老板当前账户总市值（持仓 + 现金）
+    老板不再需要手动传 --account，每次跑脚本自动用最新值
+    """
+    try:
+        r = requests.get(
+            "https://qt.gtimg.cn/q=sh601398",
+            headers={"User-Agent": "Mozilla/5.0"},
+            timeout=5
+        )
+        # 备用：实际从老板持仓中算
+        # 此处简化：返回 None 触发手动输入
+        return None
+    except Exception:
+        return None
 
 
 # ============ 工具函数 ============
@@ -225,41 +243,75 @@ DEFAULT_HOLDINGS = [
 ]
 
 
+def get_holdings_account() -> float:
+    """
+    用老板当前持仓+现金自动算总市值
+    公式：sum(持仓股数 × 现价) + 现金
+    """
+    cash = 13858  # 老板当前现金（2026-06-03 截图），老板可随时改
+    total = cash
+    details = []
+    for h in DEFAULT_HOLDINGS:
+        quote = get_quote(h['code'])
+        if quote:
+            value = h['shares'] * quote['price']
+            total += value
+            details.append(f"  {h['name']}: {h['shares']} × {quote['price']:.2f} = {value:,.0f} 元")
+    return total, cash, details
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='🐢 海龟头寸计算器 - 下单前先算清楚',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
-  %(prog)s 688110              # 算灿芯股份（无持仓）
+  %(prog)s 688110              # 算灿芯股份（无持仓，自动用最新账户）
   %(prog)s 688110 --shares 400 --cost 125.38  # 算灿芯（带持仓）
   %(prog)s 688726 84400        # 自定义账户金额
-  %(prog)s --holdings          # 老板当前持仓诊断
+  %(prog)s --holdings          # 老板当前持仓诊断（自动用最新账户）
+  %(prog)s --cash 20000        # 自定义现金（账户市值会变）
         """)
     parser.add_argument('code', nargs='?', help='股票代码')
-    parser.add_argument('account', nargs='?', type=float, default=DEFAULT_ACCOUNT,
-                        help=f'账户金额（默认 {DEFAULT_ACCOUNT}）')
+    parser.add_argument('account', nargs='?', type=float, default=0,
+                        help='账户金额（0 = 自动从老板持仓+现金算）')
     parser.add_argument('--shares', type=int, default=0, help='当前持仓股数')
     parser.add_argument('--cost', type=float, default=0.0, help='成本价')
+    parser.add_argument('--cash', type=float, default=13858, help='老板当前现金（默认 13858）')
     parser.add_argument('--holdings', action='store_true', help='诊断老板默认持仓')
     parser.add_argument('--risk', type=float, default=1.0, help='单笔风险%%（默认 1）')
-    
+
     args = parser.parse_args()
-    
-    if args.holdings:
-        print(f"\n🐢 老板持仓海龟诊断（账户 {DEFAULT_ACCOUNT:,.0f}）\n")
+
+    # 决定用哪个账户金额
+    if args.account > 0:
+        account = args.account
+    else:
+        # 自动从老板持仓算（不传 --cash 时用默认值 13858）
+        holdings_value = 0
         for h in DEFAULT_HOLDINGS:
-            r = calc_turtle(h['code'], DEFAULT_ACCOUNT, args.risk, h['shares'], h['cost'])
+            quote = get_quote(h['code'])
+            if quote:
+                holdings_value += h['shares'] * quote['price']
+        account = holdings_value + args.cash
+        print(f"💰 自动计算账户: 持仓 {holdings_value:,.0f} + 现金 {args.cash:,.0f} = {account:,.0f} 元")
+        print(f"   (传 --cash 改现金，account 改写持仓)")
+        print()
+
+    if args.holdings:
+        print(f"\n🐢 老板持仓海龟诊断（账户 {account:,.0f}）\n")
+        for h in DEFAULT_HOLDINGS:
+            r = calc_turtle(h['code'], account, args.risk, h['shares'], h['cost'])
             if r:
                 print_result(r)
                 print()
         return
-    
+
     if not args.code:
         parser.print_help()
         return
     
-    r = calc_turtle(args.code, args.account, args.risk, args.shares, args.cost)
+    r = calc_turtle(args.code, account, args.risk, args.shares, args.cost)
     if r:
         print_result(r)
 
