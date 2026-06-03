@@ -11,7 +11,7 @@ page_count: 26
 
 > 所有页面按类型分类，一行一摘要。
 last_updated: 2026-06-03
-page_count: 32
+page_count: 33
 
 ---
 ## Entities（实体页 · 5）
@@ -24,7 +24,7 @@ page_count: 32
 - [[阿波罗长尾起量方法论]] — 5条核心（不拼大词/流量集中度预警/出单数分层/瀑布式出价/分阶段ACoS 35→25%）+ 4个B0FQJKMLSN立即动作 + 软广警示（hanna工具/扫码领Skills未采用）
 - [[AuctionGym论文实操指导]] — Amazon内部KDD 2022论文：bid=bandit/RL问题（别追求测出完美bid）+ Overbid/Underbid双向监控 + 9步B0FQJKMLSN实操（最大可承受CVR倒推/target级别拆bid/同时监控over+under/小步调整+持续记录/TACOS联动/动态竞价边界/4周排期）
 
-## Concepts（概念页 · 19）
+## Concepts（概念页 · 20）
 
 ### 选品 & 竞品
 - [[趋势选品雷达]] — Google Trends RSS → Sorftime MCP验证 → 100分制评分 → 飞书推送Top3，每日8点cron自动执行
@@ -35,6 +35,7 @@ page_count: 32
 
 ### 算法 & 关键词
 - [[关键词六层分级体系]] — L1品类→L2功能→L3兼容→L4场景→L5痛点→L6转化，六维度价值评分，比三层体系更细
+- [[关键词质量决策框架]] — 四象限分类（流量×转化率）+ 三指标优先级（相关性>搜索量>行业均值）+ 按产品阶段选词策略
 - [[FABE卖点重塑模型]] — Feature→Advantage→Benefit→Evidence，把参数转化为买家感知利益
 - [[广告策略]] — 广告三层架构 + 意图分层投放 + 万词打法四维协同
 - [[14天秒杀广告节奏策略]] — 五阶段节奏（D1-D3放花费→D4-D7拿目标→D8-D10收CPC→D11-D13收预算→D14恢复缓冲），核心是放量敢放、收成本能收
@@ -94,6 +95,7 @@ page_count: 32
 | `raw/articles/2026-05-27-亚马逊单量下滑四步排查法-卖家精灵优麦云.md` | 亚马逊单量下滑四步排查法（卖家精灵×优麦云，8张纯图文章） |
 | `raw/articles/2026-06-03-Codex-Listing生成案例.md` | Codex复现Listing生成：竞品审计→六层关键词→FABE卖点→7张图规划 (2026-06-03) |
 | `raw/articles/2026-06-03-趋势选品雷达-Codex系列4.md` | 趋势选品雷达：Google Trends→Sorftime MCP→飞书推送 (2026-06-03) |
+| `raw/articles/2026-06-03-关键词20问-Sif秘籍.md` | 亚马逊关键词20问：四象限/三指标/阶段选词/预算分配 (2026-06-03) |
 | `index/2026-06-03-趋势选品雷达-Day1.md` | 趋势选品雷达Day1：NBA Finals→户外投影屏87分→写入飞书 (2026-06-03) |
 
 ---
