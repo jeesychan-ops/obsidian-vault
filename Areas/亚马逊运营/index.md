@@ -11,7 +11,7 @@ page_count: 26
 
 > 所有页面按类型分类，一行一摘要。
 last_updated: 2026-06-03
-page_count: 30
+page_count: 31
 
 ---
 ## Entities（实体页 · 5）
@@ -24,9 +24,10 @@ page_count: 30
 - [[阿波罗长尾起量方法论]] — 5条核心（不拼大词/流量集中度预警/出单数分层/瀑布式出价/分阶段ACoS 35→25%）+ 4个B0FQJKMLSN立即动作 + 软广警示（hanna工具/扫码领Skills未采用）
 - [[AuctionGym论文实操指导]] — Amazon内部KDD 2022论文：bid=bandit/RL问题（别追求测出完美bid）+ Overbid/Underbid双向监控 + 9步B0FQJKMLSN实操（最大可承受CVR倒推/target级别拆bid/同时监控over+under/小步调整+持续记录/TACOS联动/动态竞价边界/4周排期）
 
-## Concepts（概念页 · 18）
+## Concepts（概念页 · 19）
 
 ### 选品 & 竞品
+- [[趋势选品雷达]] — Google Trends RSS → Sorftime MCP验证 → 100分制评分 → 飞书推送Top3，每日8点cron自动执行
 - [[选品三维度法]] — 利润率（>30%毛利率）、竞争度（BSR前10有2-3个新卖家）、需求稳定性（三年Google Trends平稳）
 - [[悬崖效应：硬阈值筛选导致选品系统性漏选]] — 硬阈值筛选在边界制造断崖，指数排序替代方案，AI工具工程地基重要性（checkpoint/cache/retry/audit）
 - [[AI时代Amazon高阶选品：算法友好型产品四维模型]] — 平台从搜索电商→AI决策系统，推广难度六维度公式，算法友好型产品（强场景+强人群+强问题解决力+强语义标签）
@@ -93,6 +94,7 @@ page_count: 30
 | `raw/articles/2026-05-27-14天秒杀广告节奏策略-移花宫.md` | 14天秒杀广告节奏策略（移花宫，干货部分） |
 | `raw/articles/2026-05-27-亚马逊单量下滑四步排查法-卖家精灵优麦云.md` | 亚马逊单量下滑四步排查法（卖家精灵×优麦云，8张纯图文章） |
 | `raw/articles/2026-06-03-Codex-Listing生成案例.md` | Codex复现Listing生成：竞品审计→六层关键词→FABE卖点→7张图规划 (2026-06-03) |
+| `raw/articles/2026-06-03-趋势选品雷达-Codex系列4.md` | 趋势选品雷达：Google Trends→Sorftime MCP→飞书推送 (2026-06-03) |
 
 ---
 
