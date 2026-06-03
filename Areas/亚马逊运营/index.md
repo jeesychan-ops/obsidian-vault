@@ -11,7 +11,7 @@ page_count: 26
 
 > 所有页面按类型分类，一行一摘要。
 last_updated: 2026-06-03
-page_count: 31
+page_count: 32
 
 ---
 ## Entities（实体页 · 5）
@@ -84,8 +84,7 @@ page_count: 31
 
 ---
 
-## Raw 归档层（原始文件 · 6）
-
+## Raw 归档层（原始文件 · 7）
 | 文件 | 说明 |
 |------|------|
 | `raw/articles/2026-05-02-万词打法.md` | 炸翻亚马逊！万词打法（原始全文） |
@@ -95,6 +94,7 @@ page_count: 31
 | `raw/articles/2026-05-27-亚马逊单量下滑四步排查法-卖家精灵优麦云.md` | 亚马逊单量下滑四步排查法（卖家精灵×优麦云，8张纯图文章） |
 | `raw/articles/2026-06-03-Codex-Listing生成案例.md` | Codex复现Listing生成：竞品审计→六层关键词→FABE卖点→7张图规划 (2026-06-03) |
 | `raw/articles/2026-06-03-趋势选品雷达-Codex系列4.md` | 趋势选品雷达：Google Trends→Sorftime MCP→飞书推送 (2026-06-03) |
+| `index/2026-06-03-趋势选品雷达-Day1.md` | 趋势选品雷达Day1：NBA Finals→户外投影屏87分→写入飞书 (2026-06-03) |
 
 ---
 
