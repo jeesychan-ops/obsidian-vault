@@ -1,6 +1,7 @@
 # 变更日志
 
-## 2026-06-03
+## 2026-06-04
+- **新增** [[2026-06-04-每日产品搜寻雷达-极光风暴-CMA-Fest]] — 极光风暴23州预警+CMA Fest音乐节 → Phone Tripod (76分) / Cooling Towel (67分) / Picnic Blanket (65分)
 - **新增** 飞书文档：SOP v2.2 完整作战地图（302 blocks） → https://xinjiashuma.feishu.cn/docx/Q6OjdR9jjohSq0x4kzPcB6X8neh
 - **新增** raw/articles/2026-06-03-Codex-Listing生成案例.md — Codex五阶段Listing工作流
 - **新增** concepts/keyword-six-layer-system.md — 六层关键词分级（L1-L6）
