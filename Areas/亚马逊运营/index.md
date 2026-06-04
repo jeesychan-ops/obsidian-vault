@@ -11,7 +11,7 @@ page_count: 26
 
 > 所有页面按类型分类，一行一摘要。
 last_updated: 2026-06-04
-page_count: 36
+page_count: 37
 
 ---
 ## Entities（实体页 · 5）
@@ -102,7 +102,8 @@ page_count: 36
 | `raw/articles/2026-06-03-率化选品SOP-小团队.md` | 率化选品SOP：7维评分+5节点修正+一票否决 (2026-06-03) |
 | `raw/articles/2026-06-03-改Listing后ACOS爆-原因对策.md` | 改Listing2-3次后ACOS爆的机制及4条应对策略 (2026-06-03) |
 || `index/2026-06-03-趋势选品雷达-Day1.md` | 趋势选品雷达Day1：NBA Finals→户外投影屏87分→写入飞书 (2026-06-03) |
-|| [[2026-06-04-每日产品搜寻雷达-极光风暴-CMA-Fest]] | 极光风暴+CMA Fest→Phone Tripod 76分/Cooling Towel 67分/Picnic Blanket 65分 (2026-06-04) |
+||| [[2026-06-04-每日产品搜寻雷达-极光风暴-CMA-Fest]] | 极光风暴+CMA Fest→Phone Tripod 76分/Cooling Towel 67分/Picnic Blanket 65分 (2026-06-04) |
+|| `raw/articles/2026-06-04-阿波罗-COSMO五张官方图拆解.md` | 5张官方图拆解COSMO：15种关系类型/搜索路径变化/数据来源 (2026-06-04) |
 
 ---
 
