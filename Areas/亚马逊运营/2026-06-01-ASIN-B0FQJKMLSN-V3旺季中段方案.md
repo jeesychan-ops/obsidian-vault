@@ -32,6 +32,7 @@ data_limitations:
   - 真实成本（产品/头程）V3 沿用 V1 的 ¥46/$6.30 假设，老板应回填实际值
   - 季节性曲线为行业经验估算
   - Sorftime MCP 未配置，竞品头部数据未实时校准
+status: #current
 ---
 
 # ASIN B0FQJKMLSN V3 — 真实数据重做方案
