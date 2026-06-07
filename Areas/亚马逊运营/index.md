@@ -1,10 +1,10 @@
 ---
 title: 亚马逊运营知识库索引
 created: 2026-05-25
-updated: 2026-06-01
+updated: 2026-06-06
 owner: AmazonBot
 last_full_reorg: 2026-05-25
-page_count: 26
+page_count: 27
 ---
 
 # 亚马逊运营知识库索引
@@ -12,8 +12,8 @@ page_count: 26
 > 🌟 **新手从这里开始：[[亚马逊从0到1标准业务流]]** — P1到P7全流程导航，每个环节做什么、用什么技能、产出放哪
 > 
 > 所有页面按类型分类，一行一摘要。
-last_updated: 2026-06-05
-page_count: 39
+last_updated: 2026-06-06
+page_count: 40
 
 ---
 ## Entities（实体页 · 5）
@@ -26,7 +26,8 @@ page_count: 39
 - [[阿波罗长尾起量方法论]] — 5条核心（不拼大词/流量集中度预警/出单数分层/瀑布式出价/分阶段ACoS 35→25%）+ 4个B0FQJKMLSN立即动作 + 软广警示（hanna工具/扫码领Skills未采用）
 - [[AuctionGym论文实操指导]] — Amazon内部KDD 2022论文：bid=bandit/RL问题（别追求测出完美bid）+ Overbid/Underbid双向监控 + 9步B0FQJKMLSN实操（最大可承受CVR倒推/target级别拆bid/同时监控over+under/小步调整+持续记录/TACOS联动/动态竞价边界/4周排期）
 
-## Concepts（概念页 · 22）
+## Concepts（概念页 · 23）
+- [[Listing-Doctor-诊断框架]] — Listing优化先诊断再改：ASIN阶段判断+竞品6维+评论5信号+关键词意图+优先级矩阵 (2026-06-06)
 
 ### 选品 & 竞品
 - [[趋势选品雷达]] — Google Trends RSS → Sorftime MCP验证 → 100分制评分 → 飞书推送Top3，每日8点cron自动执行

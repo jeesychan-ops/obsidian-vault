@@ -1,5 +1,12 @@
 # 变更日志
 
+## 2026-06-06
+- **新增** raw/articles/2026-06-06-ListingDoctor-先诊断再优化.md — Listing Doctor诊断框架：先诊断再优化的5步方法论
+- **新增** concepts/Listing-Doctor-诊断框架.md — Listing优化诊断框架概念页（ASIN阶段判断+竞品6维+评论5信号+关键词意图5分类+优先级矩阵）
+- **更新** index.md page_count 39→40 + concepts 22→23
+- **更新** cron job #0a1bfa55b602：改为常青版选品（新增海运友好度20分+季节性硬过滤+红牌规则排除当季热品）
+- **新增** scripts/evergreen_filter.py — 季节性/海运友好度预过滤脚本
+
 ## 2026-06-05
 - **新增** raw/articles/20260605_苏乐subi_7层VOC框架.md — 7层VOC框架：从评价反向工程7个维度挖隐藏卖点
 - **新增** concepts/7层VOC框架.md — 7层VOC框架概念页（用户语言/动机/场景/隐藏卖点/决策对比/微吐槽/情感金句）
