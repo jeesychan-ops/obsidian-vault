@@ -1,5 +1,14 @@
 # 变更日志
 
+### 增量更新（2026-06-11）
+- **新增** raw/articles/2026-06-11-跨境工厂佬儿-亚马逊标题75字符新政.md — 跨境工厂佬儿：亚马逊7月27日起标题限75字符+商品亮点125字符新政，含9个官方FAQ
+- **新增** concepts/2026-06-11-亚马逊标题75字符新政.md — 政策解读+9个FAQ+操作指引+卖家建议
+- **更新** concepts/Listing优化.md — 标题优化章节追加75字符限引用与反向链接
+- **更新** index.md page_count 42→43 + concepts 24→25，frontmatter updated→2026-06-11
+- 按 llm-wiki 规范入库：raw加frontmatter+sha256，concept frontmatter完整+wikilinks+sources，index+log已更新，反向链接已建联（[[Listing优化]]）
+
+# 变更日志
+
 ## 2026-06-08
 - **新增** raw/articles/2026-06-08-苏乐Subi-亚马逊经营数据看板.md — 苏乐Subi：用AI搭建亚马逊经营看板，利润结构拆分+清货测算三方案+AI嵌入业务流程
 - **更新** concepts/财务与利润.md — 新增「利润结构拆分与清货测算（苏乐运营看板方法论）」章节，含利润分层表、清货三方案对比、前毛利率 vs ACOS 判断逻辑
