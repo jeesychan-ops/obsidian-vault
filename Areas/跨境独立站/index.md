@@ -24,6 +24,7 @@ owner: WebsiteBot
 - [[Google Ads广告投放策略]] — 搜索广告结构 + 受众定向 + 出价策略 + 数据监控
 - [[社媒广告策略]] — Facebook/Instagram/TikTok/Pinterest 平台选择 + 受众定向 + 内容方向
 - [[程序化SEO]] — 用「抓数据+AI生成+多语种翻译+自动发布」管线规模化生产 SEO 页面，4 个月零文章做到月点击 20 万的方法论
+- [[AI-SEO-Agent产品方法论]] — 把 founder SEO 苦工包装成 Agent 的方法论 + MVP 切入口 + 官网转化 SOP（提炼自 SEOBOT 案例）
 
 ## SOPs（标准流程）
 
