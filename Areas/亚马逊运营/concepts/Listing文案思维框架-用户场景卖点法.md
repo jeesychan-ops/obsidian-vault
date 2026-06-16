@@ -4,7 +4,8 @@ created: 2026-06-01
 type: concept
 tags: [Listing, 文案, 用户定位, 场景化, 卖点融入, 思维框架]
 sources: [raw/articles/2026-06-01-Listing文案用户场景卖点法.md]
-related: [[Listing优化]] [[选品三维度法]] [[新品上架前准备]] [[关键词竞争度决策框架]] [[财务与利润]] [[关联流量布局：Product Graph 打法]]
+related:
+  - "[[SOP-团队能力复制标准化流程]]"  # 团队能力复制SOP中的文案标准输出环节 [[Listing优化]] [[选品三维度法]] [[新品上架前准备]] [[关键词竞争度决策框架]] [[财务与利润]] [[关联流量布局：Product Graph 打法]] [[2026-06-12-9维Listing体检评分表]]
 confidence: high
 ---
 

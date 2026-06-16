@@ -5,7 +5,7 @@ updated: 2026-05-25
 type: concept
 tags: [Listing, 转化率, 思维框架]
 sources: [raw/articles/2026-05-19-Listing优化.md, raw/articles/2026-06-01-Listing文案用户场景卖点法.md]
-related: [[A9A10算法]] [[广告策略]] [[站内流量]] [[评论与QA]] [[Listing文案思维框架：用户-场景-卖点法]]
+related: [[A9A10算法]] [[广告策略]] [[站内流量]] [[评论与QA]] [[Listing文案思维框架：用户-场景-卖点法]] [[2026-06-12-9维Listing体检评分表]]
 confidence: high
 ---
 

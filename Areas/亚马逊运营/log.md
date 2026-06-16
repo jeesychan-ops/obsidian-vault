@@ -7,7 +7,40 @@
 - **更新** index.md page_count 42→43 + concepts 24→25，frontmatter updated→2026-06-11
 - 按 llm-wiki 规范入库：raw加frontmatter+sha256，concept frontmatter完整+wikilinks+sources，index+log已更新，反向链接已建联（[[Listing优化]]）
 
-# 变更日志
+### 增量更新（2026-06-16）
+- **新增** SOP：[[SOP-团队能力复制标准化流程]]（拓跋勇《关于"能力复制"这件事儿》，2100字）
+  - 核心：基座能力自检→锚点产品→四件套流程跑通→及格线门控→能力共识→复制扩张，含5阶段+门控表+一票否决
+  - 归档至：raw/articles/2026-06-16-拓跋勇-能力复制.md
+- **整合追加**：新增**思维底座**章节（拓跋勇《别被"情绪"左右"行动"》）
+  - 含四个心态关卡表+核心信念（广告是前期工作的检验）+失败积累价值论
+  - 两篇文章形成完整系统：心态底座（敢动手）→ 执行SOP（怎么动手）
+  - 归档至：raw/articles/2026-06-16-拓跋勇-别被情绪左右行动.md
+- **更新** index.md SOPs 8→9 + raw 9→11 + page_count 43→45
+- 按llm-wiki规范入库：raw加frontmatter，SOP追加思维底座章节+sources，index+log已更新
+
+### 增量更新（2026-06-16 续）
+- **SOP升级**：[[SOP-团队能力复制标准化流程]] 完成整合优化，新增以下改进：
+  ```diff
+  + 适用场景：增加"救火vs运营"诊断模块（来源：《重新审视跨境运营》）
+  + Phase 2.1 搭词库：补充5D词库（核心/属性/场景/问题/竞品）与六层分级的互补关系（来源：《参照物》）
+  + Phase 2.2 建竞品库：升级为ASIN池→清洗→商品集矩阵三步法+结构性低效观察（来源：《参照物》）
+  + Phase 2.4 产品文案+视觉：新增"视觉从证据推导"框架+每张图解决一个决策问题（来源：《参照物》）
+  + Phase 3 门控表：新增Go/Hold/Pivot/No-Go四档决策代替两档（来源：《参照物》）
+  ```
+- **新增** raw/articles/2026-06-16-拓跋勇-参照物训练营框架.md — 8步产品分析框架核心方法论
+- **新增** raw/articles/2026-06-16-拓跋勇-重新审视跨境运营.md — 救火vs运营诊断+链条思维
+- Article 3（逆转心态）仅106字鸡汤，不入库
+- 系统搭成：心态底座(2篇)→执行SOP(1篇)→方法论框架(2篇补细节) = 5篇拓跋勇系列文合体
+- **更新** index.md raw 11→13 + SOP 1页内升级
+- **新增** raw/articles/2026-06-12-Codex跨境Listing体检表.md — Codex推广文：9维Listing体检评分表(100分制)+6类易漏检查点+团队执行分工，跨Amazon/TikTok/Shopify通用
+- **新增** concepts/2026-06-12-9维Listing体检评分表.md — 上架前9维评分表概念页，含团队执行分工+场景+证据+限制条件改写法
+- **更新** index.md page_count 30→31 + concepts 25→26 + raw 7→8
+- 按 llm-wiki skill 规范入库：raw加frontmatter+sha256，concept frontmatter完整+3个出站wikilink+sources已填，index+log已更新
+- **更新** concepts/2026-06-11-亚马逊标题75字符新政.md — 大幅扩展：新增6大驱动力分析+信息权重分布框架+长尾词分层布局策略表+新旧标题对比+新写作公式+6步优化执行
+- **新增** raw/articles/2026-06-12-跨境点AI-Skill02-ABA关键词细分市场挖掘.md — 跨境点AI Johnson：用ABA关键词报告让Agent自动挖掘亚马逊细分市场（13,333字，完整方法论）
+- **新增** concepts/2026-06-12-ABA关键词细分市场挖掘法.md — ABA→AI聚类→MCP验证→5维评分→Excel报告完整流程
+- **更新** index.md page_count 31→32 + concepts 26→27 + raw 8→9
+- **新增** raw/articles/2026-06-12-Apollo-PrimeDay流量链接承接.md — Apollo_Spark：Prime Day5步框架，与14天秒杀节奏互补 (2026-06-12)
 
 ## 2026-06-08
 - **新增** raw/articles/2026-06-08-苏乐Subi-亚马逊经营数据看板.md — 苏乐Subi：用AI搭建亚马逊经营看板，利润结构拆分+清货测算三方案+AI嵌入业务流程
@@ -64,3 +97,15 @@
 - **新增** cron job：趋势选品雷达，每日8点自动执行（job_id: 0a1bfa55b602）
 - **新增** scripts/trend_scanner.py — Google Trends RSS抓取脚本
 - **更新** index.md page_count 30→31 + concepts 18→19
+
+### 增量更新（2026-04-28）
+- **新增** concepts/Reddit-VOC信号监控框架.md — WaytoAIC/reddit-market-monitor 设计模式移植
+  - 17 种信号分类体系（pain_point/feature_request/buying_intent 等）
+  - Subreddit 5 层分级策略（core→scenario→adjacent→competitor→watchlist）
+  - VOC 存档引擎设计（去重+重复率跟踪+主题升级）
+  - 三种 AmazonBot 集成方式（选品调研/手动深潜/Cron监控）
+  - 偏见回避规则
+- **新增** raw/articles/2026-04-28-Reddit-VOC框架（WaytoAIC移植）.md — 原始归档
+- **新增** scripts/reddit_voc_pipeline.py — Reddit VOC Pipeline（Web Search 通道）
+- **新增** scripts/reddit_voc_hermes_adapter.py — Hermes 集成适配器
+- **更新** index.md page_count

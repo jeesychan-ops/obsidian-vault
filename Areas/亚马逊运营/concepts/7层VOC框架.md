@@ -11,7 +11,7 @@ status: #已提炼
 # 7层VOC框架（反向工程评价法）
 
 > 来源：苏乐subi（SuleTools），2026-06-05
-> 关联：[[AIO-Listing重写洞察]]、[[Listing文案思维框架-用户场景卖点法]]、[[Listing优化]]
+> 关联：[[AIO-Listing重写洞察]]、[[Listing文案思维框架-用户场景卖点法]]、[[Listing优化]]、[[SOP-团队能力复制标准化流程]]
 
 ## 核心前提
 
