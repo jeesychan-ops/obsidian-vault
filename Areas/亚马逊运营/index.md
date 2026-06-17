@@ -144,3 +144,4 @@ page_count: 46
 - ❌ → ✅ `SCHEMA.md` 更新：补充算法专项标签和话题→Wiki映射
 - ❌ → ✅ `index.md` 同步更新，移除失效标注
 - [[SOP/竞品分析完整SOP]] — 7步竞品分析法+可复用判断结构+四阶段节奏 (2026-05-28)
+- [[2026-06-17-趋势选品报告-WesternBeltBuckle]] | 6/17 | Western Belt Buckle 选品 | 71分/⭐⭐推荐 | 趋势来源: taylor.sheridan | ⚡常青-海运友好
